@@ -470,6 +470,32 @@
   color: var(--text-secondary);
 }
 
+/* --- Blog Post Images --- */
+.blog-post-hero {
+  width: 100%;
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+  border: 1px solid var(--border-color);
+}
+
+.blog-post-body .blog-post-figure {
+  margin: 2rem 0;
+}
+
+.blog-post-body .blog-post-figure img {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+}
+
+.blog-post-body .blog-post-figure figcaption {
+  font-size: 0.8rem;
+  font-family: var(--font-code);
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 0.6rem;
+}
+
 /* --- Post Footer / Navigation --- */
 .blog-post-footer {
   border-top: 1px solid var(--border-color);
