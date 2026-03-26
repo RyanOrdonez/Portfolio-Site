@@ -90,7 +90,7 @@ Input (96x96x3)
 
 ```bash
 # Clone the repository
-git clone https://github.com/<username>/HistopathologicCancerDetection.git
+git clone https://github.com/RyanOrdonez/HistopathologicCancerDetection.git
 cd HistopathologicCancerDetection
 
 # Install dependencies
@@ -108,4 +108,4 @@ jupyter notebook
 
 ## Author
 
-**Ryan** -- Data Science Portfolio Project
+Ryan Ordonez -- MS in Data Science, University of Colorado Boulder

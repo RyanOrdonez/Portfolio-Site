@@ -77,7 +77,7 @@ Lower MiFID indicates better performance. Neural Style Transfer's per-image opti
 
 ```bash
 # Clone the repository
-git clone https://github.com/<username>/MonetPaintings.git
+git clone https://github.com/RyanOrdonez/MonetPaintings.git
 cd MonetPaintings
 
 # Install dependencies
@@ -95,4 +95,4 @@ jupyter notebook
 
 ## Author
 
-**Ryan** -- Data Science Portfolio Project
+Ryan Ordonez -- MS in Data Science, University of Colorado Boulder

@@ -58,12 +58,25 @@ Data Collection (yfinance)
 
 ## Results
 
+### Backtest Performance (2021-2024, $10,000 starting investment)
+
+| Metric | Portfolio | S&P 500 |
+|---|---|---|
+| Final Value | **$22,741** | $13,226 |
+| Annualized Return | **28.95%** | 10.92% |
+| Sharpe Ratio | **1.73** | 0.62 |
+| Volatility | 16.77% | 17.58% |
+
+The cluster-based portfolio outperformed the S&P 500 benchmark by a wide margin while maintaining comparable volatility, demonstrating that unsupervised grouping of stocks by risk-return features can identify above-market combinations.
+
+### Additional Findings
+
 | Analysis | Finding |
 |---|---|
 | Return-Volatility Correlation | r = 0.42 (moderate positive) |
-| Cluster Separation | Clear behavioral groupings across risk-return space |
+| Cluster Count | 9 behavioral groupings via K-Means |
 | Sector Diversity | Portfolios span multiple sectors by design |
-| Backtesting | Historical performance validates cluster-based selection |
+| Portfolio Size | 20 equal-weighted stocks |
 
 ## Key Visualizations
 
@@ -87,7 +100,7 @@ Data Collection (yfinance)
 
 ```bash
 # Clone the repository
-git clone https://github.com/<username>/Final_Project_DTSA5510.git
+git clone https://github.com/RyanOrdonez/Final_Project_DTSA5510.git
 cd Final_Project_DTSA5510
 
 # Install dependencies
@@ -101,4 +114,4 @@ jupyter notebook
 
 ## Author
 
-**Ryan** -- Data Science Portfolio Project
+Ryan Ordonez -- MS in Data Science, University of Colorado Boulder
