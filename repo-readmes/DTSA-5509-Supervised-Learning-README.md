@@ -73,7 +73,7 @@ Key predictive features align with fantasy scoring intuition: touchdowns, total 
 
 ```bash
 # Clone the repository
-git clone https://github.com/<username>/DTSA-5509-Supervised-Learning.git
+git clone https://github.com/RyanOrdonez/DTSA-5509-Supervised-Learning.git
 cd DTSA-5509-Supervised-Learning
 
 # Install dependencies
@@ -85,4 +85,4 @@ jupyter notebook
 
 ## Author
 
-**Ryan** -- Data Science Portfolio Project
+Ryan Ordonez -- MS in Data Science, University of Colorado Boulder
