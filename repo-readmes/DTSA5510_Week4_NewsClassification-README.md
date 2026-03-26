@@ -80,7 +80,7 @@ The unsupervised NMF model outperformed both supervised baselines by a meaningfu
 
 ```bash
 # Clone the repository
-git clone https://github.com/<username>/DTSA5510_Week4_NewsClassification.git
+git clone https://github.com/RyanOrdonez/DTSA5510_Week4_NewsClassification.git
 cd DTSA5510_Week4_NewsClassification
 
 # Install dependencies
@@ -95,4 +95,4 @@ jupyter notebook
 
 ## Author
 
-**Ryan** -- Data Science Portfolio Project
+Ryan Ordonez -- MS in Data Science, University of Colorado Boulder

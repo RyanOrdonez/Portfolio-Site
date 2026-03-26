@@ -86,7 +86,7 @@ The multimodal model processes text through a fine-tuned BERT encoder and numeri
 
 ```bash
 # Clone the repository
-git clone https://github.com/<username>/RottenTomatoesPredictor.git
+git clone https://github.com/RyanOrdonez/RottenTomatoesPredictor.git
 cd RottenTomatoesPredictor
 
 # Install dependencies
@@ -100,4 +100,4 @@ jupyter notebook
 
 ## Author
 
-**Ryan** -- Data Science Portfolio Project
+Ryan Ordonez -- MS in Data Science, University of Colorado Boulder
