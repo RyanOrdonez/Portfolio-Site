@@ -21,7 +21,7 @@ Each day, Claude Code should perform TWO tasks:
 - [x] Add blog section to portfolio site
 - [ ] Add dedicated project detail pages (one per project)
 - [ ] Add resume/CV page to portfolio site
-- [ ] Build out sentiment-analysis-api to working state
+- [x] Build out sentiment-analysis-api to working state
 - [ ] Build out stockscope-dashboard to working state
 - [ ] Build out docuchat-rag to working state
 - [ ] Build out research-agent to working state
