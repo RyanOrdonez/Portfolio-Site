@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ryan Ordonez - Data Science & ML Projects. Detailed portfolio of machine learning, deep learning, and full-stack projects.">
+  <title>Projects | Ryan Ordonez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/projects.css">
+</head>
+<body>
+
+  <!-- ===== SIDEBAR NAVIGATION ===== -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo">RO</a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="index.html" class="sidebar-link" data-section="hero">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+      </a>
+      <a href="index.html#about" class="sidebar-link" data-section="about">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>About</span>
+      </a>
+      <a href="projects.html" class="sidebar-link active" data-section="projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <span>Projects</span>
+      </a>
+      <a href="index.html#skills" class="sidebar-link" data-section="skills">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <span>Skills</span>
+      </a>
+      <a href="index.html#contact" class="sidebar-link" data-section="contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Contact</span>
+      </a>
+      <a href="blog.html" class="sidebar-link" data-section="blog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        <span>Blog</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="https://github.com/RyanOrdonez" target="_blank" rel="noopener noreferrer" class="sidebar-social" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/ryanordonez7" target="_blank" rel="noopener noreferrer" class="sidebar-social" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== MOBILE TOP NAV ===== -->
+  <nav id="mobile-nav" class="mobile-nav">
+    <a href="index.html" class="mobile-nav-logo">RO</a>
+    <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="mobile-nav-menu">
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="blog.html">Blog</a>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+
+    <!-- ===== PROJECTS HEADER ===== -->
+    <section class="projects-header">
+      <div class="container">
+        <h1 class="projects-page-title">Projects</h1>
+        <p class="projects-page-subtitle">A deeper look at the data science, machine learning, and software engineering projects I've built.</p>
+      </div>
+    </section>
+
+    <!-- ===== PROJECT DETAILS ===== -->
+    <section class="project-details">
+      <div class="container">
+
+        <!-- Prop Trading Dashboard -->
+        <article class="project-detail-card" id="prop-trading-dashboard">
+          <div class="project-detail-header">
+            <div>
+              <h2>Prop Trading Dashboard</h2>
+              <span class="project-detail-badge">Featured</span>
+            </div>
+            <a href="https://github.com/RyanOrdonez/Prop-Trading-Dashboard" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              View Code
+            </a>
+          </div>
+          <div class="project-detail-body">
+            <div class="project-detail-section">
+              <h3>Overview</h3>
+              <p>A desktop analytics platform designed for proprietary trading firms. Ingests raw trade CSV exports, aggregates fills using interval overlap analysis, and computes per-day statistics including expectancy, profit factor, drawdown, and Sharpe ratio. Models firm-specific payout eligibility rules in real time so traders can track their path to funded accounts.</p>
+            </div>
+            <div class="project-detail-section">
+              <h3>Methodology</h3>
+              <ul>
+                <li>Interval overlap algorithm for aggregating partial fills into complete trades</li>
+                <li>Rolling window statistics for drawdown detection and streak analysis</li>
+                <li>Rule engine modeling payout structures from multiple prop firms (FTMO, MFF, TFT)</li>
+                <li>SQLite for persistent local storage with migration support</li>
+                <li>React component architecture with Recharts for interactive P&L curves</li>
+              </ul>
+            </div>
+            <div class="project-detail-section">
+              <h3>Key Results</h3>
+              <div class="result-metrics">
+                <div class="metric">
+                  <span class="metric-value">< 200ms</span>
+                  <span class="metric-label">CSV parse + aggregate (10K trades)</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">3 firms</span>
+                  <span class="metric-label">Payout rule engines modeled</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">12+</span>
+                  <span class="metric-label">Computed trading statistics</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-detail-tags">
+            <span class="project-tag">TypeScript</span>
+            <span class="project-tag">React</span>
+            <span class="project-tag">Electron</span>
+            <span class="project-tag">SQLite</span>
+            <span class="project-tag">Recharts</span>
+            <span class="project-tag">Vite</span>
+          </div>
+        </article>
+
+        <!-- Falcon 9 Landing Prediction -->
+        <article class="project-detail-card" id="falcon-9">
+          <div class="project-detail-header">
+            <div>
+              <h2>Falcon 9 Landing Prediction</h2>
+            </div>
+            <a href="https://github.com/RyanOrdonez/Falcon-9-Landing-Prediction" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              View Code
+            </a>
+          </div>
+          <div class="project-detail-body">
+            <div class="project-detail-section">
+              <h3>Overview</h3>
+              <p>End-to-end classification project predicting whether SpaceX Falcon 9 first-stage boosters will successfully land. The pipeline spans data collection via SpaceX REST API, exploratory data analysis, feature engineering, SQL-based analysis, and an interactive Plotly Dash dashboard for stakeholder exploration.</p>
+            </div>
+            <div class="project-detail-section">
+              <h3>Methodology</h3>
+              <ul>
+                <li>Data collection from SpaceX API and web scraping Wikipedia launch records</li>
+                <li>Feature engineering: orbit type, launch site, payload mass, booster version, flight number</li>
+                <li>SQL analysis for aggregation and filtering on launch site success rates</li>
+                <li>Model comparison: Logistic Regression, SVM, Decision Tree, KNN with GridSearchCV</li>
+                <li>Interactive Plotly Dash dashboard with launch site maps and success rate visualizations</li>
+              </ul>
+            </div>
+            <div class="project-detail-section">
+              <h3>Key Results</h3>
+              <div class="result-metrics">
+                <div class="metric">
+                  <span class="metric-value">83.3%</span>
+                  <span class="metric-label">Best model accuracy (Decision Tree)</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">4 models</span>
+                  <span class="metric-label">Compared with cross-validation</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">Interactive</span>
+                  <span class="metric-label">Plotly Dash dashboard</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-detail-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">scikit-learn</span>
+            <span class="project-tag">Plotly Dash</span>
+            <span class="project-tag">SQL</span>
+            <span class="project-tag">Pandas</span>
+            <span class="project-tag">Folium</span>
+          </div>
+        </article>
+
+        <!-- Histopathologic Cancer Detection -->
+        <article class="project-detail-card" id="cancer-detection">
+          <div class="project-detail-header">
+            <div>
+              <h2>Histopathologic Cancer Detection</h2>
+            </div>
+            <a href="https://github.com/RyanOrdonez/Kaggle-Challenges" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              View Code
+            </a>
+          </div>
+          <div class="project-detail-body">
+            <div class="project-detail-section">
+              <h3>Overview</h3>
+              <p>CNN-based medical image classifier for identifying metastatic cancer in 96x96 pixel histopathologic tissue scans. Built and compared multiple deep learning architectures including custom CNNs and transfer learning approaches, with extensive data augmentation to handle class imbalance in the 220K+ image dataset.</p>
+            </div>
+            <div class="project-detail-section">
+              <h3>Methodology</h3>
+              <ul>
+                <li>Custom CNN architectures with batch normalization and dropout regularization</li>
+                <li>Transfer learning with pre-trained models (VGG16, ResNet50)</li>
+                <li>Data augmentation: rotation, flipping, zoom, brightness adjustment</li>
+                <li>Class-weighted loss function to address label imbalance</li>
+                <li>Learning rate scheduling with early stopping for optimal convergence</li>
+              </ul>
+            </div>
+            <div class="project-detail-section">
+              <h3>Key Results</h3>
+              <div class="result-metrics">
+                <div class="metric">
+                  <span class="metric-value">84.8%</span>
+                  <span class="metric-label">Test accuracy</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">0.7961</span>
+                  <span class="metric-label">Kaggle AUC score</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">220K+</span>
+                  <span class="metric-label">Training images processed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-detail-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">TensorFlow</span>
+            <span class="project-tag">CNN</span>
+            <span class="project-tag">Computer Vision</span>
+            <span class="project-tag">Transfer Learning</span>
+          </div>
+        </article>
+
+        <!-- NLP Disaster Tweets -->
+        <article class="project-detail-card" id="disaster-tweets">
+          <div class="project-detail-header">
+            <div>
+              <h2>NLP Disaster Tweets</h2>
+            </div>
+            <a href="https://github.com/RyanOrdonez/Kaggle-Challenges" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              View Code
+            </a>
+          </div>
+          <div class="project-detail-body">
+            <div class="project-detail-section">
+              <h3>Overview</h3>
+              <p>Binary text classification challenge distinguishing real disaster tweets from non-disaster tweets. Explored multiple NLP approaches from traditional TF-IDF baselines to deep learning architectures including bidirectional GRU and LSTM networks with pre-trained GloVe embeddings.</p>
+            </div>
+            <div class="project-detail-section">
+              <h3>Methodology</h3>
+              <ul>
+                <li>Text preprocessing: lowercasing, URL/mention removal, lemmatization, stopword filtering</li>
+                <li>TF-IDF + Logistic Regression baseline for comparison</li>
+                <li>GloVe 100d embeddings with BiGRU and BiLSTM architectures</li>
+                <li>Spatial dropout and recurrent dropout for regularization</li>
+                <li>Threshold tuning on validation set for optimal F1 score</li>
+              </ul>
+            </div>
+            <div class="project-detail-section">
+              <h3>Key Results</h3>
+              <div class="result-metrics">
+                <div class="metric">
+                  <span class="metric-value">Rank 377</span>
+                  <span class="metric-label">Kaggle leaderboard</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">BiGRU</span>
+                  <span class="metric-label">Best performing architecture</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">GloVe</span>
+                  <span class="metric-label">Pre-trained embeddings</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-detail-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">TensorFlow</span>
+            <span class="project-tag">NLP</span>
+            <span class="project-tag">GloVe</span>
+            <span class="project-tag">BiGRU</span>
+            <span class="project-tag">BiLSTM</span>
+          </div>
+        </article>
+
+        <!-- Monet Style Transfer -->
+        <article class="project-detail-card" id="monet-style-transfer">
+          <div class="project-detail-header">
+            <div>
+              <h2>Monet Style Transfer</h2>
+            </div>
+            <a href="https://github.com/RyanOrdonez/Kaggle-Challenges" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              View Code
+            </a>
+          </div>
+          <div class="project-detail-body">
+            <div class="project-detail-section">
+              <h3>Overview</h3>
+              <p>Photo-to-painting transformation project comparing three generative approaches: DCGAN, CycleGAN, and Neural Style Transfer. Trained models to produce Monet-style artwork from photographs, exploring the strengths and limitations of each architecture for artistic style transfer.</p>
+            </div>
+            <div class="project-detail-section">
+              <h3>Methodology</h3>
+              <ul>
+                <li>DCGAN baseline: generator/discriminator pair for unconditional Monet generation</li>
+                <li>CycleGAN: unpaired image-to-image translation with cycle consistency loss</li>
+                <li>Neural Style Transfer: VGG19 feature matching for content/style separation</li>
+                <li>Instance normalization and spectral normalization for training stability</li>
+                <li>MiFID (Memorization-informed Fr&eacute;chet Inception Distance) for evaluation</li>
+              </ul>
+            </div>
+            <div class="project-detail-section">
+              <h3>Key Results</h3>
+              <div class="result-metrics">
+                <div class="metric">
+                  <span class="metric-value">Rank 20</span>
+                  <span class="metric-label">Kaggle leaderboard</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">53.14</span>
+                  <span class="metric-label">MiFID score</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">3 models</span>
+                  <span class="metric-label">Architectures compared</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-detail-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">TensorFlow</span>
+            <span class="project-tag">GANs</span>
+            <span class="project-tag">CycleGAN</span>
+            <span class="project-tag">Computer Vision</span>
+            <span class="project-tag">Neural Style Transfer</span>
+          </div>
+        </article>
+
+        <!-- Rotten Tomatoes Predictor -->
+        <article class="project-detail-card" id="rotten-tomatoes">
+          <div class="project-detail-header">
+            <div>
+              <h2>Rotten Tomatoes Predictor</h2>
+            </div>
+            <a href="https://github.com/RyanOrdonez/Rotten-Tomatoes-Predictor" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              View Code
+            </a>
+          </div>
+          <div class="project-detail-body">
+            <div class="project-detail-section">
+              <h3>Overview</h3>
+              <p>Predicting Rotten Tomatoes critic scores from raw screenplay text using a fusion architecture that combines BERT transformer embeddings with handcrafted numeric features. The model learns semantic patterns in movie review language and maps them to continuous score predictions.</p>
+            </div>
+            <div class="project-detail-section">
+              <h3>Methodology</h3>
+              <ul>
+                <li>BERT-base tokenization and fine-tuning for domain-specific text understanding</li>
+                <li>Fusion architecture: BERT [CLS] embeddings concatenated with numeric features</li>
+                <li>Multi-layer regression head with dropout and batch normalization</li>
+                <li>Cosine annealing learning rate schedule with warmup</li>
+                <li>Evaluation: MAE, RMSE, and R&sup2; on held-out test set</li>
+              </ul>
+            </div>
+            <div class="project-detail-section">
+              <h3>Key Results</h3>
+              <div class="result-metrics">
+                <div class="metric">
+                  <span class="metric-value">BERT</span>
+                  <span class="metric-label">Transformer backbone</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">Fusion</span>
+                  <span class="metric-label">Text + numeric architecture</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">PyTorch</span>
+                  <span class="metric-label">Training framework</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-detail-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">PyTorch</span>
+            <span class="project-tag">BERT</span>
+            <span class="project-tag">Transformers</span>
+            <span class="project-tag">NLP</span>
+            <span class="project-tag">HuggingFace</span>
+          </div>
+        </article>
+
+        <!-- Maevie Project Manager -->
+        <article class="project-detail-card" id="maevie">
+          <div class="project-detail-header">
+            <div>
+              <h2>Maevie Project Manager</h2>
+            </div>
+            <a href="https://github.com/RyanOrdonez/Maevie-Project-Manager" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              View Code
+            </a>
+          </div>
+          <div class="project-detail-body">
+            <div class="project-detail-section">
+              <h3>Overview</h3>
+              <p>Full-stack project management application built for an interior design company. Features task tracking with drag-and-drop Kanban boards, client management, project timelines, and team coordination. Designed for small teams managing multiple concurrent design projects.</p>
+            </div>
+            <div class="project-detail-section">
+              <h3>Methodology</h3>
+              <ul>
+                <li>React frontend with component-based architecture and React Router</li>
+                <li>Node.js/Express REST API with JWT authentication</li>
+                <li>PostgreSQL database with normalized schema for projects, tasks, and users</li>
+                <li>Role-based access control for admin, designer, and client views</li>
+                <li>Responsive design optimized for both desktop and tablet use</li>
+              </ul>
+            </div>
+            <div class="project-detail-section">
+              <h3>Key Results</h3>
+              <div class="result-metrics">
+                <div class="metric">
+                  <span class="metric-value">Full-Stack</span>
+                  <span class="metric-label">End-to-end application</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">REST API</span>
+                  <span class="metric-label">JWT-authenticated endpoints</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">RBAC</span>
+                  <span class="metric-label">Role-based access control</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-detail-tags">
+            <span class="project-tag">React</span>
+            <span class="project-tag">Node.js</span>
+            <span class="project-tag">Express</span>
+            <span class="project-tag">PostgreSQL</span>
+            <span class="project-tag">JWT</span>
+            <span class="project-tag">REST API</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 Ryan Ordonez</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
