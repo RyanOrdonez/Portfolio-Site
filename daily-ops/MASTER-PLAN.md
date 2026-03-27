@@ -41,7 +41,7 @@
 | Priority | Action | Category | Status |
 |----------|--------|----------|--------|
 | 1 | Add blog section to portfolio site | Site Enhancement | In Progress |
-| 2 | Build out sentiment-analysis-api to working state | Version Upgrade | Planned |
+| 2 | Build out sentiment-analysis-api to working state | Version Upgrade | Done |
 | 3 | Add architecture diagrams to top 5 project READMEs | Repo Enhancement | Planned |
 | 4 | Build out research-agent to working state | Version Upgrade | Planned |
 | 5 | Create a real-time data streaming project | New Project | Planned |
@@ -79,6 +79,12 @@
 
 ### Day 1 - 2026-03-26
 - **Action:** Portfolio site enhancement - Added blog section with first post
-- **Blog:** AI trend research and article
+- **Blog:** "The Rise of Agentic AI" - agentic systems, ReAct pattern, Morgan Stanley warning
 - **Category:** Site Enhancement + Blog
-- **Details:** Created blog infrastructure (HTML pages, CSS, JS), wrote first blog post on current AI trend
+- **Details:** Created blog infrastructure (blog.html, blog.css, posts/), wrote first blog post
+
+### Day 2 - 2026-03-27
+- **Action:** Build out sentiment-analysis-api to working state
+- **Blog:** "The AI Accountability Act: What Data Scientists Need to Know"
+- **Category:** Project Version Upgrade + Blog
+- **Details:** Replaced placeholder keyword matching with real TF-IDF + Logistic Regression pipeline. Added batch prediction endpoint, model info endpoint, text preprocessing, structured logging, lifespan model init, 9 comprehensive tests. Updated README with usage examples and roadmap. Blog post covers the new US AI Accountability Act requiring mandatory bias audits.
