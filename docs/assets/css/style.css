@@ -315,17 +315,29 @@ ul { list-style: none; }
 .hero-avatar-wrap {
   flex-shrink: 0;
   padding-top: 0.5rem;
+  position: relative;
+}
+
+.hero-avatar-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent), transparent 60%, var(--accent));
+  z-index: 0;
+  opacity: 0.6;
 }
 
 .hero-avatar {
-  width: 110px;
-  height: 110px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center top;
-  border: 2px solid var(--accent);
-  box-shadow: 0 0 0 4px rgba(100, 255, 218, 0.1), 0 4px 16px rgba(0, 0, 0, 0.4);
+  border: 3px solid var(--bg-primary);
   display: block;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-greeting {
@@ -787,7 +799,7 @@ ul { list-style: none; }
   .main-content { margin-left: 0; padding-top: 60px; }
   .hero { min-height: calc(100vh - 60px); }
   .hero-layout { flex-direction: column-reverse; gap: 1.5rem; text-align: center; }
-  .hero-avatar { width: 90px; height: 90px; }
+  .hero-avatar { width: 120px; height: 120px; }
   .hero-badges, .hero-links { justify-content: center; }
   .hero-name { font-size: 2.25rem; }
   .hero-title { font-size: 1.15rem; }
