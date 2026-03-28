@@ -296,10 +296,31 @@ ul { list-style: none; }
   pointer-events: none;
 }
 
-.hero-content {
+.hero-layout {
   position: relative;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
+}
+
+.hero-content {
+  flex: 1;
   max-width: 640px;
+}
+
+.hero-avatar-wrap {
+  flex-shrink: 0;
+}
+
+.hero-avatar {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+  box-shadow: 0 0 0 6px rgba(100, 255, 218, 0.1), 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .hero-greeting {
@@ -760,6 +781,9 @@ ul { list-style: none; }
   .mobile-nav { display: flex; }
   .main-content { margin-left: 0; padding-top: 60px; }
   .hero { min-height: calc(100vh - 60px); }
+  .hero-layout { flex-direction: column-reverse; gap: 2rem; text-align: center; }
+  .hero-avatar { width: 160px; height: 160px; }
+  .hero-badges, .hero-links { justify-content: center; }
   .hero-name { font-size: 2.25rem; }
   .hero-title { font-size: 1.15rem; }
   .section { padding: 3.5rem 0; }
