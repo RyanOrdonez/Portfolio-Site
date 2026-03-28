@@ -41,14 +41,18 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 
 ## Completed Work
 
-### Day 3 — March 27, 2026
+### Day 3 — March 28, 2026
 **Portfolio Action:** Enhanced Portfolio Site (Option D)
 - Created dedicated Projects page (`docs/projects.html`) with expanded project cards
-- Each project now shows: overview, methodology, key results, and tech stack
-- Added "View All Projects" link on homepage
-- Updated navigation across all pages
+- Each project now shows: overview, methodology, key results (metric cards), and full tech stack
+- Created `docs/assets/css/projects.css` with responsive metric cards and detail layout
+- Added "View All Projects in Detail" CTA on homepage
+- Updated sidebar and mobile nav to link Projects tab to new dedicated page
 
-**Blog:** AI Accountability Act post (completed earlier today)
+**Blog:** "The Claude Mythos Leak: What a Misconfigured CMS Tells Us About the Next Wave of AI"
+- Topic: Anthropic's accidental leak of Claude Mythos model details (breaking news, March 27)
+- Covers: leaked capabilities, cybersecurity implications, March 2026 frontier model compression, open-source gap narrowing
+- Takeaways for data scientists: model tier shifts, security literacy, model-agnostic architecture
 
 ### Day 2 — March 27, 2026
 - Created Kaggle-Challenges repo with organized challenge structure
