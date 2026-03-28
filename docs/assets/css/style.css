@@ -46,8 +46,8 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
+
 
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
@@ -282,14 +282,13 @@ ul { list-style: none; }
    ============================================================ */
 .hero {
   position: relative;
-  overflow: hidden;
-  display: block;
 }
 
 .hero-bg-img {
   display: block;
   width: 100%;
   height: auto;
+  image-orientation: from-image;
   filter: brightness(0.5);
 }
 
