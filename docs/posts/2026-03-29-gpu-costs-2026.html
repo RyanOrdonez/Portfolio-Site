@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A practical breakdown of GPU costs in 2026 for data scientists: cloud vs on-prem, B200 vs H100 pricing, and how to budget for fine-tuning and training workloads.">
+  <title>GPU Costs in 2026: A Data Scientist's Guide to Cloud vs. On-Prem | Ryan Ordonez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/blog.css">
+</head>
+<body>
+
+  <!-- ===== SIDEBAR NAVIGATION ===== -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html" class="sidebar-logo">RO</a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="../index.html" class="sidebar-link" data-section="hero">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+      </a>
+      <a href="../index.html#about" class="sidebar-link" data-section="about">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>About</span>
+      </a>
+      <a href="../projects.html" class="sidebar-link" data-section="projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <span>Projects</span>
+      </a>
+      <a href="../skills.html" class="sidebar-link" data-section="skills">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <span>Skills</span>
+      </a>
+      <a href="../index.html#contact" class="sidebar-link" data-section="contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Contact</span>
+      </a>
+      <a href="../blog.html" class="sidebar-link active" data-section="blog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        <span>Blog</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="https://github.com/RyanOrdonez" target="_blank" rel="noopener noreferrer" class="sidebar-social" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/ryanordonez7" target="_blank" rel="noopener noreferrer" class="sidebar-social" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== MOBILE TOP NAV ===== -->
+  <nav id="mobile-nav" class="mobile-nav">
+    <a href="../index.html" class="mobile-nav-logo">RO</a>
+    <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="mobile-nav-menu">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#about">About</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../index.html#contact">Contact</a>
+      <a href="../blog.html">Blog</a>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+
+    <!-- ===== POST HEADER ===== -->
+    <section class="blog-post-header">
+      <div class="container" style="max-width: 720px;">
+        <a href="../blog.html" class="blog-back-link">&larr; Back to Blog</a>
+        <h1 class="blog-post-title">GPU Costs in 2026: A Data Scientist's Guide to Cloud vs. On-Prem</h1>
+        <div class="blog-post-meta">
+          <time datetime="2026-03-29">March 29, 2026</time>
+          <span class="blog-card-tag">MLOps</span>
+          <span class="blog-post-author">Ryan Ordonez</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== POST CONTENT ===== -->
+    <section class="blog-post-content">
+      <div class="container">
+        <div class="blog-post-body">
+
+          <p>If you're a data scientist in 2026, GPU compute is probably your biggest variable cost. Whether you're fine-tuning a 7B parameter model for a side project or training a production classifier on company data, the question of <strong>where</strong> to run that compute &mdash; cloud, marketplace, or your own hardware &mdash; can mean the difference between a $50 experiment and a $5,000 one.</p>
+
+          <p>I've been tracking GPU pricing closely as I've scaled up my own ML projects, and the landscape has shifted dramatically in the last twelve months. Here's what I've learned.</p>
+
+          <h2>The State of GPU Pricing in Q1 2026</h2>
+
+          <p>The headline number: <strong>NVIDIA's H100 has dropped from ~$8/hour in early 2024 to under $3/hour</strong> on most cloud marketplaces by March 2026. That's a 60%+ decline in two years, driven by supply catching up with demand and the arrival of next-generation Blackwell hardware.</p>
+
+          <p>Meanwhile, the new NVIDIA B200 &mdash; Blackwell's flagship data center GPU &mdash; has entered the cloud market with pricing that ranges wildly depending on where you rent:</p>
+
+          <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--border-color);">
+                <th style="text-align: left; padding: 0.6rem; color: var(--text-secondary);">GPU</th>
+                <th style="text-align: left; padding: 0.6rem; color: var(--text-secondary);">Cloud Price Range</th>
+                <th style="text-align: left; padding: 0.6rem; color: var(--text-secondary);">Typical Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.6rem; font-family: var(--font-code); color: var(--accent);">B200</td>
+                <td style="padding: 0.6rem; color: var(--text-secondary);">$2.25 &ndash; $16.00/hr</td>
+                <td style="padding: 0.6rem; color: var(--text-secondary);">~$4.95/hr avg</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.6rem; font-family: var(--font-code); color: var(--accent);">H200</td>
+                <td style="padding: 0.6rem; color: var(--text-secondary);">$3.72 &ndash; $10.60/hr</td>
+                <td style="padding: 0.6rem; color: var(--text-secondary);">~$5.50/hr avg</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.6rem; font-family: var(--font-code); color: var(--accent);">H100</td>
+                <td style="padding: 0.6rem; color: var(--text-secondary);">$2.00 &ndash; $10.00/hr</td>
+                <td style="padding: 0.6rem; color: var(--text-secondary);">~$2.99/hr median</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>The 7x price spread on B200s tells you everything about the current market: where you buy matters as much as what you buy.</p>
+
+          <h2>Cloud vs. On-Prem: The Real Math</h2>
+
+          <p>The buy-vs-rent decision comes down to utilization. Here's the simplified calculus:</p>
+
+          <p><strong>If you're running GPUs less than 30% of the time, cloud wins.</strong> For one-time training runs or infrequent model updates, cloud compute is approximately 12x more cost-effective than purchasing hardware. You pay for what you use and walk away.</p>
+
+          <p><strong>If you're running GPUs more than 70% of the time, on-prem wins.</strong> A DGX B200 system at $275,000 delivers 72 PFLOPS of FP8 compute &mdash; roughly 2.25x the performance of a DGX H100 at $200,000, making it 64% more cost-efficient per FLOP. At continuous utilization, the breakeven against cloud rental is typically 8&ndash;14 months.</p>
+
+          <p><strong>The 30&ndash;70% utilization zone is where it gets interesting.</strong> This is where most data science teams actually operate, and it's where marketplace providers and reserved instances create real savings.</p>
+
+          <h2>The Marketplace Advantage</h2>
+
+          <p>The biggest pricing insight of 2026 is this: <strong>many teams default to their existing cloud provider (AWS, GCP, Azure) and overpay by 40&ndash;60%</strong> compared to GPU marketplace alternatives.</p>
+
+          <p>The numbers are stark. A fine-tuning job on a 6&ndash;13B model costs roughly $4,260 on GCP, $2,700&ndash;$2,900 on AWS/Azure, and as little as $869 on specialized GPU-as-a-service platforms. That's an 80% savings for the same compute.</p>
+
+          <p>Spot pricing makes the gap even wider. B200 spot instances are available at $2.25/hour compared to $14.25/hour on-demand on AWS &mdash; a 6x difference for the same GPU. The trade-off is preemption risk, but for fault-tolerant training jobs with checkpointing, spot is nearly free money.</p>
+
+          <h2>What This Means for Personal Projects</h2>
+
+          <p>For individual data scientists working on portfolio projects, side experiments, or learning &mdash; here's my practical framework:</p>
+
+          <h3>Fine-tuning (most common use case)</h3>
+          <p>Fine-tuning a 7B model with LoRA/QLoRA costs approximately <strong>$50&ndash;$500</strong> on a GPU marketplace, compared to $500&ndash;$5,000 with full fine-tuning. The key enabler is parameter-efficient methods: LoRA reduces VRAM requirements enough that a single RTX 4090 (24GB) can handle a 7B model. Fine-tuning costs just 1&ndash;5% of training from scratch, requires 10&ndash;100x less compute time, and needs only 1&ndash;8 GPUs instead of 64&ndash;128.</p>
+
+          <h3>Local hardware</h3>
+          <p>If you're doing regular fine-tuning or inference work, a consumer GPU with 24GB VRAM is the sweet spot. An RTX 4090 can run and fine-tune 7B&ndash;13B models locally with QLoRA. For learning and smaller models (3B&ndash;8B), even an RTX 4060 Ti with 8GB gets the job done at 10&ndash;20 tokens/sec.</p>
+
+          <h3>Cloud for bursts</h3>
+          <p>For anything bigger &mdash; training runs, 70B model inference, multi-GPU experiments &mdash; rent on a marketplace with per-second billing. Platforms like RunPod, Lambda, and Together AI offer H100s starting at $3.39/hour and serverless inference that scales to zero when you're not using it.</p>
+
+          <h2>The Trend Line</h2>
+
+          <p>Analysts predict another 50&ndash;70% price decline in B200 cloud pricing over the next 6&ndash;12 months as production scales, mirroring the H100's trajectory. Combined with continued improvements in parameter-efficient training methods and model distillation, the cost floor for meaningful ML work keeps dropping.</p>
+
+          <p>Two years ago, fine-tuning a language model was a resource-gated activity that required institutional backing. Today, a data scientist with a $500 cloud budget and the right techniques can fine-tune a model that would have been state-of-the-art in 2024.</p>
+
+          <h2>Practical Takeaways</h2>
+
+          <ul>
+            <li><strong>Don't default to your cloud provider.</strong> If your training run exceeds $500, spend 30 minutes comparing marketplace alternatives. The savings are real and significant.</li>
+            <li><strong>Use parameter-efficient methods.</strong> LoRA and QLoRA aren't just cost optimizations &mdash; they're the difference between needing an 8-GPU cluster and a single consumer GPU.</li>
+            <li><strong>Match hardware to workload.</strong> Inference, fine-tuning, and training have different cost profiles. A B200 that's 4x faster at inference might not be 4x better value if you're running a 2-hour fine-tuning job.</li>
+            <li><strong>Checkpoint aggressively, use spot.</strong> If your training pipeline supports resuming from checkpoints, spot instances at $2&ndash;3/hour versus $14/hour on-demand is the highest-ROI optimization available.</li>
+          </ul>
+
+          <blockquote>
+            <p>The cost of compute is no longer the barrier to entry for ML. The barrier is knowing how to spend efficiently. In 2026, a thoughtful $200 cloud budget goes further than a careless $2,000 one.</p>
+          </blockquote>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== POST FOOTER ===== -->
+    <section class="blog-post-footer">
+      <div class="container">
+        <div class="blog-post-nav">
+          <a href="../blog.html">&larr; All Posts</a>
+          <a href="2026-03-28-claude-mythos-leak.html">Previous: Claude Mythos Leak &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 Ryan Ordonez</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

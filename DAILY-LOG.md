@@ -8,7 +8,7 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 
 ### Portfolio Site Enhancements
 - [x] Create dedicated Projects page with expanded detail
-- [ ] Create dedicated Skills page with proficiency levels and project links
+- [x] Create dedicated Skills page with proficiency levels and project links
 - [ ] Create dedicated About page with full career timeline
 - [ ] Add blog search and tag filtering
 - [ ] Add RSS feed for blog
@@ -34,12 +34,27 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 - [ ] Building production ML pipelines with MLflow
 - [ ] Fine-tuning open source LLMs on custom data
 - [ ] The data scientist's guide to prompt engineering
-- [ ] GPU costs in 2026: cloud vs on-prem analysis
+- [x] GPU costs in 2026: cloud vs on-prem analysis
 - [ ] Vector databases compared: Pinecone vs Weaviate vs Chroma
 
 ---
 
 ## Completed Work
+
+### Day 4 — March 29, 2026
+**Portfolio Action:** Enhanced Portfolio Site (Option D)
+- Created dedicated Skills page (`docs/skills.html`) with proficiency levels, progress bars, and project links
+- Created `docs/assets/css/skills.css` with responsive skill cards, legend, and proficiency indicators
+- Skills organized into 6 categories: Languages, ML & Deep Learning, Statistics & Analysis, Data Engineering, Visualization & Reporting, Tools & Platforms
+- Each skill shows proficiency level (Advanced/Proficient/Familiar) with visual bar and links to projects where used
+- Updated sidebar navigation across all pages (index, projects, blog, all blog posts) to link Skills tab to new dedicated page
+- Added "View All Skills in Detail" CTA on homepage skills section
+
+**Blog:** "GPU Costs in 2026: A Data Scientist's Guide to Cloud vs. On-Prem"
+- Topic: Practical breakdown of GPU compute costs for data scientists
+- Covers: B200 vs H100 pricing trends, cloud vs on-prem breakeven analysis, marketplace savings (40-60% vs hyperscalers), fine-tuning with LoRA/QLoRA ($50-$500), local hardware recommendations
+- Key insight: Where you buy matters as much as what you buy — B200 spot at $2.25/hr vs $14.25/hr on-demand
+- Practical takeaways for personal projects and team budgeting
 
 ### Day 3 — March 28, 2026
 **Portfolio Action:** Enhanced Portfolio Site (Option D)
