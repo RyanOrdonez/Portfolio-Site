@@ -574,19 +574,20 @@ ul { list-style: none; }
 .skill-category {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
+  border-top: 2px solid var(--accent);
   border-radius: var(--radius);
   padding: 1.1rem 1.25rem;
   transition: border-color var(--transition);
 }
 
-.skill-category:hover { border-color: #333; }
+.skill-category:hover { border-color: var(--accent); border-top-color: var(--accent); }
 
 .skill-category h3 {
   font-size: 0.68rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--text-muted);
+  color: var(--accent);
   margin-bottom: 0.7rem;
 }
 
@@ -599,9 +600,9 @@ ul { list-style: none; }
 .skill-tag {
   display: inline-block;
   padding: 0.2rem 0.55rem;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(224, 123, 57, 0.07);
   color: var(--text-secondary);
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(224, 123, 57, 0.2);
   border-radius: 3px;
   font-size: 0.72rem;
   font-weight: 500;
