@@ -43,6 +43,8 @@
         <div class="blog-post-layout">
         <div class="blog-post-body">
 
+          <img src="../assets/images/blog/gpu-costs-2026/hero.png" alt="High-end GPU server racks with cost comparison visualizations in a data center environment" class="blog-post-hero" loading="eager" />
+
           <p>If you're a data scientist in 2026, GPU compute is probably your biggest variable cost. Whether you're fine-tuning a 7B parameter model for a side project or training a production classifier on company data, the question of <strong>where</strong> to run that compute &mdash; cloud, marketplace, or your own hardware &mdash; can mean the difference between a $50 experiment and a $5,000 one.</p>
 
           <p>I've been tracking GPU pricing closely as I've scaled up my own ML projects, and the landscape has shifted dramatically in the last twelve months. Here's what I've learned.</p>
@@ -82,6 +84,11 @@
 
           <p>The 7x price spread on B200s tells you everything about the current market: where you buy matters as much as what you buy.</p>
 
+          <figure class="blog-post-figure">
+            <img src="../assets/images/blog/gpu-costs-2026/cloud-vs-onprem.png" alt="Split-screen comparing cloud computing with floating servers versus on-premises hardware with physical server racks" loading="lazy" />
+            <figcaption>Cloud vs. on-prem &mdash; the buy-or-rent decision comes down to GPU utilization rate.</figcaption>
+          </figure>
+
           <h2>Cloud vs. On-Prem: The Real Math</h2>
 
           <p>The buy-vs-rent decision comes down to utilization. Here's the simplified calculus:</p>
@@ -112,6 +119,11 @@
 
           <h3>Cloud for bursts</h3>
           <p>For anything bigger &mdash; training runs, 70B model inference, multi-GPU experiments &mdash; rent on a marketplace with per-second billing. Platforms like RunPod, Lambda, and Together AI offer H100s starting at $3.39/hour and serverless inference that scales to zero when you're not using it.</p>
+
+          <figure class="blog-post-figure">
+            <img src="../assets/images/blog/gpu-costs-2026/cost-trends.png" alt="GPU cost trends visualization showing downward-trending curves with GPU chip imagery" loading="lazy" />
+            <figcaption>GPU pricing trends &mdash; B200 cloud costs are projected to drop another 50&ndash;70% over the next 6&ndash;12 months.</figcaption>
+          </figure>
 
           <h2>The Trend Line</h2>
 
