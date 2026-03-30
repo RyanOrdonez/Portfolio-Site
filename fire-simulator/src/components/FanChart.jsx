@@ -40,8 +40,8 @@ function ChartTooltip({ active, payload, label, currentAge }) {
   const ageLabel = currentAge ? ` (Age ${currentAge + data.year})` : '';
 
   return (
-    <div className="bg-[#1a1a1a] border border-[#333] rounded-lg p-3 text-xs shadow-xl">
-      <div className="text-gray-400 mb-2 font-medium">
+    <div className="bg-[#2a2a2e] border border-[#3a3a3e] rounded-lg p-3 text-xs shadow-xl">
+      <div className="text-[#909098] mb-2 font-medium">
         Year {data.year}{ageLabel}
       </div>
       <div className="space-y-1">
@@ -56,7 +56,7 @@ function ChartTooltip({ active, payload, label, currentAge }) {
             <div key={key} className="flex items-center justify-between gap-4">
               <span className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
-                <span className="text-gray-400">{label}</span>
+                <span className="text-[#909098]">{label}</span>
               </span>
               <span className="text-white font-medium tabular">
                 {data[key] <= 0 ? 'Depleted' : formatCurrency(data[key])}
@@ -103,17 +103,17 @@ function PaywallOverlay({ onUnlockClick, blurWidth }) {
       style={{ width: `${blurWidth}%` }}
     >
       {/* Gradient fade from transparent to opaque */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#0a0a0a]/70 to-[#0a0a0a]/95 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#232325]/70 to-[#232325]/95 pointer-events-none" />
       {/* CTA */}
       <div className="relative z-10 mr-6 text-center space-y-2">
-        <div className="text-xs text-gray-400">Full 30-year projection</div>
+        <div className="text-xs text-[#909098]">Full 30-year projection</div>
         <button
           onClick={onUnlockClick}
           className="bg-amber-400 hover:bg-amber-300 text-black text-xs font-semibold px-4 py-2 rounded-lg transition-colors whitespace-nowrap"
         >
           Unlock Pro — $19
         </button>
-        <div className="text-2xs text-gray-600">One-time purchase</div>
+        <div className="text-2xs text-[#606068]">One-time purchase</div>
       </div>
     </div>
   );
@@ -144,17 +144,17 @@ export default function FanChart({ trajectories, retirementYears, isPro, onUnloc
   const maxY = Math.max(...trajectories.map(d => d.p90 ?? 0)) * 1.05;
 
   return (
-    <div className="bg-[#111111] border border-[#2a2a2a] rounded-xl p-4 space-y-3">
+    <div className="bg-[#232325] border border-[#3a3a3e] rounded-xl p-4 space-y-3">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h3 className="text-sm font-semibold text-white">Portfolio Projection</h3>
-          <p className="text-2xs text-gray-600 mt-0.5">
+          <p className="text-2xs text-[#606068] mt-0.5">
             Real (inflation-adjusted) portfolio value · percentile bands
           </p>
         </div>
         {/* Legend */}
-        <div className="hidden sm:flex items-center gap-3 text-2xs text-gray-500">
+        <div className="hidden sm:flex items-center gap-3 text-2xs text-[#909098]">
           {[
             { color: '#F97316', label: '90th' },
             { color: '#FBBF24', label: '75th' },
@@ -195,7 +195,7 @@ export default function FanChart({ trajectories, retirementYears, isPro, onUnloc
 
             <CartesianGrid
               strokeDasharray="2 4"
-              stroke="#1e1e1e"
+              stroke="#2e2e32"
               vertical={false}
             />
 
@@ -203,7 +203,7 @@ export default function FanChart({ trajectories, retirementYears, isPro, onUnloc
               dataKey="year"
               ticks={xTicks}
               tick={<XAxisTick currentAge={currentAge} />}
-              axisLine={{ stroke: '#2a2a2a' }}
+              axisLine={{ stroke: '#3a3a3e' }}
               tickLine={false}
               interval={0}
             />
@@ -301,7 +301,7 @@ export default function FanChart({ trajectories, retirementYears, isPro, onUnloc
       </div>
 
       {/* Bottom note */}
-      <p className="text-2xs text-gray-700">
+      <p className="text-2xs text-[#606068]">
         {isPro
           ? `Showing full ${displayYears}-year projection. Shaded bands show 25th–90th percentile outcomes.`
           : `Free tier: full projection visible through year ${FREE_TIER_BLUR_YEAR}. Unlock Pro for complete ${displayYears}-year chart.`

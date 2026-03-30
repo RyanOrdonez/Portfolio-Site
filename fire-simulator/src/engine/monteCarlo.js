@@ -65,13 +65,23 @@ function blendedReturn(stockReturn, bondReturn, stockAllocation) {
 //   annualSpending    — real annual withdrawal (today's dollars, inflation-adjusted)
 //   years             — number of years to simulate
 //   stockAllocation   — fraction in stocks (0–1)
+//   ssAnnualIncome    — annual Social Security income in today's dollars (default 0)
+//   ssStartYear       — retirement-relative year when SS income begins (default Infinity)
+//   annualContribution— real annual amount added to portfolio each year (default 0)
+//                       Applied at the START of each year before returns.
+//                       Models ongoing savings during partial retirement or
+//                       a contribution period before full retirement.
+//   contributionYears — how many years from year 1 contributions are made (default 0)
+//                       e.g. 5 means you add money for the first 5 years of simulation
 //
 // Returns:
 //   { values: Float64Array(years+1), depletedYear: number|null }
-//   values[0] = initialPortfolio, values[i] = portfolio at end of year i
-//   depletedYear = year the portfolio first hits $0 (null if it survives)
 // ---------------------------------------------------------------------------
-function runSinglePath(initialPortfolio, annualSpending, years, stockAllocation) {
+function runSinglePath(
+  initialPortfolio, annualSpending, years, stockAllocation,
+  ssAnnualIncome = 0, ssStartYear = Infinity,
+  annualContribution = 0, contributionYears = 0,
+) {
   const values = new Float64Array(years + 1);
   values[0] = initialPortfolio;
 
@@ -79,10 +89,16 @@ function runSinglePath(initialPortfolio, annualSpending, years, stockAllocation)
   let depletedYear = null;
 
   for (let year = 1; year <= years; year++) {
+    // 0. Add contribution if still in contribution phase (before any withdrawal)
+    if (annualContribution > 0 && year <= contributionYears) {
+      portfolio += annualContribution;
+    }
+
     // 1. Withdraw at start of year (Bengen / SWR convention: withdraw first, then grow)
-    //    Some models grow first; we use withdraw-first as it's more conservative and
-    //    matches the original Trinity Study methodology.
-    portfolio -= annualSpending;
+    //    SS income offsets the withdrawal — portfolio only covers the gap.
+    const ssIncome = year >= ssStartYear ? ssAnnualIncome : 0;
+    const effectiveWithdrawal = Math.max(0, annualSpending - ssIncome);
+    portfolio -= effectiveWithdrawal;
 
     if (portfolio <= 0) {
       // Portfolio depleted before returns are applied
@@ -159,6 +175,10 @@ function computePercentileTrajectories(allPaths, years, percentiles) {
 //   stockAllocation   — fraction in stocks (0.0–1.0)
 //   retirementYears   — number of years to simulate (default 30)
 //   simCount          — override number of simulations (default SIM_COUNT = 10000)
+//   ssAnnualIncome    — annual SS income in today's dollars (default 0)
+//   ssStartYear       — retirement-relative year SS begins (default Infinity)
+//   annualContribution— real annual amount added to portfolio (default 0)
+//   contributionYears — years contributions are made (default 0)
 //
 // Returns:
 //   {
@@ -178,20 +198,30 @@ export function runSimulation({
   stockAllocation,
   retirementYears,
   simCount = SIM_COUNT,
+  ssAnnualIncome = 0,
+  ssStartYear = Infinity,
+  annualContribution = 0,
+  contributionYears = 0,
 }) {
-  // Input validation — engine should not throw on bad UI inputs
-  const portfolio = Math.max(0, portfolioValue ?? 0);
-  const spending   = Math.max(0, annualSpending ?? 0);
-  const allocation = Math.min(1, Math.max(0, stockAllocation ?? 0.8));
-  const years      = Math.max(1, Math.min(60, retirementYears ?? 30));
-  const n          = Math.max(100, simCount);
+  const portfolio    = Math.max(0, portfolioValue ?? 0);
+  const spending     = Math.max(0, annualSpending ?? 0);
+  const allocation   = Math.min(1, Math.max(0, stockAllocation ?? 0.8));
+  const years        = Math.max(1, Math.min(60, retirementYears ?? 30));
+  const n            = Math.max(100, simCount);
+  const ssIncome     = Math.max(0, ssAnnualIncome ?? 0);
+  const ssStart      = ssStartYear ?? Infinity;
+  const contribution = Math.max(0, annualContribution ?? 0);
+  const contribYears = Math.max(0, Math.min(years, contributionYears ?? 0));
 
   const allPaths = [];
   let successCount = 0;
   const depletionYears = [];
 
   for (let sim = 0; sim < n; sim++) {
-    const { values, depletedYear } = runSinglePath(portfolio, spending, years, allocation);
+    const { values, depletedYear } = runSinglePath(
+      portfolio, spending, years, allocation,
+      ssIncome, ssStart, contribution, contribYears,
+    );
     allPaths.push(values);
 
     if (depletedYear === null) {

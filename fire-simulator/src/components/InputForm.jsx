@@ -1,41 +1,28 @@
 // components/InputForm.jsx
 // Purpose: Left-panel input form for all simulation parameters.
-//   Manages its own local form state; calls onRun with validated inputs.
 // Key exports: default InputForm
-// Props:
-//   initialValues — default input object
-//   onRun(inputs) — callback when user submits
-//   isRunning     — boolean, disables submit while simulation runs
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
-// ---------------------------------------------------------------------------
-// Field wrapper — consistent label + input spacing
-// ---------------------------------------------------------------------------
 function Field({ label, hint, children }) {
   return (
-    <div className="space-y-1">
+    <div className="space-y-1.5">
       <div className="flex items-baseline justify-between">
-        <label className="text-xs font-medium text-gray-300 uppercase tracking-wider">
+        <label className="text-xs font-medium text-[#c8c8d0] uppercase tracking-wider">
           {label}
         </label>
-        {hint && (
-          <span className="text-2xs text-gray-600">{hint}</span>
-        )}
+        {hint && <span className="text-2xs text-[#606068]">{hint}</span>}
       </div>
       {children}
     </div>
   );
 }
 
-// ---------------------------------------------------------------------------
-// NumberInput — styled currency/number input
-// ---------------------------------------------------------------------------
 function NumberInput({ value, onChange, prefix, min, max, step, placeholder }) {
   return (
     <div className="relative">
       {prefix && (
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm pointer-events-none">
+        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#606068] text-sm pointer-events-none">
           {prefix}
         </span>
       )}
@@ -48,9 +35,9 @@ function NumberInput({ value, onChange, prefix, min, max, step, placeholder }) {
         step={step}
         placeholder={placeholder}
         className={`
-          w-full bg-[#1a1a1a] border border-[#2a2a2a] rounded-md
-          text-sm text-white placeholder-gray-600
-          focus:outline-none focus:border-amber-400/60 focus:ring-1 focus:ring-amber-400/20
+          w-full bg-[#2a2a2e] border border-[#3a3a3e] rounded-lg
+          text-sm text-[#e8e8ec] placeholder-[#505058]
+          focus:outline-none focus:border-[#f0b429]/50 focus:ring-1 focus:ring-[#f0b429]/15
           transition-colors tabular
           ${prefix ? 'pl-7 pr-3' : 'px-3'} py-2
         `}
@@ -59,9 +46,6 @@ function NumberInput({ value, onChange, prefix, min, max, step, placeholder }) {
   );
 }
 
-// ---------------------------------------------------------------------------
-// AllocationSlider — stock/bond split slider with live label
-// ---------------------------------------------------------------------------
 function AllocationSlider({ stockPct, onChange }) {
   const bondPct = 100 - stockPct;
   return (
@@ -89,24 +73,36 @@ function AllocationSlider({ stockPct, onChange }) {
   );
 }
 
-// ---------------------------------------------------------------------------
-// SectionDivider — subtle visual separator between form sections
-// ---------------------------------------------------------------------------
 function SectionDivider({ label }) {
   return (
     <div className="flex items-center gap-2 py-1">
-      <div className="flex-1 h-px bg-[#2a2a2a]" />
-      <span className="text-2xs text-gray-600 uppercase tracking-widest">{label}</span>
-      <div className="flex-1 h-px bg-[#2a2a2a]" />
+      <div className="flex-1 h-px bg-[#3a3a3e]" />
+      <span className="text-2xs text-[#606068] uppercase tracking-widest">{label}</span>
+      <div className="flex-1 h-px bg-[#3a3a3e]" />
     </div>
   );
 }
 
-// ---------------------------------------------------------------------------
-// InputForm — main component
-// ---------------------------------------------------------------------------
-export default function InputForm({ initialValues, onRun, isRunning }) {
+export default function InputForm({
+  initialValues,
+  onRun,
+  isRunning,
+  allocationOverride,
+  ssScenario,
+  ssMonthlyBenefit,
+  ssClaimingAge,
+  onSsChange,
+  annualContribution,
+  contributionYears,
+  onContributionChange,
+}) {
   const [form, setForm] = useState(initialValues);
+
+  useEffect(() => {
+    if (allocationOverride != null) {
+      setForm(prev => ({ ...prev, stockAllocation: allocationOverride }));
+    }
+  }, [allocationOverride]);
 
   const set = useCallback((key) => (value) => {
     setForm(prev => ({ ...prev, [key]: value }));
@@ -114,29 +110,27 @@ export default function InputForm({ initialValues, onRun, isRunning }) {
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    // Compute retirement years if not already retired
-    const retirementYears = form.retirementYears;
     onRun({
       ...form,
-      stockAllocation: form.stockAllocation / 100, // convert % to decimal
-      retirementYears,
+      stockAllocation: form.stockAllocation / 100,
+      retirementYears: form.retirementYears,
+      ssMonthlyBenefit: ssMonthlyBenefit ?? 0,
+      ssClaimingAge: ssClaimingAge ?? 67,
     });
-  }, [form, onRun]);
+  }, [form, onRun, ssMonthlyBenefit, ssClaimingAge]);
 
-  // Derived: withdrawal rate preview
   const wdRate = form.portfolioValue > 0
     ? ((form.annualSpending / form.portfolioValue) * 100).toFixed(2)
     : null;
 
-  // Years to retirement (for display)
   const yearsToRetirement = form.alreadyRetired
     ? 0
     : Math.max(0, form.retirementAge - form.currentAge);
 
   return (
-    <div className="bg-[#111111] border border-[#2a2a2a] rounded-xl p-4 space-y-4 sticky top-20">
+    <div className="bg-[#232325] border border-[#3a3a3e] rounded-xl p-4 space-y-4 sticky top-20">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-white">Simulation Inputs</h2>
+        <h2 className="text-sm font-semibold text-[#e8e8ec]">Simulation Inputs</h2>
         {wdRate && (
           <span className={`text-xs font-mono tabular px-2 py-0.5 rounded ${
             Number(wdRate) <= 4
@@ -160,7 +154,7 @@ export default function InputForm({ initialValues, onRun, isRunning }) {
             prefix="$"
             min={0}
             step={10000}
-            placeholder="1,000,000"
+            placeholder="500,000"
           />
         </Field>
 
@@ -177,16 +171,15 @@ export default function InputForm({ initialValues, onRun, isRunning }) {
 
         <SectionDivider label="Timeline" />
 
-        {/* Already retired toggle */}
         <div className="flex items-center justify-between">
-          <span className="text-xs font-medium text-gray-300 uppercase tracking-wider">
+          <span className="text-xs font-medium text-[#c8c8d0] uppercase tracking-wider">
             Already Retired?
           </span>
           <button
             type="button"
             onClick={() => set('alreadyRetired')(!form.alreadyRetired)}
             className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${
-              form.alreadyRetired ? 'bg-amber-400' : 'bg-[#2a2a2a]'
+              form.alreadyRetired ? 'bg-amber-400' : 'bg-[#3a3a3e]'
             }`}
           >
             <span
@@ -204,7 +197,7 @@ export default function InputForm({ initialValues, onRun, isRunning }) {
             min={18}
             max={100}
             step={1}
-            placeholder="55"
+            placeholder="35"
           />
         </Field>
 
@@ -244,12 +237,83 @@ export default function InputForm({ initialValues, onRun, isRunning }) {
           />
         </Field>
 
-        {/* Run button */}
+        <SectionDivider label="Contributions" />
+
+        <Field label="Annual Contribution" hint="optional">
+          <NumberInput
+            value={annualContribution ?? 0}
+            onChange={(v) => onContributionChange?.({ annualContribution: v })}
+            prefix="$"
+            min={0}
+            step={500}
+            placeholder="0"
+          />
+        </Field>
+
+        <Field
+          label="Years Contributing"
+          hint={annualContribution > 0 ? `adds $${((annualContribution ?? 0) * (contributionYears ?? 0)).toLocaleString()}` : 'from year 1'}
+        >
+          <NumberInput
+            value={contributionYears ?? 0}
+            onChange={(v) => onContributionChange?.({ contributionYears: v })}
+            min={0}
+            max={form.retirementYears ?? 30}
+            step={1}
+            placeholder="0"
+          />
+        </Field>
+
+        {ssScenario && ssScenario !== 'none' && (
+          <>
+            <SectionDivider label="Social Security" />
+
+            <Field label="Monthly SS Benefit at FRA" hint="from SSA estimate">
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#606068] text-sm pointer-events-none">$</span>
+                <input
+                  type="number"
+                  value={ssMonthlyBenefit ?? ''}
+                  onChange={(e) => onSsChange({ ssMonthlyBenefit: Number(e.target.value) || 0, ssClaimingAge })}
+                  min={0}
+                  step={100}
+                  placeholder="2,000"
+                  className="w-full bg-[#2a2a2e] border border-[#3a3a3e] rounded-lg pl-7 pr-3 py-2 text-sm text-[#e8e8ec] placeholder-[#505058] focus:outline-none focus:border-[#f0b429]/50 tabular"
+                />
+              </div>
+            </Field>
+
+            <Field label="Claiming Age">
+              <div className="grid grid-cols-3 gap-1.5">
+                {[62, 67, 70].map((age) => (
+                  <button
+                    key={age}
+                    type="button"
+                    onClick={() => onSsChange({ ssMonthlyBenefit, ssClaimingAge: age })}
+                    className={`py-1.5 rounded-md text-xs font-medium border transition-colors ${
+                      ssClaimingAge === age
+                        ? 'border-amber-400/60 bg-amber-400/10 text-amber-400'
+                        : 'border-[#3a3a3e] bg-[#2a2a2e] text-[#909098] hover:text-[#c8c8d0]'
+                    }`}
+                  >
+                    Age {age}
+                  </button>
+                ))}
+              </div>
+              <div className="flex justify-between text-2xs text-[#505058] mt-1 px-0.5">
+                <span>70% of FRA</span>
+                <span>Full</span>
+                <span>124% of FRA</span>
+              </div>
+            </Field>
+          </>
+        )}
+
         <button
           type="submit"
           disabled={isRunning}
           className={`
-            w-full py-2.5 rounded-lg text-sm font-semibold tracking-wide transition-all
+            w-full py-2.5 rounded-lg text-sm font-semibold tracking-wide transition-all mt-2
             ${isRunning
               ? 'bg-amber-400/30 text-amber-300/60 cursor-not-allowed'
               : 'bg-amber-400 hover:bg-amber-300 text-black cursor-pointer active:scale-[0.98]'
@@ -269,9 +333,8 @@ export default function InputForm({ initialValues, onRun, isRunning }) {
           )}
         </button>
 
-        {/* Help text */}
-        <p className="text-2xs text-gray-600 text-center">
-          Uses real (inflation-adjusted) returns · 10,000 paths
+        <p className="text-2xs text-[#606068] text-center">
+          Real (inflation-adjusted) returns · 10,000 paths
         </p>
       </form>
     </div>

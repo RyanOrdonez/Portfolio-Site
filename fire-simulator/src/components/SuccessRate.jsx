@@ -51,7 +51,7 @@ function ArcGauge({ rate }) {
       <path
         d={trackPath}
         fill="none"
-        stroke="#2a2a2a"
+        stroke="#3a3a3e"
         strokeWidth="8"
         strokeLinecap="round"
       />
@@ -115,7 +115,7 @@ export default function SuccessRate({ successRate, simCount, inputs }) {
     : null;
 
   return (
-    <div className={`bg-[#111111] border rounded-xl p-5 ${bgColor}`}>
+    <div className={`bg-[#232325] border rounded-xl p-5 ${bgColor}`}>
       <div className="flex items-start gap-5">
         {/* Arc gauge + big number */}
         <div className="flex-shrink-0 text-center w-[180px]">
@@ -124,7 +124,7 @@ export default function SuccessRate({ successRate, simCount, inputs }) {
             <div className={`text-4xl font-bold tabular leading-none ${color}`}>
               {formatPercent(successRate, 1)}
             </div>
-            <div className="text-xs text-gray-500 mt-1 uppercase tracking-wide">
+            <div className="text-xs text-[#909098] mt-1 uppercase tracking-wide">
               Success Rate
             </div>
           </div>
@@ -132,18 +132,18 @@ export default function SuccessRate({ successRate, simCount, inputs }) {
 
         {/* Right: label + stats */}
         <div className="flex-1 space-y-3 pt-2">
-          <p className="text-sm text-gray-300 leading-relaxed">{label}</p>
+          <p className="text-sm text-[#c8c8d0] leading-relaxed">{label}</p>
 
           <div className="grid grid-cols-2 gap-2 text-xs">
-            <div className="bg-[#1a1a1a] rounded-md px-3 py-2">
-              <div className="text-gray-500 uppercase tracking-wide text-2xs mb-0.5">Simulations</div>
+            <div className="bg-[#2a2a2e] rounded-md px-3 py-2">
+              <div className="text-[#909098] uppercase tracking-wide text-2xs mb-0.5">Simulations</div>
               <div className="text-white tabular font-medium">
                 {simCount?.toLocaleString() ?? '—'}
               </div>
             </div>
             {swr != null && (
-              <div className="bg-[#1a1a1a] rounded-md px-3 py-2">
-                <div className="text-gray-500 uppercase tracking-wide text-2xs mb-0.5">Withdrawal Rate</div>
+              <div className="bg-[#2a2a2e] rounded-md px-3 py-2">
+                <div className="text-[#909098] uppercase tracking-wide text-2xs mb-0.5">Withdrawal Rate</div>
                 <div className={`tabular font-medium ${
                   swr <= 0.04 ? 'text-green-400' : swr <= 0.05 ? 'text-yellow-400' : 'text-red-400'
                 }`}>
@@ -154,7 +154,7 @@ export default function SuccessRate({ successRate, simCount, inputs }) {
           </div>
 
           {/* Zone legend */}
-          <div className="flex gap-3 text-2xs text-gray-500">
+          <div className="flex gap-3 text-2xs text-[#909098]">
             <span className="flex items-center gap-1">
               <span className="w-2 h-2 rounded-full bg-green-400 inline-block" />
               ≥85% safe
