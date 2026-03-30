@@ -8,11 +8,20 @@ const path = require('path');
 const nextConfig = {
   webpack(config) {
     // @fire-sim/* resolves to the existing fire-simulator/src directory.
-    // This lets app/fire/page.jsx import the simulator without copying files.
     config.resolve.alias['@fire-sim'] = path.resolve(
       __dirname,
       '../fire-simulator/src'
     );
+
+    // When webpack processes files from ../fire-simulator/src/, it resolves
+    // bare module imports (html2canvas, jspdf, recharts, etc.) relative to that
+    // directory — but those packages only exist in promptinglogic/node_modules/.
+    // Prepending this project's node_modules ensures they resolve correctly.
+    config.resolve.modules = [
+      path.resolve(__dirname, 'node_modules'),
+      'node_modules',
+    ];
+
     return config;
   },
   reactStrictMode: false,
