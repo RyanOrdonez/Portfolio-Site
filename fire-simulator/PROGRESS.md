@@ -1,7 +1,7 @@
 # FIRE Simulator — Build Progress
 
-**Last updated:** 2026-03-30 (conversion sections)
-**Overall status:** MVP Complete — Live at promptinglogic.com
+**Last updated:** 2026-03-30 (v1.1 features shipped)
+**Overall status:** v1.1 Complete — Live at promptinglogic.com
 
 ---
 
@@ -44,7 +44,13 @@
 - [x] Hostinger DNS configured (A record + CNAME → Vercel)
 - [x] Conversion sections added: HeroSection, SidebarPanel (Pro card + comparison + quotes), TransparencyStrip
 - [x] All commits attributed to Ryan Ordonez (git env vars set globally)
-- [ ] PDF export + CSV download (jsPDF + html2canvas already installed — ready to build)
+- [x] PDF export + CSV download — ExportPanel (Pro): html2canvas + jsPDF; CSV includes all percentile trajectory data
+- [x] v1.1 features shipped:
+  - SS Scenario Toggle (free) — No SS / Reduced 75% / Full SS; auto-reruns Monte Carlo on tab change
+  - Allocation by Age guide (free) — 6 age brackets, expandable rationale, "Apply" button syncs slider
+  - IRA Section (free rules + Pro calculator) — 2025 limits, Roth/Traditional phase-outs, iraCalculator.js
+  - Hero copy updated for millennial/Gen Z audience
+  - Engine extended: ssAnnualIncome + ssStartYear params in runSinglePath / runSimulation
 - [ ] Share on r/financialindependence and r/Bogleheads to drive first customers
 
 ---
