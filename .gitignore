@@ -5,3 +5,7 @@ repo-readmes/
 CLAUDE.md
 create-new-repos.sh
 update-repos.sh
+
+# fire-simulator build artifacts and dependencies
+fire-simulator/node_modules/
+fire-simulator/dist/
