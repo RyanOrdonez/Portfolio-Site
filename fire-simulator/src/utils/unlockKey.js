@@ -11,8 +11,8 @@
 // Keys are case-insensitive; validated after uppercasing + trimming.
 // ---------------------------------------------------------------------------
 const VALID_KEYS = [
-  'FIRE-PRO-DEMO-2025',
-  // Add real Gumroad keys here before launch
+  'FIRE-PRO-2025',
+  // Add additional keys here if needed (e.g. promotional codes)
 ];
 
 const STORAGE_KEY = 'fire_sim_pro_unlocked';
