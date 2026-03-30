@@ -42,16 +42,16 @@ export default function SSScenarioToggle({ scenario, onChange }) {
   const active = TABS.find(t => t.id === scenario) ?? TABS[0];
 
   return (
-    <div className="bg-[#111111] border border-[#2a2a2a] rounded-xl p-4 space-y-3">
+    <div className="bg-[#232325] border border-[#3a3a3e] rounded-xl p-4 space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-semibold text-gray-300 uppercase tracking-wider">
+        <h3 className="text-xs font-semibold text-[#c8c8d0] uppercase tracking-wider">
           Social Security Scenario
         </h3>
-        <span className="text-2xs text-gray-600">Free</span>
+        <span className="text-2xs text-[#606068]">Free</span>
       </div>
 
       {/* Tab pills */}
-      <div className="flex gap-1.5 p-1 bg-[#0a0a0a] rounded-lg border border-[#1e1e1e]">
+      <div className="flex gap-1.5 p-1 bg-[#1c1c1e] rounded-lg border border-[#3a3a3e]">
         {TABS.map((tab) => {
           const isActive = tab.id === scenario;
           return (
@@ -65,7 +65,7 @@ export default function SSScenarioToggle({ scenario, onChange }) {
                 transition-all duration-150
                 ${isActive
                   ? `${tab.bgActive} ${tab.color} border ${tab.borderActive}`
-                  : 'text-gray-500 hover:text-gray-300 border border-transparent hover:bg-[#1a1a1a]'
+                  : 'text-[#909098] hover:text-[#c8c8d0] border border-transparent hover:bg-[#2a2a2e]'
                 }
               `}
             >

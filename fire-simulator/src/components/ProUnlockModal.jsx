@@ -55,16 +55,16 @@ export default function ProUnlockModal({ onSuccess, onClose }) {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="bg-[#111111] border border-[#2a2a2a] rounded-xl p-6 w-full max-w-md mx-4 shadow-2xl">
+      <div className="bg-[#232325] border border-[#3a3a3e] rounded-xl p-6 w-full max-w-md mx-4 shadow-2xl">
         {/* Header */}
         <div className="flex items-start justify-between mb-5">
           <div>
             <h2 className="text-base font-semibold text-white">Unlock Pro Features</h2>
-            <p className="text-xs text-gray-500 mt-0.5">Enter your Gumroad license key below</p>
+            <p className="text-xs text-[#909098] mt-0.5">Enter your Gumroad license key below</p>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-600 hover:text-gray-300 transition-colors p-1 -mt-1 -mr-1"
+            className="text-[#606068] hover:text-[#c8c8d0] transition-colors p-1 -mt-1 -mr-1"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -73,7 +73,7 @@ export default function ProUnlockModal({ onSuccess, onClose }) {
         </div>
 
         {/* What you get */}
-        <div className="bg-[#1a1a1a] rounded-lg p-3 mb-4 space-y-1.5">
+        <div className="bg-[#2a2a2e] rounded-lg p-3 mb-4 space-y-1.5">
           <p className="text-xs font-medium text-amber-400 mb-2">Pro includes:</p>
           {[
             'Full 30-year fan chart projection',
@@ -83,7 +83,7 @@ export default function ProUnlockModal({ onSuccess, onClose }) {
             'Roth conversion optimizer',
             'PDF export + CSV download',
           ].map((feature) => (
-            <div key={feature} className="flex items-center gap-2 text-xs text-gray-300">
+            <div key={feature} className="flex items-center gap-2 text-xs text-[#c8c8d0]">
               <svg className="w-3.5 h-3.5 text-amber-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
               </svg>
@@ -94,7 +94,7 @@ export default function ProUnlockModal({ onSuccess, onClose }) {
 
         {/* Key input */}
         <div className="space-y-2">
-          <label className="text-xs font-medium text-gray-400 uppercase tracking-wider">
+          <label className="text-xs font-medium text-[#909098] uppercase tracking-wider">
             License Key
           </label>
           <input
@@ -108,14 +108,14 @@ export default function ProUnlockModal({ onSuccess, onClose }) {
             onKeyDown={handleKeyDown}
             placeholder="FIRE-PRO-XXXX-XXXX"
             className={`
-              w-full bg-[#1a1a1a] border rounded-lg px-3 py-2.5
-              text-sm font-mono text-white placeholder-gray-600
+              w-full bg-[#2a2a2e] border rounded-lg px-3 py-2.5
+              text-sm font-mono text-[#e8e8ec] placeholder-[#505058]
               focus:outline-none transition-colors
               ${status?.type === 'error'
                 ? 'border-red-400/60 focus:border-red-400'
                 : status?.type === 'success'
                   ? 'border-green-400/60 focus:border-green-400'
-                  : 'border-[#2a2a2a] focus:border-amber-400/60'
+                  : 'border-[#3a3a3e] focus:border-amber-400/60'
               }
             `}
           />
@@ -145,7 +145,7 @@ export default function ProUnlockModal({ onSuccess, onClose }) {
 
         {/* Purchase link */}
         <div className="mt-4 text-center space-y-1">
-          <p className="text-xs text-gray-600">Don't have a key yet?</p>
+          <p className="text-xs text-[#606068]">Don't have a key yet?</p>
           <a
             href={GUMROAD_PRODUCT_URL}
             target="_blank"

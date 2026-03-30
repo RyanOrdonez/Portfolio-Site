@@ -1,9 +1,6 @@
-// App.jsx
-// Purpose: Root application component. Manages top-level state:
-//   - simulation inputs and results
-//   - Pro unlock state
-//   - saved scenarios list
-// Key exports: default App
+// App.jsx — root component
+// Manages all simulation state, SS scenario, contributions, allocation override.
+// 4-column layout: InvestmentGuide | InputForm | ResultsPanel | SidebarPanel
 
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import InputForm from './components/InputForm.jsx';
@@ -14,16 +11,16 @@ import SidebarPanel from './components/SidebarPanel.jsx';
 import TransparencyStrip from './components/TransparencyStrip.jsx';
 import AllocationGuide from './components/AllocationGuide.jsx';
 import IRASection from './components/IRASection.jsx';
+import InvestmentGuide from './components/InvestmentGuide.jsx';
 import { useSimulation } from './hooks/useSimulation.js';
 import { isUnlocked, setUnlocked } from './utils/unlockKey.js';
 import { DEFAULT_RETIREMENT_YEARS, DEFAULT_STOCK_ALLOCATION } from './constants.js';
 import { SS_MULTIPLIERS, SS_AGE_ADJUSTMENTS } from './utils/financialConstants.js';
 
-// Default form inputs — displayed on first load so the app never shows blank state
 const DEFAULT_INPUTS = {
-  portfolioValue: 1000000,
+  portfolioValue: 500000,
   annualSpending: 40000,
-  currentAge: 55,
+  currentAge: 35,
   retirementAge: 60,
   alreadyRetired: false,
   stockAllocation: DEFAULT_STOCK_ALLOCATION,
@@ -31,73 +28,84 @@ const DEFAULT_INPUTS = {
 };
 
 export default function App() {
-  // --- Simulation state ---
   const { results, isRunning, error, run, lastInputs } = useSimulation();
 
-  // --- Form inputs ---
   const [inputs, setInputs] = useState(DEFAULT_INPUTS);
-
-  // --- Pro unlock ---
   const [isPro, setIsPro] = useState(isUnlocked());
   const [showUnlockModal, setShowUnlockModal] = useState(false);
-
-  // --- Saved scenarios (Pro feature) ---
   const [scenarios, setScenarios] = useState([]);
 
-  // --- SS scenario state ---
-  const [ssScenario, setSsScenario] = useState('none');       // 'none' | 'reduced' | 'full'
-  const [ssMonthlyBenefit, setSsMonthlyBenefit] = useState(2000); // FRA monthly benefit
+  const [ssScenario, setSsScenario] = useState('none');
+  const [ssMonthlyBenefit, setSsMonthlyBenefit] = useState(2000);
   const [ssClaimingAge, setSsClaimingAge] = useState(67);
 
-  // --- Allocation override (from AllocationGuide "Apply" button) ---
+  const [annualContribution, setAnnualContribution] = useState(0);
+  const [contributionYears, setContributionYears] = useState(0);
+
   const [allocationOverride, setAllocationOverride] = useState(null);
 
-  // --- Ref to results panel DOM node for PDF export ---
   const resultsRef = useRef(null);
-
-  // Keep a ref to last form inputs so SS scenario changes can trigger re-run
   const lastFormInputsRef = useRef(null);
 
-  // ---------------------------------------------------------------------------
-  // computeSimInputs — merges form inputs with current SS state
-  // ---------------------------------------------------------------------------
-  const computeSimInputs = useCallback((formInputs, scenario, monthlyBenefit, claimingAge) => {
+  const computeSimInputs = useCallback((formInputs, scenario, monthlyBenefit, claimingAge, contribution, contribYrs) => {
     const retirementStartAge = formInputs.alreadyRetired
       ? formInputs.currentAge
       : (formInputs.retirementAge ?? formInputs.currentAge);
 
-    const ssAnnualIncome = scenario === 'none'
-      ? 0
+    const ssAnnualIncome = scenario === 'none' ? 0
       : (monthlyBenefit ?? 0) * 12
         * (SS_MULTIPLIERS[scenario] ?? 1.0)
         * (SS_AGE_ADJUSTMENTS[claimingAge] ?? 1.0);
 
-    const ssStartYear = Math.max(0, (claimingAge ?? 67) - retirementStartAge);
+    const ssStartYear = scenario === 'none'
+      ? Infinity
+      : Math.max(0, (claimingAge ?? 67) - retirementStartAge);
 
     return {
-      portfolioValue: formInputs.portfolioValue,
-      annualSpending: formInputs.annualSpending,
-      stockAllocation: formInputs.stockAllocation,
-      retirementYears: formInputs.retirementYears,
+      portfolioValue:    formInputs.portfolioValue,
+      annualSpending:    formInputs.annualSpending,
+      stockAllocation:   formInputs.stockAllocation,
+      retirementYears:   formInputs.retirementYears,
       ssAnnualIncome,
-      ssStartYear: scenario === 'none' ? Infinity : ssStartYear,
+      ssStartYear,
+      annualContribution: contribution ?? 0,
+      contributionYears:  contribYrs ?? 0,
     };
   }, []);
 
-  // Handle form submission
   const handleRun = useCallback((formInputs) => {
     setInputs(formInputs);
     lastFormInputsRef.current = formInputs;
-    run(computeSimInputs(formInputs, ssScenario, ssMonthlyBenefit, ssClaimingAge));
-  }, [run, computeSimInputs, ssScenario, ssMonthlyBenefit, ssClaimingAge]);
+    run(computeSimInputs(formInputs, ssScenario, ssMonthlyBenefit, ssClaimingAge, annualContribution, contributionYears));
+  }, [run, computeSimInputs, ssScenario, ssMonthlyBenefit, ssClaimingAge, annualContribution, contributionYears]);
 
-  // Auto-rerun when SS scenario changes (only if a simulation has already run)
   useEffect(() => {
     if (lastFormInputsRef.current) {
-      run(computeSimInputs(lastFormInputsRef.current, ssScenario, ssMonthlyBenefit, ssClaimingAge));
+      run(computeSimInputs(lastFormInputsRef.current, ssScenario, ssMonthlyBenefit, ssClaimingAge, annualContribution, contributionYears));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ssScenario, ssMonthlyBenefit, ssClaimingAge]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ssScenario, ssMonthlyBenefit, ssClaimingAge, annualContribution, contributionYears]);
+
+  const handleUnlockSuccess = useCallback(() => {
+    setUnlocked(true);
+    setIsPro(true);
+    setShowUnlockModal(false);
+  }, []);
+
+  const handleSaveScenario = useCallback((name) => {
+    if (!results) return;
+    setScenarios(prev => [...prev.slice(-4), {
+      id: Date.now(), name,
+      inputs: lastInputs,
+      successRate: results.successRate,
+      medianFinalValue: results.medianFinalValue,
+      worstP10FinalValue: results.worstP10FinalValue,
+    }]);
+  }, [results, lastInputs]);
+
+  const handleRemoveScenario = useCallback((id) => {
+    setScenarios(prev => prev.filter(s => s.id !== id));
+  }, []);
 
   const handleSsChange = useCallback(({ ssMonthlyBenefit: mb, ssClaimingAge: ca }) => {
     if (mb !== undefined) setSsMonthlyBenefit(mb);
@@ -106,61 +114,32 @@ export default function App() {
 
   const handleAllocationApply = useCallback((pct) => {
     setAllocationOverride(pct);
-    // Reset override after InputForm syncs, so next AllocationGuide click re-triggers effect
     setTimeout(() => setAllocationOverride(null), 100);
   }, []);
 
-  // Handle Pro unlock success
-  const handleUnlockSuccess = useCallback(() => {
-    setUnlocked(true);
-    setIsPro(true);
-    setShowUnlockModal(false);
-  }, []);
-
-  // Save current scenario (Pro)
-  const handleSaveScenario = useCallback((name) => {
-    if (!results) return;
-    const scenario = {
-      id: Date.now(),
-      name,
-      inputs: lastInputs,
-      successRate: results.successRate,
-      medianFinalValue: results.medianFinalValue,
-      worstP10FinalValue: results.worstP10FinalValue,
-    };
-    setScenarios(prev => [...prev.slice(-4), scenario]); // max 5 scenarios
-  }, [results, lastInputs]);
-
-  const handleRemoveScenario = useCallback((id) => {
-    setScenarios(prev => prev.filter(s => s.id !== id));
-  }, []);
-
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-gray-100">
-      {/* Header */}
-      <header className="border-b border-[#2a2a2a] bg-[#0a0a0a] sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+    <div className="min-h-screen bg-[#1c1c1e] text-[#e0e0e4]">
+
+      <header className="border-b border-[#3a3a3e] bg-[#232325] sticky top-0 z-30">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="text-2xl" aria-hidden="true">🔥</span>
             <div>
-              <h1 className="text-base font-semibold text-white leading-tight tracking-tight">
+              <h1 className="text-sm font-semibold text-white leading-tight tracking-tight">
                 FIRE Retirement Simulator
               </h1>
-              <p className="text-2xs text-gray-500 leading-tight">
-                promptinglogic.com
-              </p>
+              <p className="text-2xs text-[#808088] leading-tight">promptinglogic.com</p>
             </div>
           </div>
-
           <div className="flex items-center gap-3">
             {isPro ? (
-              <span className="text-xs font-medium text-amber-400 border border-amber-400/30 bg-amber-400/10 px-2.5 py-1 rounded-full">
+              <span className="text-xs font-medium text-[#f0b429] border border-[#f0b429]/30 bg-[#f0b429]/10 px-2.5 py-1 rounded-full">
                 Pro Unlocked
               </span>
             ) : (
               <button
                 onClick={() => setShowUnlockModal(true)}
-                className="text-xs font-medium text-amber-400 border border-amber-400/40 hover:border-amber-400 bg-amber-400/5 hover:bg-amber-400/15 px-3 py-1.5 rounded-full transition-all"
+                className="text-xs font-semibold text-black bg-[#f0b429] hover:bg-[#e5a820] px-3 py-1.5 rounded-full transition-colors"
               >
                 Unlock Pro — $19
               </button>
@@ -169,14 +148,16 @@ export default function App() {
         </div>
       </header>
 
-      {/* Hero section */}
       <HeroSection />
 
-      {/* Main layout — inputs | results | sidebar */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-        <div className="flex flex-col lg:flex-row gap-6">
-          {/* Left column: inputs */}
-          <aside className="lg:w-80 xl:w-96 flex-shrink-0">
+      <main className="max-w-[1600px] mx-auto px-4 sm:px-6 py-8">
+        <div className="flex gap-5 items-start">
+
+          <aside className="hidden xl:flex flex-col w-52 flex-shrink-0 bg-[#232325] border border-[#3a3a3e] rounded-xl overflow-hidden sticky top-20 max-h-[calc(100vh-6rem)]">
+            <InvestmentGuide />
+          </aside>
+
+          <div className="w-full sm:w-80 xl:w-88 flex-shrink-0">
             <InputForm
               initialValues={DEFAULT_INPUTS}
               onRun={handleRun}
@@ -186,10 +167,15 @@ export default function App() {
               ssMonthlyBenefit={ssMonthlyBenefit}
               ssClaimingAge={ssClaimingAge}
               onSsChange={handleSsChange}
+              annualContribution={annualContribution}
+              contributionYears={contributionYears}
+              onContributionChange={({ annualContribution: ac, contributionYears: cy }) => {
+                if (ac !== undefined) setAnnualContribution(ac);
+                if (cy !== undefined) setContributionYears(cy);
+              }}
             />
-          </aside>
+          </div>
 
-          {/* Center column: results */}
           <div className="flex-1 min-w-0" ref={resultsRef}>
             <ResultsPanel
               results={results}
@@ -207,7 +193,6 @@ export default function App() {
             />
           </div>
 
-          {/* Right column: conversion sidebar */}
           <SidebarPanel
             isPro={isPro}
             onUnlockClick={() => setShowUnlockModal(true)}
@@ -215,36 +200,27 @@ export default function App() {
         </div>
       </main>
 
-      {/* Allocation by Age guide */}
       <AllocationGuide
         currentAge={inputs?.currentAge}
         onApply={handleAllocationApply}
       />
-
-      {/* IRA section */}
       <IRASection
         isPro={isPro}
         onUnlockClick={() => setShowUnlockModal(true)}
         currentAge={inputs?.currentAge}
       />
-
-      {/* Transparency strip */}
       <TransparencyStrip />
 
-      {/* Footer */}
-      <footer className="border-t border-[#2a2a2a] mt-12 py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-          <p className="text-xs text-gray-600">
-            FIRE Retirement Simulator — Monte Carlo projections are for educational purposes only and do not constitute financial advice.
-            All calculations use real (inflation-adjusted) returns. Past performance does not guarantee future results.
+      <footer className="border-t border-[#3a3a3e] mt-12 py-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 text-center space-y-1">
+          <p className="text-xs text-[#606068]">
+            FIRE Retirement Simulator — Monte Carlo projections are for educational purposes only.
+            Not financial advice. Real (inflation-adjusted) returns used throughout.
           </p>
-          <p className="text-xs text-gray-700 mt-1">
-            © 2025 promptinglogic.com
-          </p>
+          <p className="text-xs text-[#484850]">© 2025 promptinglogic.com</p>
         </div>
       </footer>
 
-      {/* Pro unlock modal */}
       {showUnlockModal && (
         <ProUnlockModal
           onSuccess={handleUnlockSuccess}

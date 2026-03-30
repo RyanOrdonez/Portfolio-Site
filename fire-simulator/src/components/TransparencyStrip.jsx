@@ -11,7 +11,7 @@ import React from 'react';
 function Column({ title, children }) {
   return (
     <div className="space-y-3">
-      <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
+      <h3 className="text-xs font-semibold text-[#909098] uppercase tracking-widest">
         {title}
       </h3>
       {children}
@@ -24,13 +24,13 @@ function Column({ title, children }) {
 // ---------------------------------------------------------------------------
 export default function TransparencyStrip() {
   return (
-    <section style={{ backgroundColor: '#050505' }} className="border-t border-[#1a1a1a] py-10 px-4">
+    <section className="bg-[#1c1c1e] border-t border-[#3a3a3e] py-10 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
           {/* Column 1 — How the math works */}
           <Column title="How the math works">
-            <ul className="space-y-1.5 text-xs text-gray-500">
+            <ul className="space-y-1.5 text-xs text-[#909098]">
               {[
                 'Real stock returns: mean 7.0%, std dev 17.0%',
                 'Real bond returns: mean 2.3%, std dev 8.0%',
@@ -40,7 +40,7 @@ export default function TransparencyStrip() {
                 'Withdraw-first convention (Trinity Study methodology)',
               ].map(item => (
                 <li key={item} className="flex items-start gap-2">
-                  <span className="text-[#2a2a2a] mt-0.5">—</span>
+                  <span className="text-[#505058] mt-0.5">—</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -49,7 +49,7 @@ export default function TransparencyStrip() {
 
           {/* Column 2 — Data sources */}
           <Column title="Data sources">
-            <ul className="space-y-1.5 text-xs text-gray-500">
+            <ul className="space-y-1.5 text-xs text-[#909098]">
               {[
                 'Shiller CAPE data — US equities 1871–2023',
                 'Ibbotson SBBI — US bond returns series',
@@ -59,7 +59,7 @@ export default function TransparencyStrip() {
                 'Cross-checked against cFIREsim & portfoliovisualizer',
               ].map(item => (
                 <li key={item} className="flex items-start gap-2">
-                  <span className="text-[#2a2a2a] mt-0.5">—</span>
+                  <span className="text-[#505058] mt-0.5">—</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -77,14 +77,14 @@ export default function TransparencyStrip() {
               ].map(badge => (
                 <span
                   key={badge}
-                  className="text-xs border border-[#2a2a2a] text-gray-400 px-2.5 py-1 rounded-full"
+                  className="text-xs border border-[#3a3a3e] text-[#b0b0b8] px-2.5 py-1 rounded-full"
                 >
                   {badge}
                 </span>
               ))}
             </div>
             {/* Dot list */}
-            <ul className="space-y-1.5 text-xs text-gray-500 mt-2">
+            <ul className="space-y-1.5 text-xs text-[#909098] mt-2">
               <li className="flex items-start gap-2">
                 <span style={{ color: '#4ade80' }} className="mt-0.5">•</span>
                 <span>Built by a data scientist (MS, CU Boulder)</span>

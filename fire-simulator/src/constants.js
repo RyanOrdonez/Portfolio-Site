@@ -35,7 +35,7 @@ export const SIM_COUNT = 10000;
 export const DEFAULT_RETIREMENT_YEARS = 30;
 
 // Default asset allocation (% stocks)
-export const DEFAULT_STOCK_ALLOCATION = 0.80; // 80/20 stocks/bonds
+export const DEFAULT_STOCK_ALLOCATION = 80; // 80/20 stocks/bonds — stored as integer % for the form slider
 
 // Success rate thresholds for color-coding
 export const SUCCESS_RATE_THRESHOLDS = {

@@ -14,13 +14,13 @@ const STATS = [
 
 export default function HeroSection() {
   return (
-    <section className="border-b border-[#1e1e1e] bg-[#0a0a0a] py-12 px-4">
+    <section className="border-b border-[#3a3a3e] bg-[#1c1c1e] py-12 px-4">
       <div className="max-w-3xl mx-auto text-center space-y-6">
 
         {/* Badge pill */}
-        <div className="inline-flex items-center gap-2 border border-[#2a2a2a] bg-[#111111] rounded-full px-4 py-1.5">
+        <div className="inline-flex items-center gap-2 border border-[#3a3a3e] bg-[#232325] rounded-full px-4 py-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-[#4ade80] inline-block" />
-          <span className="text-xs text-gray-400 tracking-wide">
+          <span className="text-xs text-[#b0b0b8] tracking-wide">
             Built for millennials and Gen Z who aren't counting on Social Security
           </span>
         </div>
@@ -32,7 +32,7 @@ export default function HeroSection() {
         </h1>
 
         {/* Subheadline */}
-        <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg text-[#b0b0b8] leading-relaxed max-w-2xl mx-auto">
           The SSA projects its trust fund runs out around 2033. If you're under 50, that's during
           your retirement. We built the calculator we wish existed at 25 — honest math, no jargon,
           no government safety net assumed.
@@ -43,13 +43,13 @@ export default function HeroSection() {
           {STATS.map(({ number, label }) => (
             <div key={label} className="text-center">
               <div className="text-2xl font-bold text-white tabular">{number}</div>
-              <div className="text-xs text-gray-500 mt-0.5">{label}</div>
+              <div className="text-xs text-[#909098] mt-0.5">{label}</div>
             </div>
           ))}
         </div>
 
         {/* Micro-copy below stats */}
-        <p className="text-xs text-gray-600 pt-1">
+        <p className="text-xs text-[#606068] pt-1">
           Less than two lunches. More than a financial advisor would charge for this analysis.
         </p>
 

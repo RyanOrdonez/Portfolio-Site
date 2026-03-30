@@ -1,141 +1,92 @@
 // components/SidebarPanel.jsx
-// Purpose: Right sidebar with three stacked conversion cards:
-//   A — Pro unlock CTA  B — vs. alternatives comparison  C — community quotes
+// Purpose: Compact right sidebar — Pro unlock CTA + comparison table.
 // Key exports: default SidebarPanel
 // Props:
-//   isPro         — boolean (hides unlock card if already Pro)
+//   isPro         — boolean
 //   onUnlockClick — opens ProUnlockModal
 
 import React from 'react';
-import { GUMROAD_PRODUCT_URL } from '../constants.js';
 
 // ---------------------------------------------------------------------------
-// Card A — Pro unlock
+// ProCard — compact unlock CTA
 // ---------------------------------------------------------------------------
 const PRO_FEATURES = [
-  {
-    name: 'Full 30-year fan chart',
-    desc: 'See every percentile band, no blur',
-  },
-  {
-    name: 'Historical crisis stress tests',
-    desc: '1929, 1966, 2000 & 2008 sequences',
-  },
-  {
-    name: '5-scenario comparison table',
-    desc: 'Side-by-side with any inputs',
-  },
-  {
-    name: 'Social Security timing tool',
-    desc: 'Breakeven analysis: 62 vs 67 vs 70',
-  },
-  {
-    name: 'Roth conversion optimizer',
-    desc: 'Fill-the-bracket annual strategy',
-  },
-  {
-    name: 'PDF & CSV export',
-    desc: 'Save and share your full report',
-  },
+  'Full 30-year fan chart',
+  'Historical crisis stress tests',
+  '5-scenario comparison table',
+  'Social Security timing tool',
+  'Roth conversion optimizer',
+  'PDF & CSV export',
 ];
 
 function ProCard({ onUnlockClick }) {
   return (
-    <div
-      className="rounded-xl p-4 space-y-4"
-      style={{ background: '#0f1a0f', border: '1px solid #1d3a1d' }}
-    >
-      {/* Header */}
+    <div className="rounded-xl p-3.5 space-y-3" style={{ background: '#1a2a1a', border: '1px solid #2a3a2a' }}>
       <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-white">Pro Unlock</span>
-        <span className="text-xs font-medium tabular" style={{ color: '#f0b429' }}>
-          $19 one-time
-        </span>
+        <span className="text-xs font-semibold text-[#e8e8ec]">Pro Unlock</span>
+        <span className="text-xs font-medium tabular text-[#f0b429]">$19 once</span>
       </div>
 
-      {/* Feature rows */}
-      <div className="space-y-2.5">
-        {PRO_FEATURES.map(({ name, desc }) => (
-          <div key={name} className="flex items-start gap-2.5">
-            {/* Green check circle */}
-            <svg
-              className="flex-shrink-0 mt-0.5"
-              width="15" height="15" viewBox="0 0 15 15" fill="none"
-            >
-              <circle cx="7.5" cy="7.5" r="7.5" fill="#166534" />
-              <path
-                d="M4.5 7.5L6.5 9.5L10.5 5.5"
-                stroke="#4ade80"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+      <ul className="space-y-1.5">
+        {PRO_FEATURES.map((name) => (
+          <li key={name} className="flex items-center gap-2">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" className="flex-shrink-0">
+              <circle cx="6.5" cy="6.5" r="6.5" fill="#14532d" />
+              <path d="M3.5 6.5L5.5 8.5L9.5 4.5" stroke="#4ade80" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <div className="min-w-0">
-              <span className="text-xs font-semibold text-gray-200">{name}</span>
-              <span className="text-xs text-gray-500"> — {desc}</span>
-            </div>
-          </div>
+            <span className="text-2xs text-[#b0b0b8]">{name}</span>
+          </li>
         ))}
-      </div>
+      </ul>
 
-      {/* CTA button */}
       <button
         onClick={onUnlockClick}
-        className="w-full py-2.5 rounded-lg text-sm font-semibold transition-all active:scale-[0.98]"
-        style={{ background: '#f0b429', color: '#000' }}
-        onMouseEnter={e => e.currentTarget.style.background = '#d4a017'}
-        onMouseLeave={e => e.currentTarget.style.background = '#f0b429'}
+        className="w-full py-2 rounded-lg text-xs font-semibold transition-all active:scale-[0.98] bg-[#f0b429] hover:bg-[#d4a017] text-black"
       >
         Unlock Pro — $19
       </button>
 
-      {/* Fine print */}
-      <p className="text-center text-2xs text-gray-600">
-        One-time purchase · No subscription · Instant access
+      <p className="text-center text-2xs text-[#606068]">
+        One-time · No subscription
       </p>
     </div>
   );
 }
 
 // ---------------------------------------------------------------------------
-// Card B — vs. alternatives comparison table
+// ComparisonCard — compact version
 // ---------------------------------------------------------------------------
 const COMPARISON_ROWS = [
-  { feature: 'Simulation paths',  others: '1,000',        ours: '10,000'    },
-  { feature: 'Crisis stress tests', others: '—',          ours: '4 crises'  },
-  { feature: 'Returns used',      others: 'Nominal',      ours: 'Real'      },
-  { feature: 'SS timing tool',    others: '—',            ours: 'Included'  },
-  { feature: 'Roth optimizer',    others: '—',            ours: 'Included'  },
-  { feature: 'Cost',              others: 'Free / $9/mo', ours: '$19 once'  },
+  { feature: 'Sim paths',        others: '1,000',        ours: '10,000'   },
+  { feature: 'Crisis tests',     others: '—',            ours: '4 crises' },
+  { feature: 'Returns',          others: 'Nominal',      ours: 'Real'     },
+  { feature: 'SS tool',          others: '—',            ours: '✓'        },
+  { feature: 'Roth optimizer',   others: '—',            ours: '✓'        },
+  { feature: 'Cost',             others: 'Free/$9/mo',   ours: '$19 once' },
 ];
 
 function ComparisonCard() {
   return (
-    <div className="bg-[#111111] border border-[#2a2a2a] rounded-xl p-4 space-y-3">
-      <h3 className="text-sm font-semibold text-white">vs. free alternatives</h3>
+    <div className="bg-[#232325] border border-[#3a3a3e] rounded-xl p-3.5 space-y-2.5">
+      <h3 className="text-xs font-semibold text-[#e8e8ec]">vs. free alternatives</h3>
 
-      <table className="w-full text-xs border-collapse">
+      <table className="w-full text-2xs border-collapse">
         <thead>
-          <tr className="border-b border-[#2a2a2a]">
-            <th className="text-left text-gray-600 py-1.5 pr-2 font-medium">Feature</th>
-            <th className="text-center text-gray-600 py-1.5 px-2 font-medium">Others</th>
-            <th className="text-center py-1.5 pl-2 font-medium" style={{ color: '#4ade80' }}>
-              This tool
-            </th>
+          <tr className="border-b border-[#3a3a3e]">
+            <th className="text-left text-[#606068] py-1.5 pr-2 font-medium">Feature</th>
+            <th className="text-center text-[#606068] py-1.5 px-1 font-medium">Others</th>
+            <th className="text-center py-1.5 pl-1 font-medium text-[#4ade80]">This</th>
           </tr>
         </thead>
         <tbody>
           {COMPARISON_ROWS.map(({ feature, others, ours }, i) => (
             <tr
               key={feature}
-              className={`border-b border-[#1a1a1a] ${i % 2 === 1 ? 'bg-[#0d0d0d]' : ''}`}
+              className={`border-b border-[#2e2e32] ${i % 2 === 1 ? 'bg-[#1e1e20]' : ''}`}
             >
-              <td className="py-2 pr-2 text-gray-400">{feature}</td>
-              <td className="py-2 px-2 text-center text-gray-600 tabular">{others}</td>
-              <td className="py-2 pl-2 text-center font-medium tabular" style={{ color: '#4ade80' }}>
-                {ours}
-              </td>
+              <td className="py-1.5 pr-2 text-[#909098]">{feature}</td>
+              <td className="py-1.5 px-1 text-center text-[#606068] tabular">{others}</td>
+              <td className="py-1.5 pl-1 text-center font-medium tabular text-[#4ade80]">{ours}</td>
             </tr>
           ))}
         </tbody>
@@ -145,58 +96,13 @@ function ComparisonCard() {
 }
 
 // ---------------------------------------------------------------------------
-// Card C — community quotes
-// ---------------------------------------------------------------------------
-const QUOTES = [
-  {
-    text: 'Finally a simulator that actually runs the 1929 sequence. The 4% rule looks very different when you see it.',
-    source: 'r/financialindependence',
-  },
-  {
-    text: 'The SS timing breakeven alone is worth $19. Saved me hours of spreadsheet work.',
-    source: 'r/Bogleheads',
-  },
-];
-
-function StarRow() {
-  return (
-    <div className="flex gap-0.5">
-      {[1,2,3,4,5].map(i => (
-        <svg key={i} width="12" height="12" viewBox="0 0 12 12" fill="#f0b429">
-          <path d="M6 1l1.3 2.6L10 4.1 8 6.1l.5 2.9L6 7.5 3.5 9l.5-2.9-2-2 2.7-.5z" />
-        </svg>
-      ))}
-    </div>
-  );
-}
-
-function QuotesCard() {
-  return (
-    <div className="bg-[#111111] border border-[#2a2a2a] rounded-xl p-4 space-y-4">
-      <h3 className="text-sm font-semibold text-white">From the community</h3>
-
-      <div className="space-y-4">
-        {QUOTES.map(({ text, source }) => (
-          <div key={source} className="space-y-2">
-            <StarRow />
-            <p className="text-xs text-gray-400 italic leading-relaxed">"{text}"</p>
-            <p className="text-2xs text-gray-600">— {source}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ---------------------------------------------------------------------------
 // SidebarPanel — main export
 // ---------------------------------------------------------------------------
 export default function SidebarPanel({ isPro, onUnlockClick }) {
   return (
-    <aside className="w-full lg:w-[280px] xl:w-[300px] flex-shrink-0 space-y-4">
+    <aside className="hidden lg:flex flex-col w-44 xl:w-52 flex-shrink-0 gap-4">
       {!isPro && <ProCard onUnlockClick={onUnlockClick} />}
       <ComparisonCard />
-      <QuotesCard />
     </aside>
   );
 }
