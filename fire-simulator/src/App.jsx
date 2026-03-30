@@ -9,6 +9,9 @@ import React, { useState, useCallback } from 'react';
 import InputForm from './components/InputForm.jsx';
 import ResultsPanel from './components/ResultsPanel.jsx';
 import ProUnlockModal from './components/ProUnlockModal.jsx';
+import HeroSection from './components/HeroSection.jsx';
+import SidebarPanel from './components/SidebarPanel.jsx';
+import TransparencyStrip from './components/TransparencyStrip.jsx';
 import { useSimulation } from './hooks/useSimulation.js';
 import { isUnlocked, setUnlocked } from './utils/unlockKey.js';
 import { DEFAULT_RETIREMENT_YEARS, DEFAULT_STOCK_ALLOCATION } from './constants.js';
@@ -108,7 +111,10 @@ export default function App() {
         </div>
       </header>
 
-      {/* Main layout — sidebar inputs + results */}
+      {/* Hero section */}
+      <HeroSection />
+
+      {/* Main layout — inputs | results | sidebar */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Left column: inputs */}
@@ -120,7 +126,7 @@ export default function App() {
             />
           </aside>
 
-          {/* Right column: results */}
+          {/* Center column: results */}
           <div className="flex-1 min-w-0">
             <ResultsPanel
               results={results}
@@ -134,8 +140,17 @@ export default function App() {
               onRemoveScenario={handleRemoveScenario}
             />
           </div>
+
+          {/* Right column: conversion sidebar */}
+          <SidebarPanel
+            isPro={isPro}
+            onUnlockClick={() => setShowUnlockModal(true)}
+          />
         </div>
       </main>
+
+      {/* Transparency strip */}
+      <TransparencyStrip />
 
       {/* Footer */}
       <footer className="border-t border-[#2a2a2a] mt-12 py-6">
