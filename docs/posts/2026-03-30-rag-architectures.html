@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A practical guide to RAG architectures in 2026: when to use retrieval-augmented generation vs fine-tuning vs long context windows, with architecture patterns and a decision framework for data scientists.">
+  <title>RAG Architectures in 2026: A Practical Guide | Ryan Ordonez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/blog.css">
+</head>
+<body>
+
+  <!-- ===== SIDEBAR NAVIGATION ===== -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html" class="sidebar-logo">RO</a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="../index.html" class="sidebar-link" data-section="hero">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+      </a>
+      <a href="../about.html" class="sidebar-link" data-section="about">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>About</span>
+      </a>
+      <a href="../projects.html" class="sidebar-link" data-section="projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <span>Projects</span>
+      </a>
+      <a href="../skills.html" class="sidebar-link" data-section="skills">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <span>Skills</span>
+      </a>
+      <a href="../index.html#contact" class="sidebar-link" data-section="contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Contact</span>
+      </a>
+      <a href="../blog.html" class="sidebar-link active" data-section="blog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        <span>Blog</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="https://github.com/RyanOrdonez" target="_blank" rel="noopener noreferrer" class="sidebar-social" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/ryanordonez7" target="_blank" rel="noopener noreferrer" class="sidebar-social" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== MOBILE TOP NAV ===== -->
+  <nav id="mobile-nav" class="mobile-nav">
+    <a href="../index.html" class="mobile-nav-logo">RO</a>
+    <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="mobile-nav-menu">
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../index.html#contact">Contact</a>
+      <a href="../blog.html">Blog</a>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+
+    <!-- ===== POST HEADER ===== -->
+    <section class="blog-post-header">
+      <div class="container" style="max-width: 720px;">
+        <a href="../blog.html" class="blog-back-link">&larr; Back to Blog</a>
+        <h1 class="blog-post-title">RAG Architectures in 2026: A Practical Guide to Retrieval-Augmented Generation</h1>
+        <div class="blog-post-meta">
+          <time datetime="2026-03-30">March 30, 2026</time>
+          <span class="blog-card-tag">AI Engineering</span>
+          <span class="blog-post-author">Ryan Ordonez</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== POST CONTENT ===== -->
+    <section class="blog-post-content">
+      <div class="container">
+        <div class="blog-post-body">
+
+          <p>Every team building with LLMs in 2026 faces the same question: <strong>how do we get our model to answer accurately using our data?</strong> The three main approaches &mdash; retrieval-augmented generation (RAG), fine-tuning, and long context windows &mdash; each solve a different version of that problem. Most teams are still asking "which one should I use?" when the real question is "where should my intelligence live: in model weights, in external knowledge, or both?"</p>
+
+          <p>After building several RAG systems and reviewing the latest research, here's my practical breakdown of where things stand and when to use what.</p>
+
+          <h2>What RAG Actually Is</h2>
+
+          <p>At its core, RAG is a two-step process: <strong>retrieve</strong> relevant documents from a knowledge base, then <strong>generate</strong> a response using those documents as context. The original 2020 paper by Lewis et al. proposed this as a way to give language models access to external knowledge without retraining them. Six years later, that simple idea has evolved into a family of sophisticated architectures.</p>
+
+          <p>The key insight remains the same: instead of expecting the model to memorize everything during training, you feed it the right information at inference time. This is why RAG dominates enterprise AI &mdash; organizational knowledge changes constantly, and retraining a model every time a policy document updates is neither practical nor cost-effective.</p>
+
+          <h2>The Architecture Spectrum: From Naive to Agentic</h2>
+
+          <p>RAG architectures in 2026 fall along a spectrum of complexity:</p>
+
+          <h3>Naive RAG</h3>
+          <p>The baseline pattern: chunk your documents, embed them into a vector database, retrieve the top-k most similar chunks at query time, and pass them to the LLM as context. This is where most tutorials start and where many production systems still operate. It works surprisingly well for simple document Q&amp;A, but breaks down when queries require multi-hop reasoning, when relevant information spans multiple documents, or when the retrieved chunks are noisy.</p>
+
+          <h3>Advanced RAG</h3>
+          <p>The current sweet spot for production systems. Advanced RAG adds layers of intelligence around the basic retrieve-generate loop:</p>
+          <ul>
+            <li><strong>Query rewriting:</strong> Reformulating the user's question to improve retrieval quality (e.g., expanding acronyms, decomposing multi-part questions)</li>
+            <li><strong>Hybrid retrieval:</strong> Combining semantic search (dense embeddings) with lexical search (BM25/sparse) for better recall, especially on technical terms and proper nouns</li>
+            <li><strong>Reranking:</strong> Using a cross-encoder model to re-score retrieved chunks after initial retrieval, dramatically improving precision</li>
+            <li><strong>Hierarchical chunking:</strong> Approaches like RAPTOR that recursively embed, cluster, and summarize text at multiple abstraction levels for better multi-document reasoning</li>
+          </ul>
+
+          <h3>Agentic RAG</h3>
+          <p>The frontier. Agentic RAG wraps the retrieval pipeline in an autonomous agent that can decide <em>when</em> to retrieve, <em>what</em> to retrieve, and <em>whether the results are good enough</em>. Two key patterns have emerged:</p>
+          <ul>
+            <li><strong>Corrective RAG (CRAG):</strong> Evaluates retrieved evidence quality before generation. If the evidence is weak, it dynamically re-triggers retrieval with a reformulated query or decomposes the input into simpler sub-queries.</li>
+            <li><strong>Self-RAG:</strong> Incorporates self-reflection where the model decides whether it needs retrieval at all, evaluates relevance of retrieved data, and critiques its own outputs for factual grounding.</li>
+          </ul>
+
+          <h3>GraphRAG</h3>
+          <p>The newest entrant. GraphRAG combines vector search with knowledge graphs and structured ontologies. Instead of retrieving flat text chunks, it traverses relationships between entities &mdash; answering questions like "which suppliers are affected by the new tariff policy?" by following edges in a knowledge graph rather than hoping the right paragraph appears in a vector search. Enterprise implementations report search precision as high as 99% for structured queries, though the upfront investment in graph construction is significant.</p>
+
+          <h2>RAG vs. Fine-Tuning vs. Long Context</h2>
+
+          <p>Here's the decision framework I use:</p>
+
+          <p><strong>Use RAG when the failure mode is missing or stale knowledge.</strong> If your model gives wrong answers because it doesn't have access to the right information &mdash; company policies, product documentation, recent research &mdash; RAG is the answer. It's especially strong when data changes frequently, when you need source attribution ("this answer came from document X, page 3"), and when you're working across large document collections.</p>
+
+          <p><strong>Use fine-tuning when the failure mode is behavioral.</strong> If your model has the right information but responds in the wrong format, uses the wrong tone, or can't follow domain-specific reasoning patterns, fine-tuning is the fix. With PEFT methods like LoRA and QLoRA, fine-tuning a 7B model costs $50&ndash;$500 on a GPU marketplace &mdash; it's no longer a resource-gated activity. Fine-tuning changes <em>how</em> the model responds; RAG changes <em>what</em> it responds with.</p>
+
+          <p><strong>Use long context when your knowledge base is small enough to fit.</strong> If you can pass all relevant documents directly into the prompt &mdash; say, a 50-page technical spec or a codebase under 100 files &mdash; long context with prompt caching can be simpler and cheaper than building a RAG pipeline. But be aware: accuracy drops 10&ndash;20 percentage points when relevant information sits in the middle of long contexts rather than at the edges, and costs scale linearly with input tokens.</p>
+
+          <h2>The 2026 Best Practice: Hybrid Systems</h2>
+
+          <p>The most effective production systems in 2026 combine all three. A common pattern:</p>
+
+          <ol>
+            <li><strong>Fine-tune</strong> the base model for task-specific behavior &mdash; response format, domain vocabulary, reasoning patterns</li>
+            <li><strong>Use RAG</strong> to provide relevant domain context at inference time &mdash; the fine-tuned model handles "how" to respond, while RAG handles "what" to respond with</li>
+            <li><strong>Leverage long context</strong> as part of the RAG pipeline &mdash; retrieve the right 20 chunks, then pass them all at once for holistic reasoning</li>
+          </ol>
+
+          <p>RAG is also evolving from "retrieval-augmented generation" into something broader: a <strong>context engine</strong>. The idea is that no matter how intelligent an agent is, the quality of its decisions depends on the quality and relevance of the context it receives. Dynamically assembling the most effective context for different tasks at different moments &mdash; what some are calling "context engineering" &mdash; is becoming a core competency.</p>
+
+          <h2>A Decision Framework for Data Scientists</h2>
+
+          <p>Before you choose an architecture, start here:</p>
+
+          <ol>
+            <li><strong>Start with prompting + evals.</strong> If you skip evaluation, every architecture debate is just vibes. Define what "good" looks like first.</li>
+            <li><strong>Add RAG before fine-tuning</strong> for knowledge-heavy tasks. It's faster to set up, easier to debug, and you can swap the underlying model without rebuilding.</li>
+            <li><strong>Fine-tune when behavior is the bottleneck,</strong> not missing facts. Wrong format? Fine-tune. Wrong information? RAG.</li>
+            <li><strong>Implement hybrid retrieval</strong> (semantic + BM25) plus reranking where quality matters. Single-method retrieval consistently underperforms.</li>
+            <li><strong>Track two eval layers:</strong> retrieval metrics (recall@k, MRR) and answer metrics (accuracy, faithfulness, relevance). A perfect answer built on bad retrieval is a ticking time bomb.</li>
+          </ol>
+
+          <h2>Practical Takeaways</h2>
+
+          <ul>
+            <li><strong>Don't over-architect.</strong> Naive RAG with a good reranker beats a complex GraphRAG pipeline with bad data. Start simple, measure, then add complexity where metrics demand it.</li>
+            <li><strong>Hybrid retrieval is table stakes.</strong> If you're using only dense embeddings, you're leaving 15&ndash;30% recall on the table for technical and entity-heavy queries.</li>
+            <li><strong>Chunking strategy matters more than model choice.</strong> How you split documents &mdash; by semantic boundary, by section, by sliding window &mdash; has an outsized impact on retrieval quality.</li>
+            <li><strong>Build LLM-agnostic.</strong> The most future-proof RAG systems decouple retrieval from generation. When the next model drops, you should be able to swap it in without rebuilding your pipeline.</li>
+            <li><strong>Long context didn't kill RAG.</strong> Benchmarks consistently show that RAG is cheaper per query, more precise in what it retrieves, and faster for large knowledge bases. Use long context for small, complete documents; use RAG for everything else.</li>
+          </ul>
+
+          <blockquote>
+            <p>Put volatile knowledge in retrieval. Put stable behavior in weights. Stop trying to force one tool to do both jobs.</p>
+          </blockquote>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== POST FOOTER ===== -->
+    <section class="blog-post-footer">
+      <div class="container">
+        <div class="blog-post-nav">
+          <a href="../blog.html">&larr; All Posts</a>
+          <a href="2026-03-29-gpu-costs-2026.html">Previous: GPU Costs in 2026 &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 Ryan Ordonez</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
