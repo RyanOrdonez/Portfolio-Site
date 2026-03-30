@@ -1,7 +1,7 @@
 # FIRE Simulator — Build Progress
 
-**Last updated:** 2026-03-30
-**Overall status:** In Progress
+**Last updated:** 2026-03-30 (conversion sections)
+**Overall status:** MVP Complete — Live at promptinglogic.com
 
 ---
 
@@ -38,12 +38,14 @@
 
 ## Up Next
 
-- [ ] Commit and push to `claude/fullstack-engineer-setup-NuIxj`
-- [ ] Vercel deployment: import project, set root directory to `fire-simulator/`
-- [ ] Replace `#gumroad-link` in constants.js with real Gumroad product URL
-- [ ] Replace `['FIRE-PRO-DEMO-2025']` in unlockKey.js with real license keys
-- [ ] Update accent color from amber placeholder once Ryan confirms
-- [ ] PDF export + CSV download (jsPDF + html2canvas — deferred post-launch, deps already installed)
+- [x] Deployed to Vercel — live at `promptinglogic.com`
+- [x] Gumroad product live — `ryanordonez.gumroad.com/l/fire-sim-pro`
+- [x] Unlock key `FIRE-PRO-2025` wired in
+- [x] Hostinger DNS configured (A record + CNAME → Vercel)
+- [x] Conversion sections added: HeroSection, SidebarPanel (Pro card + comparison + quotes), TransparencyStrip
+- [x] All commits attributed to Ryan Ordonez (git env vars set globally)
+- [ ] PDF export + CSV download (jsPDF + html2canvas already installed — ready to build)
+- [ ] Share on r/financialindependence and r/Bogleheads to drive first customers
 
 ---
 
