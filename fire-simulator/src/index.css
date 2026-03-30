@@ -1,0 +1,59 @@
+/* index.css — global styles for FIRE Simulator */
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #0a0a0a;
+    color: #f5f5f5;
+    min-height: 100vh;
+  }
+
+  /* Custom scrollbar — dark themed */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #111111;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555555;
+  }
+}
+
+@layer utilities {
+  /* Pro feature blur overlay */
+  .blur-paywall {
+    filter: blur(6px);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Recharts override — prevent white backgrounds */
+  .recharts-surface {
+    overflow: visible;
+  }
+
+  /* Number display — tabular figures for aligned data */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}

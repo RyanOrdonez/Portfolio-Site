@@ -1,0 +1,9 @@
+// postcss.config.js
+// Purpose: PostCSS config required for Tailwind CSS v3
+
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
