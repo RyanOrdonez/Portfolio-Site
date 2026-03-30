@@ -1,0 +1,267 @@
+/* ============================================================
+   About Page Styles
+   ============================================================ */
+
+.about-header {
+  padding: 6rem 0 3rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.about-page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.about-page-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+/* ===== Career Timeline ===== */
+.about-timeline {
+  padding: 3rem 0;
+}
+
+.about-timeline > .container > h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-color);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 2.5rem;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.5rem;
+  top: 0.35rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  border: 3px solid var(--accent);
+  z-index: 1;
+}
+
+.timeline-item.milestone::before {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(224, 123, 57, 0.2);
+}
+
+.timeline-date {
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.35rem;
+}
+
+.timeline-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.timeline-org {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.timeline-desc ul {
+  margin: 0.5rem 0 0 1.25rem;
+  padding: 0;
+}
+
+.timeline-desc ul li {
+  margin-bottom: 0.3rem;
+}
+
+/* ===== About Sections ===== */
+.about-section {
+  padding: 3rem 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.about-section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+/* ===== Education Cards ===== */
+.education-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.edu-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: border-color var(--transition);
+}
+
+.edu-card:hover {
+  border-color: rgba(224, 123, 57, 0.3);
+}
+
+.edu-card-degree {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.edu-card-school {
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.edu-card-year {
+  font-family: var(--font-code);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.edu-card-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ===== Values Grid ===== */
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.value-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: border-color var(--transition);
+}
+
+.value-card:hover {
+  border-color: rgba(224, 123, 57, 0.3);
+}
+
+.value-card-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-dim);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.value-card-icon svg {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+}
+
+.value-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.value-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ===== Contact CTA ===== */
+.about-cta {
+  padding: 3rem 0;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.about-cta p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .about-header {
+    padding: 4rem 0 2rem;
+  }
+
+  .about-page-title {
+    font-size: 2rem;
+  }
+
+  .education-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline {
+    padding-left: 2rem;
+  }
+
+  .timeline-item::before {
+    left: -2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-page-title {
+    font-size: 1.65rem;
+  }
+}
