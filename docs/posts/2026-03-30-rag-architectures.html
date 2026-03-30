@@ -43,6 +43,8 @@
         <div class="blog-post-layout">
         <div class="blog-post-body">
 
+          <img src="../assets/images/blog/rag-architectures/hero.png" alt="Documents being chunked and embedded into a vector space, then retrieved and fed into an LLM for answer generation" class="blog-post-hero" loading="eager" />
+
           <p>Every team building with LLMs in 2026 faces the same question: <strong>how do we get our model to answer accurately using our data?</strong> The three main approaches &mdash; retrieval-augmented generation (RAG), fine-tuning, and long context windows &mdash; each solve a different version of that problem. Most teams are still asking "which one should I use?" when the real question is "where should my intelligence live: in model weights, in external knowledge, or both?"</p>
 
           <p>After building several RAG systems and reviewing the latest research, here's my practical breakdown of where things stand and when to use what.</p>
@@ -78,6 +80,11 @@
 
           <h3>GraphRAG</h3>
           <p>The newest entrant. GraphRAG combines vector search with knowledge graphs and structured ontologies. Instead of retrieving flat text chunks, it traverses relationships between entities &mdash; answering questions like "which suppliers are affected by the new tariff policy?" by following edges in a knowledge graph rather than hoping the right paragraph appears in a vector search. Enterprise implementations report search precision as high as 99% for structured queries, though the upfront investment in graph construction is significant.</p>
+
+          <figure class="blog-post-figure">
+            <img src="../assets/images/blog/rag-architectures/pipeline-comparison.png" alt="Side-by-side comparison of naive RAG with a simple linear flow versus advanced RAG with complex re-ranking and self-reflection loops" loading="lazy" />
+            <figcaption>Naive vs. advanced RAG &mdash; production systems add query rewriting, hybrid retrieval, reranking, and self-reflection.</figcaption>
+          </figure>
 
           <h2>RAG vs. Fine-Tuning vs. Long Context</h2>
 
