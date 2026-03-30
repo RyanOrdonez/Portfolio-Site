@@ -61,7 +61,7 @@ export const BRACKET_22_TOP_MFJ = 201050;       // married filing jointly
 // Paywall — valid license keys (placeholder; replace with real keys from Gumroad)
 // The real key list lives in utils/unlockKey.js
 export const PRO_PRICE_DISPLAY = '$19';
-export const GUMROAD_PRODUCT_URL = 'https://ryanordonez.gumroad.com/l/jessl';
+export const GUMROAD_PRODUCT_URL = 'https://ryanordonez.gumroad.com/l/fire-sim-pro';
 
 // Fan chart percentile bands to compute and display
 export const PERCENTILE_BANDS = [10, 25, 50, 75, 90];
