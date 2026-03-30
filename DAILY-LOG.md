@@ -9,7 +9,7 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 ### Portfolio Site Enhancements
 - [x] Create dedicated Projects page with expanded detail
 - [x] Create dedicated Skills page with proficiency levels and project links
-- [ ] Create dedicated About page with full career timeline
+- [x] Create dedicated About page with full career timeline
 - [ ] Add blog search and tag filtering
 - [ ] Add RSS feed for blog
 - [ ] Add project screenshots/demo GIFs to project cards
@@ -30,7 +30,7 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 - [ ] Data Engineering Pipeline (Airflow + dbt + Snowflake)
 
 ### Blog Topics Queue
-- [ ] RAG architectures and when to use them
+- [x] RAG architectures and when to use them
 - [ ] Building production ML pipelines with MLflow
 - [ ] Fine-tuning open source LLMs on custom data
 - [ ] The data scientist's guide to prompt engineering
@@ -40,6 +40,25 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 ---
 
 ## Completed Work
+
+### Day 5 — March 30, 2026
+**Portfolio Action:** Created Dedicated About Page (Option D)
+- Created `docs/about.html` with full career timeline, education cards, and "How I Work" values section
+- Created `docs/assets/css/about.css` with vertical timeline layout, education cards, and values grid
+- Career timeline covers: M.S. Data Science (2026), CU Boulder graduate research (2024-2026), U.S. Embassy Baghdad diplomatic security (2020-2024), B.S. Business Management Portland State (2017), U.S. Army infantry & operations (2004-2020)
+- Education section with detailed cards for M.S. and B.S. degrees
+- "How I Work" section with 4 value cards: Rigorous Validation, Clear Communication, Structured Planning, End-to-End Ownership
+- Added "View Full Career Timeline" CTA on homepage about section
+- Updated sidebar navigation on blog.html and index.html to link About to dedicated page
+- Updated hero "About Me" button to link to new about.html
+
+**Blog:** "RAG Architectures in 2026: A Practical Guide to Retrieval-Augmented Generation"
+- Topic: Comprehensive breakdown of RAG architecture patterns and when to use them
+- Covers: Naive RAG vs Advanced RAG vs Agentic RAG vs GraphRAG architecture spectrum
+- RAG vs fine-tuning vs long context windows decision framework
+- 2026 best practice: hybrid systems combining all three approaches
+- Key insight: Put volatile knowledge in retrieval, put stable behavior in weights
+- Practical 5-step decision framework for data scientists
 
 ### Day 4 — March 29, 2026
 **Portfolio Action:** Enhanced Portfolio Site (Option D)

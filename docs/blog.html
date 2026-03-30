@@ -35,7 +35,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <span>Home</span>
       </a>
-      <a href="index.html#about" class="sidebar-link" data-section="about">
+      <a href="about.html" class="sidebar-link" data-section="about">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         <span>About</span>
       </a>
@@ -66,8 +66,8 @@
     </button>
     <div class="mobile-nav-menu">
       <a href="index.html">Home</a>
-      <a href="index.html#about">About</a>
-      <a href="index.html#projects">Projects</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
       <a href="skills.html">Skills</a>
       <a href="index.html#contact">Contact</a>
       <a href="blog.html">Blog</a>
@@ -88,6 +88,16 @@
     <!-- ===== BLOG POSTS ===== -->
     <section class="blog-posts">
       <div class="container">
+
+        <article class="blog-card" onclick="window.location.href='posts/2026-03-30-rag-architectures.html'">
+          <div class="blog-card-meta">
+            <time datetime="2026-03-30">March 30, 2026</time>
+            <span class="blog-card-tag">AI Engineering</span>
+          </div>
+          <h2 class="blog-card-title">RAG Architectures in 2026: A Practical Guide to Retrieval-Augmented Generation</h2>
+          <p class="blog-card-excerpt">From naive retrieve-and-generate to agentic self-reflective pipelines and GraphRAG, the RAG landscape has evolved dramatically. Here's a practical framework for choosing between RAG, fine-tuning, and long context windows &mdash; and why most production systems in 2026 use all three.</p>
+          <span class="blog-card-read">Read more &rarr;</span>
+        </article>
 
         <article class="blog-card" onclick="window.location.href='posts/2026-03-29-gpu-costs-2026.html'">
           <div class="blog-card-meta">
