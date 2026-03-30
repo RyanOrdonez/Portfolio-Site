@@ -21,20 +21,21 @@ export default function HeroSection() {
         <div className="inline-flex items-center gap-2 border border-[#2a2a2a] bg-[#111111] rounded-full px-4 py-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-[#4ade80] inline-block" />
           <span className="text-xs text-gray-400 tracking-wide">
-            10,000 simulation paths · real inflation-adjusted returns
+            Built for millennials and Gen Z who aren't counting on Social Security
           </span>
         </div>
 
         {/* H1 */}
         <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight tracking-tight">
-          Will your money{' '}
-          <span style={{ color: '#f0b429' }}>outlive you?</span>
+          Plan your retirement as if{' '}
+          <span style={{ color: '#f0b429' }}>Social Security doesn't exist.</span>
         </h1>
 
         {/* Subheadline */}
         <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto">
-          The only free FIRE simulator that stress-tests your portfolio against the actual
-          1929 crash, the dot-com bust, and 2008 — not just average market assumptions.
+          The SSA projects its trust fund runs out around 2033. If you're under 50, that's during
+          your retirement. We built the calculator we wish existed at 25 — honest math, no jargon,
+          no government safety net assumed.
         </p>
 
         {/* Stat pills */}
@@ -46,6 +47,11 @@ export default function HeroSection() {
             </div>
           ))}
         </div>
+
+        {/* Micro-copy below stats */}
+        <p className="text-xs text-gray-600 pt-1">
+          Less than two lunches. More than a financial advisor would charge for this analysis.
+        </p>
 
       </div>
     </section>

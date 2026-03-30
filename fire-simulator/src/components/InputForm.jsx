@@ -7,7 +7,7 @@
 //   onRun(inputs) — callback when user submits
 //   isRunning     — boolean, disables submit while simulation runs
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 // ---------------------------------------------------------------------------
 // Field wrapper — consistent label + input spacing
@@ -105,8 +105,36 @@ function SectionDivider({ label }) {
 // ---------------------------------------------------------------------------
 // InputForm — main component
 // ---------------------------------------------------------------------------
-export default function InputForm({ initialValues, onRun, isRunning }) {
+// ---------------------------------------------------------------------------
+// InputForm — main component
+// Props:
+//   initialValues       — default input object
+//   onRun(inputs)       — callback when user submits
+//   isRunning           — boolean
+//   allocationOverride  — number | null — externally set stock % (0-100); synced via effect
+//   ssScenario          — 'none' | 'reduced' | 'full'
+//   ssMonthlyBenefit    — number
+//   ssClaimingAge       — 62 | 67 | 70
+//   onSsChange          — function({ ssMonthlyBenefit, ssClaimingAge }) → updates App state
+// ---------------------------------------------------------------------------
+export default function InputForm({
+  initialValues,
+  onRun,
+  isRunning,
+  allocationOverride,
+  ssScenario,
+  ssMonthlyBenefit,
+  ssClaimingAge,
+  onSsChange,
+}) {
   const [form, setForm] = useState(initialValues);
+
+  // Sync allocation when AllocationGuide applies a bracket
+  useEffect(() => {
+    if (allocationOverride != null) {
+      setForm(prev => ({ ...prev, stockAllocation: allocationOverride }));
+    }
+  }, [allocationOverride]);
 
   const set = useCallback((key) => (value) => {
     setForm(prev => ({ ...prev, [key]: value }));
@@ -114,14 +142,16 @@ export default function InputForm({ initialValues, onRun, isRunning }) {
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    // Compute retirement years if not already retired
     const retirementYears = form.retirementYears;
     onRun({
       ...form,
       stockAllocation: form.stockAllocation / 100, // convert % to decimal
       retirementYears,
+      // SS params from App.jsx state — merged here so the engine receives them
+      ssMonthlyBenefit: ssMonthlyBenefit ?? 0,
+      ssClaimingAge: ssClaimingAge ?? 67,
     });
-  }, [form, onRun]);
+  }, [form, onRun, ssMonthlyBenefit, ssClaimingAge]);
 
   // Derived: withdrawal rate preview
   const wdRate = form.portfolioValue > 0
@@ -243,6 +273,52 @@ export default function InputForm({ initialValues, onRun, isRunning }) {
             onChange={set('stockAllocation')}
           />
         </Field>
+
+        {/* Social Security inputs — shown when SS scenario is not 'none' */}
+        {ssScenario && ssScenario !== 'none' && (
+          <>
+            <SectionDivider label="Social Security" />
+
+            <Field label="Monthly SS Benefit at FRA" hint="from SSA estimate">
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm pointer-events-none">$</span>
+                <input
+                  type="number"
+                  value={ssMonthlyBenefit ?? ''}
+                  onChange={(e) => onSsChange({ ssMonthlyBenefit: Number(e.target.value) || 0, ssClaimingAge })}
+                  min={0}
+                  step={100}
+                  placeholder="2,000"
+                  className="w-full bg-[#1a1a1a] border border-[#2a2a2a] rounded-md pl-7 pr-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-amber-400/60 tabular"
+                />
+              </div>
+            </Field>
+
+            <Field label="Claiming Age">
+              <div className="grid grid-cols-3 gap-1.5">
+                {[62, 67, 70].map((age) => (
+                  <button
+                    key={age}
+                    type="button"
+                    onClick={() => onSsChange({ ssMonthlyBenefit, ssClaimingAge: age })}
+                    className={`py-1.5 rounded-md text-xs font-medium border transition-colors ${
+                      ssClaimingAge === age
+                        ? 'border-amber-400/60 bg-amber-400/10 text-amber-400'
+                        : 'border-[#2a2a2a] bg-[#1a1a1a] text-gray-500 hover:text-gray-300'
+                    }`}
+                  >
+                    Age {age}
+                  </button>
+                ))}
+              </div>
+              <div className="flex justify-between text-2xs text-gray-700 mt-1 px-0.5">
+                <span>70% of FRA</span>
+                <span>Full</span>
+                <span>124% of FRA</span>
+              </div>
+            </Field>
+          </>
+        )}
 
         {/* Run button */}
         <button

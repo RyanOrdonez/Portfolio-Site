@@ -5,16 +5,19 @@
 //   - saved scenarios list
 // Key exports: default App
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import InputForm from './components/InputForm.jsx';
 import ResultsPanel from './components/ResultsPanel.jsx';
 import ProUnlockModal from './components/ProUnlockModal.jsx';
 import HeroSection from './components/HeroSection.jsx';
 import SidebarPanel from './components/SidebarPanel.jsx';
 import TransparencyStrip from './components/TransparencyStrip.jsx';
+import AllocationGuide from './components/AllocationGuide.jsx';
+import IRASection from './components/IRASection.jsx';
 import { useSimulation } from './hooks/useSimulation.js';
 import { isUnlocked, setUnlocked } from './utils/unlockKey.js';
 import { DEFAULT_RETIREMENT_YEARS, DEFAULT_STOCK_ALLOCATION } from './constants.js';
+import { SS_MULTIPLIERS, SS_AGE_ADJUSTMENTS } from './utils/financialConstants.js';
 
 // Default form inputs — displayed on first load so the app never shows blank state
 const DEFAULT_INPUTS = {
@@ -41,16 +44,71 @@ export default function App() {
   // --- Saved scenarios (Pro feature) ---
   const [scenarios, setScenarios] = useState([]);
 
-  // Handle form submission
-  const handleRun = useCallback((formInputs) => {
-    setInputs(formInputs);
-    run({
+  // --- SS scenario state ---
+  const [ssScenario, setSsScenario] = useState('none');       // 'none' | 'reduced' | 'full'
+  const [ssMonthlyBenefit, setSsMonthlyBenefit] = useState(2000); // FRA monthly benefit
+  const [ssClaimingAge, setSsClaimingAge] = useState(67);
+
+  // --- Allocation override (from AllocationGuide "Apply" button) ---
+  const [allocationOverride, setAllocationOverride] = useState(null);
+
+  // --- Ref to results panel DOM node for PDF export ---
+  const resultsRef = useRef(null);
+
+  // Keep a ref to last form inputs so SS scenario changes can trigger re-run
+  const lastFormInputsRef = useRef(null);
+
+  // ---------------------------------------------------------------------------
+  // computeSimInputs — merges form inputs with current SS state
+  // ---------------------------------------------------------------------------
+  const computeSimInputs = useCallback((formInputs, scenario, monthlyBenefit, claimingAge) => {
+    const retirementStartAge = formInputs.alreadyRetired
+      ? formInputs.currentAge
+      : (formInputs.retirementAge ?? formInputs.currentAge);
+
+    const ssAnnualIncome = scenario === 'none'
+      ? 0
+      : (monthlyBenefit ?? 0) * 12
+        * (SS_MULTIPLIERS[scenario] ?? 1.0)
+        * (SS_AGE_ADJUSTMENTS[claimingAge] ?? 1.0);
+
+    const ssStartYear = Math.max(0, (claimingAge ?? 67) - retirementStartAge);
+
+    return {
       portfolioValue: formInputs.portfolioValue,
       annualSpending: formInputs.annualSpending,
       stockAllocation: formInputs.stockAllocation,
       retirementYears: formInputs.retirementYears,
-    });
-  }, [run]);
+      ssAnnualIncome,
+      ssStartYear: scenario === 'none' ? Infinity : ssStartYear,
+    };
+  }, []);
+
+  // Handle form submission
+  const handleRun = useCallback((formInputs) => {
+    setInputs(formInputs);
+    lastFormInputsRef.current = formInputs;
+    run(computeSimInputs(formInputs, ssScenario, ssMonthlyBenefit, ssClaimingAge));
+  }, [run, computeSimInputs, ssScenario, ssMonthlyBenefit, ssClaimingAge]);
+
+  // Auto-rerun when SS scenario changes (only if a simulation has already run)
+  useEffect(() => {
+    if (lastFormInputsRef.current) {
+      run(computeSimInputs(lastFormInputsRef.current, ssScenario, ssMonthlyBenefit, ssClaimingAge));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ssScenario, ssMonthlyBenefit, ssClaimingAge]);
+
+  const handleSsChange = useCallback(({ ssMonthlyBenefit: mb, ssClaimingAge: ca }) => {
+    if (mb !== undefined) setSsMonthlyBenefit(mb);
+    if (ca !== undefined) setSsClaimingAge(ca);
+  }, []);
+
+  const handleAllocationApply = useCallback((pct) => {
+    setAllocationOverride(pct);
+    // Reset override after InputForm syncs, so next AllocationGuide click re-triggers effect
+    setTimeout(() => setAllocationOverride(null), 100);
+  }, []);
 
   // Handle Pro unlock success
   const handleUnlockSuccess = useCallback(() => {
@@ -123,11 +181,16 @@ export default function App() {
               initialValues={DEFAULT_INPUTS}
               onRun={handleRun}
               isRunning={isRunning}
+              allocationOverride={allocationOverride}
+              ssScenario={ssScenario}
+              ssMonthlyBenefit={ssMonthlyBenefit}
+              ssClaimingAge={ssClaimingAge}
+              onSsChange={handleSsChange}
             />
           </aside>
 
           {/* Center column: results */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0" ref={resultsRef}>
             <ResultsPanel
               results={results}
               inputs={lastInputs}
@@ -138,6 +201,9 @@ export default function App() {
               scenarios={scenarios}
               onSaveScenario={handleSaveScenario}
               onRemoveScenario={handleRemoveScenario}
+              ssScenario={ssScenario}
+              onSsScenarioChange={setSsScenario}
+              resultsRef={resultsRef}
             />
           </div>
 
@@ -148,6 +214,19 @@ export default function App() {
           />
         </div>
       </main>
+
+      {/* Allocation by Age guide */}
+      <AllocationGuide
+        currentAge={inputs?.currentAge}
+        onApply={handleAllocationApply}
+      />
+
+      {/* IRA section */}
+      <IRASection
+        isPro={isPro}
+        onUnlockClick={() => setShowUnlockModal(true)}
+        currentAge={inputs?.currentAge}
+      />
 
       {/* Transparency strip */}
       <TransparencyStrip />

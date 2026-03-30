@@ -40,6 +40,7 @@ export function useSimulation() {
     // 10k simulations takes ~200-500ms on modern hardware — enough to block the UI.
     setTimeout(() => {
       try {
+        // inputs may include ssAnnualIncome and ssStartYear — passed through directly
         const simResults = runSimulation(inputs);
 
         // Only commit results if this is still the latest run

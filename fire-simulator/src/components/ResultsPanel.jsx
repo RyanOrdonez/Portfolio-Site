@@ -22,6 +22,8 @@ import StressTests from './StressTests.jsx';
 import ScenarioTable from './ScenarioTable.jsx';
 import SocialSecurity from './SocialSecurity.jsx';
 import RothOptimizer from './RothOptimizer.jsx';
+import SSScenarioToggle from './SSScenarioToggle.jsx';
+import ExportPanel from './ExportPanel.jsx';
 import { formatCurrency } from '../utils/formatters.js';
 
 // ---------------------------------------------------------------------------
@@ -123,6 +125,9 @@ export default function ResultsPanel({
   scenarios,
   onSaveScenario,
   onRemoveScenario,
+  ssScenario,
+  onSsScenarioChange,
+  resultsRef,
 }) {
   if (isRunning) return <LoadingState />;
   if (error) {
@@ -139,6 +144,14 @@ export default function ResultsPanel({
 
   return (
     <div className="space-y-4">
+      {/* SS scenario toggle — above success rate */}
+      {onSsScenarioChange && (
+        <SSScenarioToggle
+          scenario={ssScenario ?? 'none'}
+          onChange={onSsScenarioChange}
+        />
+      )}
+
       {/* Success rate — top hero */}
       <SuccessRate
         successRate={successRate}
@@ -215,6 +228,15 @@ export default function ResultsPanel({
       {/* Roth conversion optimizer */}
       <UnlockGate isPro={isPro} onUnlockClick={onUnlockClick} featureName="Roth Conversion Optimizer">
         <RothOptimizer />
+      </UnlockGate>
+
+      {/* PDF / CSV export */}
+      <UnlockGate isPro={isPro} onUnlockClick={onUnlockClick} featureName="PDF & CSV Export">
+        <ExportPanel
+          results={results}
+          inputs={inputs}
+          resultsRef={resultsRef}
+        />
       </UnlockGate>
     </div>
   );

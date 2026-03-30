@@ -65,13 +65,17 @@ function blendedReturn(stockReturn, bondReturn, stockAllocation) {
 //   annualSpending    — real annual withdrawal (today's dollars, inflation-adjusted)
 //   years             — number of years to simulate
 //   stockAllocation   — fraction in stocks (0–1)
+//   ssAnnualIncome    — annual Social Security income in today's dollars (default 0)
+//                       Applied as a spending offset: reduces portfolio withdrawal each year
+//   ssStartYear       — retirement-relative year when SS income begins (default Infinity)
+//                       e.g. retiring at 60, claiming at 67 → ssStartYear = 7
 //
 // Returns:
 //   { values: Float64Array(years+1), depletedYear: number|null }
 //   values[0] = initialPortfolio, values[i] = portfolio at end of year i
 //   depletedYear = year the portfolio first hits $0 (null if it survives)
 // ---------------------------------------------------------------------------
-function runSinglePath(initialPortfolio, annualSpending, years, stockAllocation) {
+function runSinglePath(initialPortfolio, annualSpending, years, stockAllocation, ssAnnualIncome = 0, ssStartYear = Infinity) {
   const values = new Float64Array(years + 1);
   values[0] = initialPortfolio;
 
@@ -80,9 +84,11 @@ function runSinglePath(initialPortfolio, annualSpending, years, stockAllocation)
 
   for (let year = 1; year <= years; year++) {
     // 1. Withdraw at start of year (Bengen / SWR convention: withdraw first, then grow)
-    //    Some models grow first; we use withdraw-first as it's more conservative and
-    //    matches the original Trinity Study methodology.
-    portfolio -= annualSpending;
+    //    SS income offsets the withdrawal — portfolio only covers the gap.
+    //    floor at 0: if SS alone covers spending, no portfolio withdrawal needed.
+    const ssIncome = year >= ssStartYear ? ssAnnualIncome : 0;
+    const effectiveWithdrawal = Math.max(0, annualSpending - ssIncome);
+    portfolio -= effectiveWithdrawal;
 
     if (portfolio <= 0) {
       // Portfolio depleted before returns are applied
@@ -159,6 +165,8 @@ function computePercentileTrajectories(allPaths, years, percentiles) {
 //   stockAllocation   — fraction in stocks (0.0–1.0)
 //   retirementYears   — number of years to simulate (default 30)
 //   simCount          — override number of simulations (default SIM_COUNT = 10000)
+//   ssAnnualIncome    — annual SS income in today's dollars (default 0)
+//   ssStartYear       — retirement-relative year SS begins (default Infinity)
 //
 // Returns:
 //   {
@@ -178,20 +186,24 @@ export function runSimulation({
   stockAllocation,
   retirementYears,
   simCount = SIM_COUNT,
+  ssAnnualIncome = 0,
+  ssStartYear = Infinity,
 }) {
   // Input validation — engine should not throw on bad UI inputs
-  const portfolio = Math.max(0, portfolioValue ?? 0);
+  const portfolio  = Math.max(0, portfolioValue ?? 0);
   const spending   = Math.max(0, annualSpending ?? 0);
   const allocation = Math.min(1, Math.max(0, stockAllocation ?? 0.8));
   const years      = Math.max(1, Math.min(60, retirementYears ?? 30));
   const n          = Math.max(100, simCount);
+  const ssIncome   = Math.max(0, ssAnnualIncome ?? 0);
+  const ssStart    = ssStartYear ?? Infinity;
 
   const allPaths = [];
   let successCount = 0;
   const depletionYears = [];
 
   for (let sim = 0; sim < n; sim++) {
-    const { values, depletedYear } = runSinglePath(portfolio, spending, years, allocation);
+    const { values, depletedYear } = runSinglePath(portfolio, spending, years, allocation, ssIncome, ssStart);
     allPaths.push(values);
 
     if (depletedYear === null) {
