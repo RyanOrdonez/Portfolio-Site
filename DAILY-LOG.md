@@ -10,7 +10,7 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 - [x] Create dedicated Projects page with expanded detail
 - [x] Create dedicated Skills page with proficiency levels and project links
 - [x] Create dedicated About page with full career timeline
-- [ ] Add blog search and tag filtering
+- [x] Add blog search and tag filtering
 - [ ] Add RSS feed for blog
 - [ ] Add project screenshots/demo GIFs to project cards
 - [ ] Add dark/light theme toggle
@@ -32,7 +32,7 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 ### Blog Topics Queue
 - [x] RAG architectures and when to use them
 - [ ] Building production ML pipelines with MLflow
-- [ ] Fine-tuning open source LLMs on custom data
+- [x] Fine-tuning open source LLMs on custom data
 - [ ] The data scientist's guide to prompt engineering
 - [x] GPU costs in 2026: cloud vs on-prem analysis
 - [ ] Vector databases compared: Pinecone vs Weaviate vs Chroma
@@ -40,6 +40,28 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 ---
 
 ## Completed Work
+
+### Day 6 — March 31, 2026
+**Portfolio Action:** Added Blog Search and Tag Filtering (Option D)
+- Added search input with magnifying glass icon to `docs/blog.html` for real-time text filtering across post titles and excerpts
+- Added tag filter buttons (All, Machine Learning, AI Engineering, MLOps, AI Industry, AI Regulation, AI Trends) for one-click category filtering
+- Each blog card now has a `data-tags` attribute for JavaScript-based filtering
+- Search and tag filters work together — users can combine text search with tag selection
+- "No results" message displays when no posts match the current filters
+- Updated `docs/assets/css/blog.css` with styles for search input, filter buttons, active states, focus ring, and responsive breakpoints
+- All filtering logic runs client-side with vanilla JavaScript (no dependencies)
+
+**Blog:** "Fine-Tuning Open Source LLMs on Custom Data: A 2026 Practical Guide"
+- Topic: Comprehensive practical guide to fine-tuning open source LLMs with LoRA and QLoRA
+- Covers: When to fine-tune vs RAG vs prompting decision framework
+- Model landscape: Llama 3.2 8B, Mistral 7B v0.3, Qwen 2.5 7B, Gemma 2 9B comparison
+- LoRA vs QLoRA tradeoffs — QLoRA as the 2026 default (1-2% quality gap, massive VRAM savings)
+- Hyperparameter guide: r=16, alpha=32, all-linear targets, cosine LR, 1-3 epochs
+- Data preparation: quality over quantity (200 curated > 2,000 noisy), chat template formatting
+- 2026 software stack: HuggingFace + Unsloth + TRL + vLLM
+- RAG + fine-tuning hybrid pattern for production systems
+- Common pitfalls: wrong chat templates, catastrophic forgetting, skipping evaluation
+- Step-by-step workflow from baseline to deployment
 
 ### Day 5 — March 30, 2026
 **Portfolio Action:** Created Dedicated About Page (Option D)

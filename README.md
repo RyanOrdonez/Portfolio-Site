@@ -26,12 +26,13 @@ Personal portfolio website showcasing data science projects, technical blog, and
 | **About** | Full career timeline, education, and professional values | [Visit &rarr;](https://ryanordonez.github.io/Portfolio-Site/about.html) |
 | **Projects** | Detailed breakdowns with methodology, metrics, and tech stack for each project | [Visit &rarr;](https://ryanordonez.github.io/Portfolio-Site/projects.html) |
 | **Skills** | Technical skills with proficiency levels, progress bars, and project links | [Visit &rarr;](https://ryanordonez.github.io/Portfolio-Site/skills.html) |
-| **Blog** | Posts on AI trends, regulation, industry analysis, and technical deep dives | [Visit &rarr;](https://ryanordonez.github.io/Portfolio-Site/blog.html) |
+| **Blog** | Posts on AI trends, regulation, industry analysis, and technical deep dives (with search & tag filtering) | [Visit &rarr;](https://ryanordonez.github.io/Portfolio-Site/blog.html) |
 
 ## Recent Blog Posts
 
 | Date | Post | Topic |
 |------|------|-------|
+| Mar 31, 2026 | [Fine-Tuning Open Source LLMs on Custom Data: A 2026 Practical Guide](https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-31-fine-tuning-open-source-llms.html) | Machine Learning |
 | Mar 30, 2026 | [RAG Architectures in 2026: A Practical Guide](https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-30-rag-architectures.html) | AI Engineering |
 | Mar 29, 2026 | [GPU Costs in 2026: A Data Scientist's Guide to Cloud vs. On-Prem](https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-29-gpu-costs-2026.html) | MLOps |
 | Mar 28, 2026 | [The Claude Mythos Leak: What a Misconfigured CMS Tells Us About the Next Wave of AI](https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-28-claude-mythos-leak.html) | AI Industry |
@@ -60,8 +61,9 @@ docs/
 ├── about.html              # Career timeline & background
 ├── projects.html           # Detailed project breakdowns
 ├── skills.html             # Skills with proficiency levels
-├── blog.html               # Blog listing
+├── blog.html               # Blog listing (with search & tag filtering)
 ├── posts/                  # Individual blog posts
+│   ├── 2026-03-31-fine-tuning-open-source-llms.html
 │   ├── 2026-03-30-rag-architectures.html
 │   ├── 2026-03-29-gpu-costs-2026.html
 │   ├── 2026-03-28-claude-mythos-leak.html
