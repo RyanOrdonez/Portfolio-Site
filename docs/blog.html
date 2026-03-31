@@ -85,11 +85,40 @@
       </div>
     </section>
 
+    <!-- ===== SEARCH & FILTER ===== -->
+    <section class="blog-filters">
+      <div class="container">
+        <div class="blog-search-wrapper">
+          <svg class="blog-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="blog-search" class="blog-search-input" placeholder="Search posts..." autocomplete="off" />
+        </div>
+        <div class="blog-tag-filters">
+          <button class="blog-tag-btn active" data-tag="all">All</button>
+          <button class="blog-tag-btn" data-tag="Machine Learning">Machine Learning</button>
+          <button class="blog-tag-btn" data-tag="AI Engineering">AI Engineering</button>
+          <button class="blog-tag-btn" data-tag="MLOps">MLOps</button>
+          <button class="blog-tag-btn" data-tag="AI Industry">AI Industry</button>
+          <button class="blog-tag-btn" data-tag="AI Regulation">AI Regulation</button>
+          <button class="blog-tag-btn" data-tag="AI Trends">AI Trends</button>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== BLOG POSTS ===== -->
     <section class="blog-posts">
       <div class="container">
 
-        <article class="blog-card" onclick="window.location.href='posts/2026-03-30-rag-architectures.html'">
+        <article class="blog-card" data-tags="Machine Learning" onclick="window.location.href='posts/2026-03-31-fine-tuning-open-source-llms.html'">
+          <div class="blog-card-meta">
+            <time datetime="2026-03-31">March 31, 2026</time>
+            <span class="blog-card-tag">Machine Learning</span>
+          </div>
+          <h2 class="blog-card-title">Fine-Tuning Open Source LLMs on Custom Data: A 2026 Practical Guide</h2>
+          <p class="blog-card-excerpt">From LoRA to QLoRA, the barrier to fine-tuning has shifted from compute to judgment. Here's the practical playbook for choosing your base model, preparing data, setting hyperparameters, and deploying fine-tuned 8B models on consumer hardware.</p>
+          <span class="blog-card-read">Read more &rarr;</span>
+        </article>
+
+        <article class="blog-card" data-tags="AI Engineering" onclick="window.location.href='posts/2026-03-30-rag-architectures.html'">
           <div class="blog-card-meta">
             <time datetime="2026-03-30">March 30, 2026</time>
             <span class="blog-card-tag">AI Engineering</span>
@@ -99,7 +128,7 @@
           <span class="blog-card-read">Read more &rarr;</span>
         </article>
 
-        <article class="blog-card" onclick="window.location.href='posts/2026-03-29-gpu-costs-2026.html'">
+        <article class="blog-card" data-tags="MLOps" onclick="window.location.href='posts/2026-03-29-gpu-costs-2026.html'">
           <div class="blog-card-meta">
             <time datetime="2026-03-29">March 29, 2026</time>
             <span class="blog-card-tag">MLOps</span>
@@ -109,7 +138,7 @@
           <span class="blog-card-read">Read more &rarr;</span>
         </article>
 
-        <article class="blog-card" onclick="window.location.href='posts/2026-03-28-claude-mythos-leak.html'">
+        <article class="blog-card" data-tags="AI Industry" onclick="window.location.href='posts/2026-03-28-claude-mythos-leak.html'">
           <div class="blog-card-meta">
             <time datetime="2026-03-28">March 28, 2026</time>
             <span class="blog-card-tag">AI Industry</span>
@@ -119,7 +148,7 @@
           <span class="blog-card-read">Read more &rarr;</span>
         </article>
 
-        <article class="blog-card" onclick="window.location.href='posts/2026-03-27-ai-accountability-act.html'">
+        <article class="blog-card" data-tags="AI Regulation" onclick="window.location.href='posts/2026-03-27-ai-accountability-act.html'">
           <div class="blog-card-meta">
             <time datetime="2026-03-27">March 27, 2026</time>
             <span class="blog-card-tag">AI Regulation</span>
@@ -129,7 +158,7 @@
           <span class="blog-card-read">Read more &rarr;</span>
         </article>
 
-        <article class="blog-card" onclick="window.location.href='posts/2026-03-26-agentic-ai.html'">
+        <article class="blog-card" data-tags="AI Trends" onclick="window.location.href='posts/2026-03-26-agentic-ai.html'">
           <div class="blog-card-meta">
             <time datetime="2026-03-26">March 26, 2026</time>
             <span class="blog-card-tag">AI Trends</span>
@@ -138,6 +167,8 @@
           <p class="blog-card-excerpt">From autonomous code generation to supply chain orchestration, agentic AI systems are moving from research demos to production deployments. Here's what that means for data scientists and why Morgan Stanley says most of the world isn't ready.</p>
           <span class="blog-card-read">Read more &rarr;</span>
         </article>
+
+        <p class="blog-no-results" id="blog-no-results" style="display: none;">No posts match your search. Try a different keyword or tag.</p>
 
       </div>
     </section>
@@ -152,5 +183,48 @@
   </main>
 
   <script src="assets/js/main.js"></script>
+  <script>
+    (function() {
+      const searchInput = document.getElementById('blog-search');
+      const tagButtons = document.querySelectorAll('.blog-tag-btn');
+      const blogCards = document.querySelectorAll('.blog-card');
+      const noResults = document.getElementById('blog-no-results');
+      let activeTag = 'all';
+
+      function filterPosts() {
+        const query = searchInput.value.toLowerCase().trim();
+        let visibleCount = 0;
+
+        blogCards.forEach(function(card) {
+          const title = card.querySelector('.blog-card-title').textContent.toLowerCase();
+          const excerpt = card.querySelector('.blog-card-excerpt').textContent.toLowerCase();
+          const tag = card.getAttribute('data-tags');
+
+          const matchesSearch = !query || title.includes(query) || excerpt.includes(query);
+          const matchesTag = activeTag === 'all' || tag === activeTag;
+
+          if (matchesSearch && matchesTag) {
+            card.style.display = '';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        noResults.style.display = visibleCount === 0 ? '' : 'none';
+      }
+
+      searchInput.addEventListener('input', filterPosts);
+
+      tagButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          tagButtons.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          activeTag = btn.getAttribute('data-tag');
+          filterPosts();
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
