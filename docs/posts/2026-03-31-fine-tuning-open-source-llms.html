@@ -43,6 +43,8 @@
         <div class="blog-post-layout">
         <div class="blog-post-body">
 
+          <img src="../assets/images/blog/fine-tuning-llms/hero.png" alt="A large neural network being fine-tuned with precise laser-like adjustments targeting specific layers" class="blog-post-hero" loading="eager" />
+
           <p>Fine-tuning an open source large language model on your own data used to require a cluster of A100s, a month of patience, and a PhD-level understanding of distributed training. In 2026, you can fine-tune an 8-billion-parameter model on a single consumer GPU in under an hour. The barrier has shifted from <strong>compute</strong> to <strong>judgment</strong> &mdash; knowing when to fine-tune, what data to use, and which shortcuts to avoid.</p>
 
           <p>After running dozens of fine-tuning experiments across Llama, Mistral, and Qwen model families, here's the practical playbook I wish I'd had when I started.</p>
@@ -82,6 +84,11 @@
 
           <p><strong>QLoRA</strong> takes this further by quantizing the frozen base model to 4-bit precision (NF4 format) before applying LoRA adapters. This cuts VRAM to under 10 GB for an 8B model with short sequences. In head-to-head tests, QLoRA accuracy falls within 1&ndash;2% of full LoRA across all model families &mdash; a negligible gap for most production use cases.</p>
 
+          <figure class="blog-post-figure">
+            <img src="../assets/images/blog/fine-tuning-llms/lora-diagram.png" alt="A large frozen weight matrix in cool blue with small trainable low-rank adapter matrices in warm orange attached alongside it" loading="lazy" />
+            <figcaption>LoRA &mdash; small trainable adapters injected alongside frozen base model weights, reducing VRAM from 80+ GB to under 24 GB.</figcaption>
+          </figure>
+
           <p><strong>Bottom line:</strong> Start with QLoRA. Only move to full LoRA (16-bit) if you have the hardware and can measure a meaningful quality difference on your specific task. For most teams, QLoRA is the 2026 default.</p>
 
           <h2>The Hyperparameters That Actually Matter</h2>
@@ -119,6 +126,11 @@
             <li><strong>Deduplication:</strong> Near-duplicate examples cause overfitting on repeated patterns</li>
             <li><strong>Length distribution:</strong> Match the expected production distribution. Don't train on 50-token responses if users expect 500-token answers.</li>
           </ol>
+
+          <figure class="blog-post-figure">
+            <img src="../assets/images/blog/fine-tuning-llms/training-pipeline.png" alt="An ML training pipeline with data flowing from documents through preprocessing into a GPU-trained model" loading="lazy" />
+            <figcaption>The fine-tuning pipeline &mdash; from data preparation through training to deployment with merged adapters.</figcaption>
+          </figure>
 
           <h2>The 2026 Software Stack</h2>
 
