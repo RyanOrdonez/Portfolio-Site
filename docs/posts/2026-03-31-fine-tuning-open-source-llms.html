@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A practical guide to fine-tuning open source LLMs on custom data in 2026: LoRA, QLoRA, data preparation, hardware requirements, and deployment strategies for data scientists.">
+  <title>Fine-Tuning Open Source LLMs on Custom Data: A 2026 Practical Guide | Ryan Ordonez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/blog.css">
+</head>
+<body>
+
+  <!-- ===== SIDEBAR NAVIGATION ===== -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <a href="../index.html" class="sidebar-logo">RO</a>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="../index.html" class="sidebar-link" data-section="hero">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Home</span>
+      </a>
+      <a href="../about.html" class="sidebar-link" data-section="about">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>About</span>
+      </a>
+      <a href="../projects.html" class="sidebar-link" data-section="projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        <span>Projects</span>
+      </a>
+      <a href="../skills.html" class="sidebar-link" data-section="skills">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <span>Skills</span>
+      </a>
+      <a href="../index.html#contact" class="sidebar-link" data-section="contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Contact</span>
+      </a>
+      <a href="../blog.html" class="sidebar-link active" data-section="blog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        <span>Blog</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="https://github.com/RyanOrdonez" target="_blank" rel="noopener noreferrer" class="sidebar-social" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/ryanordonez7" target="_blank" rel="noopener noreferrer" class="sidebar-social" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ===== MOBILE TOP NAV ===== -->
+  <nav id="mobile-nav" class="mobile-nav">
+    <a href="../index.html" class="mobile-nav-logo">RO</a>
+    <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="mobile-nav-menu">
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+      <a href="../projects.html">Projects</a>
+      <a href="../skills.html">Skills</a>
+      <a href="../index.html#contact">Contact</a>
+      <a href="../blog.html">Blog</a>
+    </div>
+  </nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+
+    <!-- ===== POST HEADER ===== -->
+    <section class="blog-post-header">
+      <div class="container" style="max-width: 720px;">
+        <a href="../blog.html" class="blog-back-link">&larr; Back to Blog</a>
+        <h1 class="blog-post-title">Fine-Tuning Open Source LLMs on Custom Data: A 2026 Practical Guide</h1>
+        <div class="blog-post-meta">
+          <time datetime="2026-03-31">March 31, 2026</time>
+          <span class="blog-card-tag">Machine Learning</span>
+          <span class="blog-post-author">Ryan Ordonez</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== POST CONTENT ===== -->
+    <section class="blog-post-content">
+      <div class="container">
+        <div class="blog-post-body">
+
+          <p>Fine-tuning an open source large language model on your own data used to require a cluster of A100s, a month of patience, and a PhD-level understanding of distributed training. In 2026, you can fine-tune an 8-billion-parameter model on a single consumer GPU in under an hour. The barrier has shifted from <strong>compute</strong> to <strong>judgment</strong> &mdash; knowing when to fine-tune, what data to use, and which shortcuts to avoid.</p>
+
+          <p>After running dozens of fine-tuning experiments across Llama, Mistral, and Qwen model families, here's the practical playbook I wish I'd had when I started.</p>
+
+          <h2>When Fine-Tuning Actually Makes Sense</h2>
+
+          <p>The single most common mistake in 2026 is fine-tuning when you should be doing something else. Fine-tuning changes <em>how</em> a model behaves &mdash; its tone, format, reasoning patterns, and domain vocabulary. It does <strong>not</strong> reliably inject new factual knowledge. If your model gives wrong answers because it lacks information, you need RAG. If it gives answers in the wrong format, uses the wrong tone, or can't follow your domain's reasoning conventions, fine-tuning is the fix.</p>
+
+          <p>Good use cases for fine-tuning:</p>
+          <ul>
+            <li><strong>Consistent output formatting:</strong> JSON schemas, structured reports, specific citation styles</li>
+            <li><strong>Domain-specific language:</strong> Medical terminology, legal reasoning patterns, financial analysis conventions</li>
+            <li><strong>Task specialization:</strong> Converting a general-purpose model into an expert at one specific task (classification, extraction, summarization)</li>
+            <li><strong>Behavior alignment:</strong> Teaching the model your organization's communication style, safety guidelines, or response policies</li>
+          </ul>
+
+          <p>Bad use cases: trying to teach a model facts it doesn't know (use RAG), trying to make a small model as capable as a large one (use a larger model), or fine-tuning because "we should own our model" without a clear performance gap to close.</p>
+
+          <h2>The 2026 Model Landscape: Picking Your Base</h2>
+
+          <p>The 7B&ndash;8B parameter tier is the sweet spot for most teams. These models fit comfortably on consumer GPUs with QLoRA and deliver surprisingly strong performance after fine-tuning. Here's how the leading options stack up:</p>
+
+          <ul>
+            <li><strong>Llama 3.2 8B (Meta):</strong> The default recommendation. Excellent general-purpose base, massive community support, permissive license for commercial use. Best-in-class instruction following out of the box.</li>
+            <li><strong>Mistral 7B v0.3:</strong> Punches above its weight on reasoning tasks. Slightly more efficient per parameter than Llama for inference-heavy workloads. Strong choice for structured output generation.</li>
+            <li><strong>Qwen 2.5 7B:</strong> Strongest multilingual capabilities in the 7B class. Excellent for teams working across languages or with CJK text. Competitive English performance.</li>
+            <li><strong>Gemma 2 9B (Google):</strong> Strong on structured tasks and code generation. Slightly larger but delivers measurably better results on benchmarks that require precise formatting.</li>
+          </ul>
+
+          <p>For production deployment, Llama 3.2 8B is my go-to unless there's a specific reason to choose otherwise. The ecosystem support &mdash; tooling, community adapters, deployment guides &mdash; is unmatched.</p>
+
+          <h2>LoRA vs. QLoRA: The Practical Difference</h2>
+
+          <p>Full fine-tuning updates every parameter in the model. For an 8B model, that means ~16 GB of weights plus optimizer states, gradients, and activations &mdash; easily 80+ GB of VRAM. Nobody starts here in 2026.</p>
+
+          <p><strong>LoRA (Low-Rank Adaptation)</strong> freezes the base model and injects small trainable matrices into specific layers, typically the attention projections. Instead of updating 8 billion parameters, you train 10&ndash;50 million. VRAM drops to 16&ndash;24 GB.</p>
+
+          <p><strong>QLoRA</strong> takes this further by quantizing the frozen base model to 4-bit precision (NF4 format) before applying LoRA adapters. This cuts VRAM to under 10 GB for an 8B model with short sequences. In head-to-head tests, QLoRA accuracy falls within 1&ndash;2% of full LoRA across all model families &mdash; a negligible gap for most production use cases.</p>
+
+          <p><strong>Bottom line:</strong> Start with QLoRA. Only move to full LoRA (16-bit) if you have the hardware and can measure a meaningful quality difference on your specific task. For most teams, QLoRA is the 2026 default.</p>
+
+          <h2>The Hyperparameters That Actually Matter</h2>
+
+          <p>After running hundreds of experiments, here are the settings that consistently produce good results:</p>
+
+          <ul>
+            <li><strong>LoRA rank (r):</strong> Start at <code>r=16</code>. This is sufficient for most instruction-following and classification tasks. Going to <code>r=64</code> helps for complex reasoning tasks. Above <code>r=128</code>, use rsLoRA to prevent gradient instability.</li>
+            <li><strong>Alpha:</strong> Set <code>alpha = 2 * r</code>. So <code>r=16, alpha=32</code>. This ratio consistently outperforms other configurations.</li>
+            <li><strong>Target modules:</strong> Apply LoRA to <strong>all linear layers</strong> (<code>target_modules="all-linear"</code>), not just q_proj and v_proj. The original paper's default of targeting only query and value projections consistently underperforms on instruction-following tasks.</li>
+            <li><strong>Learning rate:</strong> <code>2e-4</code> with cosine decay and 3&ndash;5% warmup steps. This is stable across model families.</li>
+            <li><strong>Batch size:</strong> As large as your VRAM allows with gradient accumulation. Effective batch sizes of 16&ndash;32 work well.</li>
+            <li><strong>Epochs:</strong> 1&ndash;3 for most datasets. Multi-epoch training on static datasets often hurts rather than helps due to overfitting. Monitor validation loss and stop when it plateaus.</li>
+          </ul>
+
+          <p>One underappreciated tip: <strong>match training and serving precision</strong>. If you plan to deploy in 4-bit quantization, train with QLoRA in 4-bit. Precision mismatches between training and inference introduce subtle quality degradation.</p>
+
+          <h2>Data Preparation: Where Most Projects Succeed or Fail</h2>
+
+          <p>The quality of your training data matters far more than the quantity. Here's what the research and my experience both confirm:</p>
+
+          <ul>
+            <li><strong>100&ndash;500 high-quality examples</strong> are sufficient for straightforward tasks (classification, extraction, structured generation) with LoRA</li>
+            <li><strong>1,000&ndash;5,000 examples</strong> for complex domain-specific applications requiring nuanced reasoning</li>
+            <li><strong>200 expert-validated examples consistently beat 2,000 hastily collected ones</strong></li>
+          </ul>
+
+          <p>Format your data as instruction-response pairs matching the model's chat template. For Llama models, that means using the <code>&lt;|begin_of_text|&gt;</code> and role tokens. Getting the template wrong is a silent killer &mdash; the model trains fine but produces garbage at inference because the prompting format doesn't match.</p>
+
+          <p>Data quality checklist:</p>
+          <ol>
+            <li><strong>Consistency:</strong> Do all examples follow the same format and conventions?</li>
+            <li><strong>Correctness:</strong> Has a domain expert validated the outputs?</li>
+            <li><strong>Diversity:</strong> Do examples cover the range of inputs the model will see in production?</li>
+            <li><strong>Deduplication:</strong> Near-duplicate examples cause overfitting on repeated patterns</li>
+            <li><strong>Length distribution:</strong> Match the expected production distribution. Don't train on 50-token responses if users expect 500-token answers.</li>
+          </ol>
+
+          <h2>The 2026 Software Stack</h2>
+
+          <p>The tooling has converged. Here's what a production fine-tuning pipeline looks like:</p>
+
+          <ul>
+            <li><strong>Framework:</strong> Hugging Face ecosystem (transformers, datasets, peft, trl) as the foundation. <strong>Unsloth</strong> for optimized training kernels that cut VRAM usage by 40&ndash;60% and double throughput on consumer GPUs.</li>
+            <li><strong>Training:</strong> <code>SFTTrainer</code> from TRL for supervised fine-tuning. Handles chat template formatting, packing, and LoRA configuration.</li>
+            <li><strong>Evaluation:</strong> Quantitative metrics (accuracy, F1, ROUGE) plus side-by-side qualitative comparison against the base model. Never skip evaluation &mdash; vibes-based assessment is how you ship broken models.</li>
+            <li><strong>Export:</strong> Merge LoRA adapters into the base model, then export to GGUF format for local inference with llama.cpp or Ollama. For server deployment, vLLM with the merged model.</li>
+          </ul>
+
+          <p>On hardware: an RTX 4090 (24 GB) handles 8B models comfortably with LoRA. An RTX 4070 Ti (12 GB) works for QLoRA. No local GPU? RunPod and Vast.ai offer A100 instances at $1&ndash;2/hour &mdash; a full fine-tuning run costs $5&ndash;20.</p>
+
+          <h2>The RAG + Fine-Tuning Hybrid</h2>
+
+          <p>The best production systems in 2026 use both. Fine-tuning handles behavior: response format, domain vocabulary, reasoning patterns. RAG handles knowledge: current facts, documents, policies that change over time.</p>
+
+          <p>A concrete example: a clinical decision support system. The fine-tuned model knows <em>how</em> to reason about patient data, format differential diagnoses, and cite evidence in the expected clinical style. RAG provides <em>what</em> to reason about &mdash; current drug interactions, updated treatment guidelines, patient-specific lab results. Neither approach alone is sufficient; together they're powerful.</p>
+
+          <p>This separation &mdash; stable behavior in weights, volatile knowledge in retrieval &mdash; is the pattern I recommend for any system where the underlying data changes more frequently than the desired model behavior.</p>
+
+          <h2>Common Pitfalls and How to Avoid Them</h2>
+
+          <ol>
+            <li><strong>Skipping evaluation.</strong> If you can't measure whether your fine-tuned model is better than the base model on your specific task, you're flying blind. Set up evals before you start training.</li>
+            <li><strong>Overfitting on small datasets.</strong> If your training loss drops to near-zero but the model hallucinates on new inputs, you've memorized instead of generalized. Use validation splits and early stopping.</li>
+            <li><strong>Wrong chat template.</strong> Each model family has its own special tokens and formatting. Using Llama's template with a Mistral model (or vice versa) produces models that seem trained but behave erratically.</li>
+            <li><strong>Ignoring catastrophic forgetting.</strong> Fine-tuning can degrade the model's general capabilities. Test not just your target task but also general instruction following to ensure you haven't broken the base model's strengths.</li>
+            <li><strong>Jumping to fine-tuning too early.</strong> Prompt engineering and few-shot examples solve many problems without training. Fine-tune only when you've confirmed that prompting alone can't close the performance gap.</li>
+          </ol>
+
+          <h2>A Step-by-Step Workflow</h2>
+
+          <p>Here's the workflow I follow for every fine-tuning project:</p>
+
+          <ol>
+            <li><strong>Define the task and metrics.</strong> What does "good" look like? How will you measure it?</li>
+            <li><strong>Baseline with prompting.</strong> Try the base model with well-crafted prompts and few-shot examples. Document performance.</li>
+            <li><strong>Prepare data.</strong> 200&ndash;500 expert-validated examples in the correct chat template format.</li>
+            <li><strong>Train with QLoRA.</strong> <code>r=16</code>, <code>alpha=32</code>, all-linear targets, 1&ndash;3 epochs, cosine LR decay.</li>
+            <li><strong>Evaluate rigorously.</strong> Compare against baseline on held-out test set. Check for catastrophic forgetting.</li>
+            <li><strong>Iterate on data, not hyperparameters.</strong> If results are weak, the fix is almost always better data, not different settings.</li>
+            <li><strong>Merge and deploy.</strong> Merge adapters, quantize to GGUF, serve via Ollama or vLLM.</li>
+          </ol>
+
+          <h2>Practical Takeaways</h2>
+
+          <ul>
+            <li><strong>QLoRA is the default.</strong> Start here. Move to full LoRA only if you measure a meaningful quality gap on your specific task.</li>
+            <li><strong>Data quality beats data quantity.</strong> 200 curated examples outperform 2,000 noisy ones. Invest in data preparation, not data collection.</li>
+            <li><strong>Fine-tune behavior, retrieve knowledge.</strong> Use fine-tuning for format and reasoning patterns. Use RAG for facts and documents.</li>
+            <li><strong>The 7B&ndash;8B tier is enough.</strong> For most specialized tasks, a well-tuned 8B model matches or beats a general-purpose 70B model &mdash; at a fraction of the inference cost.</li>
+            <li><strong>Evaluate before and after.</strong> No evaluation means no evidence that fine-tuning helped. The base model with good prompting might already be good enough.</li>
+          </ul>
+
+          <blockquote>
+            <p>Fine-tuning isn't about making your model smarter. It's about making it yours &mdash; teaching it the specific behaviors, formats, and reasoning patterns that turn a general-purpose language model into a specialized tool for your problem.</p>
+          </blockquote>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== POST FOOTER ===== -->
+    <section class="blog-post-footer">
+      <div class="container">
+        <div class="blog-post-nav">
+          <a href="../blog.html">&larr; All Posts</a>
+          <a href="2026-03-30-rag-architectures.html">Previous: RAG Architectures in 2026 &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 Ryan Ordonez</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
