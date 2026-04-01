@@ -45,6 +45,10 @@
     return '<a href="' + prefix + link.href + '">' + link.label + '</a>';
   }).join('\n      ');
 
+  // Theme toggle icons
+  var sunIcon = '<svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>';
+  var moonIcon = '<svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+
   // Sidebar HTML
   var sidebarHTML = '<div class="sidebar-profile">' +
     '<img src="' + prefix + 'assets/profile.png" alt="Ryan Ordonez" class="sidebar-avatar" />' +
@@ -60,11 +64,17 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>' +
       '</a>' +
     '</div></div>' +
-    '<nav class="sidebar-nav">' + navHTML + '</nav>';
+    '<nav class="sidebar-nav">' + navHTML + '</nav>' +
+    '<button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">' +
+      sunIcon + moonIcon + '<span class="theme-toggle-label">Light Mode</span>' +
+    '</button>';
 
   // Mobile nav HTML
   var mobileHTML = '<a href="' + prefix + 'index.html" class="mobile-nav-logo">RO</a>' +
-    '<button class="mobile-nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>' +
+    '<div style="display:flex;align-items:center;gap:0.25rem;">' +
+      '<button class="mobile-theme-toggle" id="mobile-theme-toggle" aria-label="Toggle theme">' + sunIcon + moonIcon + '</button>' +
+      '<button class="mobile-nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>' +
+    '</div>' +
     '<div class="mobile-nav-menu">' + mobileLinksHTML + '</div>';
 
   // Inject into DOM
@@ -73,4 +83,30 @@
 
   var mobileNav = document.getElementById('mobile-nav');
   if (mobileNav) mobileNav.innerHTML = mobileHTML;
+
+  // Theme toggle logic
+  function getStoredTheme() {
+    try { return localStorage.getItem('theme'); } catch (e) { return null; }
+  }
+
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('theme', theme); } catch (e) { /* noop */ }
+    var label = document.querySelector('.theme-toggle-label');
+    if (label) label.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+  }
+
+  var storedTheme = getStoredTheme() || 'dark';
+  setTheme(storedTheme);
+
+  function handleToggle() {
+    var current = document.documentElement.getAttribute('data-theme') || 'dark';
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  }
+
+  var sidebarToggle = document.getElementById('theme-toggle');
+  if (sidebarToggle) sidebarToggle.addEventListener('click', handleToggle);
+
+  var mobileToggle = document.getElementById('mobile-theme-toggle');
+  if (mobileToggle) mobileToggle.addEventListener('click', handleToggle);
 })();

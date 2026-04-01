@@ -13,7 +13,7 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 - [x] Add blog search and tag filtering
 - [x] Add RSS feed for blog
 - [ ] Add project screenshots/demo GIFs to project cards
-- [ ] Add dark/light theme toggle
+- [x] Add dark/light theme toggle
 - [ ] Add page transition animations
 
 ### Repo Improvements
@@ -31,7 +31,7 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 
 ### Blog Topics Queue
 - [x] RAG architectures and when to use them
-- [ ] Building production ML pipelines with MLflow
+- [x] Building production ML pipelines with MLflow
 - [x] Fine-tuning open source LLMs on custom data
 - [ ] The data scientist's guide to prompt engineering
 - [x] GPU costs in 2026: cloud vs on-prem analysis
@@ -40,6 +40,30 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 ---
 
 ## Completed Work
+
+### Day 8 — April 2, 2026
+**Portfolio Action:** Added Dark/Light Theme Toggle (Option D)
+- Added light theme CSS custom properties in `docs/assets/css/style.css` using `[data-theme="light"]` selector
+- Light theme overrides all core colors: backgrounds (#f5f5f5/#ffffff), text (#1a1a1a/#555555), borders (#e0e0e0), accent adjusted for contrast
+- Added theme toggle button to sidebar nav in `docs/assets/js/nav.js` with sun/moon icons (SVG)
+- Added mobile theme toggle button next to hamburger menu
+- Theme toggle CSS in `style.css`: `.theme-toggle`, `.mobile-theme-toggle` with icon show/hide logic
+- Light theme overrides for mobile nav, scrollbars, and selection color
+- Theme preference persisted via `localStorage` — survives page navigation and sessions
+- Added inline flash-prevention `<script>` to `<head>` of all HTML pages (index, about, projects, skills, blog, all 8 blog posts) to prevent FOUC on page load
+- Label dynamically updates: shows "Light Mode" in dark theme, "Dark Mode" in light theme
+
+**Blog:** "Building Production ML Pipelines with MLflow 3.0: What Actually Changed"
+- Topic: Practical guide to MLflow 3.0 for production ML pipelines (from blog topics queue)
+- Covers: LoggedModel as a first-class entity replacing run-centric architecture
+- MLflow 3.0 tracing with auto-instrumentation for 20+ GenAI frameworks (OpenAI, LangChain, etc.)
+- GenAI evaluation suite with LLM-as-judge scoring and custom `@scorer` decorator
+- Prompt Registry for versioned prompt management and optimization
+- Deployment Jobs for CI/CD-style model validation before production
+- What's still missing: data versioning (DVC), feature stores (Feast), orchestration (Dagster/Airflow)
+- Practical 2026 MLOps stack recommendation (MLflow + DVC + Dagster + Feast + Evidently + vLLM)
+- Migration advice from MLflow 2.x to 3.x with breaking changes overview
+- Key insight: GenAI and traditional ML toolchains are converging in MLflow 3.0
 
 ### Day 7 — April 1, 2026
 **Portfolio Action:** Added RSS Feed for Blog (Option D)

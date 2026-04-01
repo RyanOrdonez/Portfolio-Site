@@ -6,13 +6,22 @@
     <atom:link href="https://ryanordonez.github.io/Portfolio-Site/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Thoughts on AI, data science, and the technology shaping our future. Written by Ryan Ordonez, Data Scientist with an M.S. from CU Boulder.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Apr 2026 08:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 02 Apr 2026 08:00:00 GMT</lastBuildDate>
     <managingEditor>ryanordonez7@gmail.com (Ryan Ordonez)</managingEditor>
     <webMaster>ryanordonez7@gmail.com (Ryan Ordonez)</webMaster>
     <copyright>2026 Ryan Ordonez</copyright>
     <category>Data Science</category>
     <category>Artificial Intelligence</category>
     <category>Machine Learning</category>
+
+    <item>
+      <title>Building Production ML Pipelines with MLflow 3.0: What Actually Changed</title>
+      <link>https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-02-mlflow-production-pipelines.html</link>
+      <guid isPermaLink="true">https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-02-mlflow-production-pipelines.html</guid>
+      <pubDate>Thu, 02 Apr 2026 08:00:00 GMT</pubDate>
+      <category>MLOps</category>
+      <description>MLflow 3.0 introduces LoggedModel as a first-class entity, comprehensive tracing for GenAI, LLM-as-judge evaluation, and deployment jobs that validate models before production. Here's what matters after migrating two production pipelines — and what's still missing.</description>
+    </item>
 
     <item>
       <title>Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant in 2026</title>

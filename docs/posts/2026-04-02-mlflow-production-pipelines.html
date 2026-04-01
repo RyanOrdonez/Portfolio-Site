@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A practical guide to building production ML pipelines with MLflow 3.0 in 2026. LoggedModels, tracing, GenAI evaluation, and the deployment workflow that actually works.">
+  <title>Building Production ML Pipelines with MLflow 3.0: What Actually Changed | Ryan Ordonez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/blog.css">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body>
+
+  <!-- ===== SIDEBAR NAVIGATION ===== -->
+  <aside id="sidebar" class="sidebar"></aside>
+
+  <!-- ===== MOBILE TOP NAV ===== -->
+  <nav id="mobile-nav" class="mobile-nav"></nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+
+    <!-- ===== POST HEADER ===== -->
+    <section class="blog-post-header">
+      <div class="container" style="max-width: 1060px;">
+        <a href="../blog.html" class="blog-back-link">&larr; Back to Blog</a>
+        <h1 class="blog-post-title">Building Production ML Pipelines with MLflow 3.0: What Actually Changed</h1>
+        <div class="blog-post-meta">
+          <time datetime="2026-04-02">April 2, 2026</time>
+          <span class="blog-card-tag">MLOps</span>
+          <span class="blog-post-reading-time">9 min read</span>
+          <span class="blog-post-author">Ryan Ordonez</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== POST CONTENT ===== -->
+    <section class="blog-post-content">
+      <div class="container">
+        <div class="blog-post-layout">
+        <div class="blog-post-body">
+
+          <p>MLflow has been the de facto standard for ML experiment tracking since Databricks open-sourced it in 2018. But for most of its history, it solved only one problem well: logging metrics, parameters, and artifacts from training runs. Getting a model from a Jupyter notebook to a production endpoint still required stitching together a half-dozen other tools. MLflow 3.0, which shipped in early 2026 with rapid point releases through March, changes that calculus significantly.</p>
+
+          <p>After migrating two production pipelines from MLflow 2.x to 3.x, here's what actually matters &mdash; and what's still missing.</p>
+
+          <h2>The Run-Centric Model Is Dead</h2>
+
+          <p>The biggest conceptual shift in MLflow 3.0 is the introduction of <strong>LoggedModel</strong> as a first-class entity. In MLflow 2.x, everything revolved around runs. A model was an artifact attached to a run, and tracking a model's lifecycle meant navigating through run hierarchies &mdash; parent runs, child runs, nested experiments. It worked, but it was awkward.</p>
+
+          <p>LoggedModel decouples the model from the run that produced it. A LoggedModel captures metrics, parameters, and traces across different phases (training, evaluation, staging, production) and across different environments. This means you can evaluate a model in one run, test it in another, deploy it, and track production metrics &mdash; all linked to the same LoggedModel entity.</p>
+
+          <p>In practice, this eliminates the most common complaint I heard from ML engineers: "I trained this model three weeks ago, where are its evaluation results?" With LoggedModel, you query the model directly. Its full lineage &mdash; training run, evaluation runs, deployment history &mdash; is attached to it, not scattered across experiment folders.</p>
+
+<pre><code>import mlflow
+
+# Log a model as a first-class entity
+with mlflow.start_run():
+    model_info = mlflow.sklearn.log_model(
+        sk_model=pipeline,
+        name="churn-predictor",
+        params={"n_estimators": 200, "max_depth": 8}
+    )
+
+# Later: evaluate the same LoggedModel in a separate run
+with mlflow.start_run():
+    mlflow.models.evaluate(
+        model=model_info.model_uri,
+        data=eval_dataset,
+        model_type="classifier"
+    )</code></pre>
+
+          <h2>Tracing Changes Everything for GenAI</h2>
+
+          <p>If you're building anything with LLMs &mdash; RAG pipelines, agents, chain-of-thought systems &mdash; MLflow 3.0's tracing is the feature that matters most. Unlike basic logging that captures inputs and outputs, MLflow Tracing provides hierarchical visibility into complex execution flows.</p>
+
+          <p>The killer feature is automatic instrumentation. Add <code>mlflow.openai.autolog()</code> at the top of your script, and every OpenAI call, every LangChain chain execution, every retrieval step gets traced automatically. No decorators, no manual span creation. MLflow supports auto-instrumentation for 20+ frameworks including OpenAI, Anthropic, LangChain, LlamaIndex, and HuggingFace.</p>
+
+          <p>Why does this matter for production? Because debugging a RAG pipeline failure at 2 AM is miserable without traces. When a user reports that the system gave a wrong answer, you need to see: which documents were retrieved, what the similarity scores were, how the prompt was constructed, what the LLM generated, and whether any post-processing modified the output. MLflow Tracing captures all of this in a single hierarchical trace that you can inspect in the UI or query programmatically.</p>
+
+          <p>The traces also feed directly into evaluation, which brings us to the next major change.</p>
+
+          <h2>GenAI Evaluation That Actually Works</h2>
+
+          <p>MLflow 2.x had <code>mlflow.evaluate()</code>, but it was limited to basic metrics on tabular predictions. MLflow 3.0 splits evaluation into two paths: <code>mlflow.models.evaluate()</code> for traditional ML and <code>mlflow.genai.evaluate()</code> for LLM outputs. The GenAI evaluation suite is where the real innovation happened.</p>
+
+          <p>The system uses LLM-as-judge scoring with research-backed evaluation criteria. Out of the box, you get scorers for relevance, faithfulness (is the answer grounded in the retrieved context?), safety, and coherence. But the real power is custom scorers:</p>
+
+<pre><code>from mlflow.genai import evaluate, scorer
+
+@scorer
+def domain_accuracy(request, response, expected):
+    """Custom scorer for financial domain accuracy."""
+    # Use an LLM judge with domain-specific criteria
+    return judge(
+        criteria="Does the response accurately cite "
+                 "regulatory requirements?",
+        request=request,
+        response=response,
+        expected=expected
+    )</code></pre>
+
+          <p>This approach &mdash; systematic evaluation with custom scoring criteria &mdash; is what most teams were building ad hoc with separate evaluation frameworks. Having it integrated into the same platform that handles experiment tracking and deployment removes a major friction point.</p>
+
+          <h2>The Prompt Registry Fills a Real Gap</h2>
+
+          <p>Every team I've worked with that builds LLM applications has the same problem: prompt management is chaos. Prompts live in code, in config files, in Notion docs, in Slack messages. Nobody knows which prompt version is in production. A "small tweak" to a system prompt breaks the output format downstream.</p>
+
+          <p>MLflow 3.0's Prompt Registry treats prompts as versioned, tracked artifacts. You register a prompt template, version it, link it to evaluations, and deploy specific versions. The prompt optimization feature (added in MLflow 3.5) can even automatically improve prompts using evaluation feedback and labeled datasets.</p>
+
+          <p>This isn't revolutionary technology &mdash; it's version control for prompts. But the fact that it's integrated with experiment tracking and evaluation means you can answer questions like "which prompt version produced the best faithfulness scores on our eval set?" with a single query instead of cross-referencing three different tools.</p>
+
+          <h2>Deployment Jobs: The Missing Link</h2>
+
+          <p>The feature that most surprised me in MLflow 3.0 is Deployment Jobs. The workflow is straightforward: register a new model version, and MLflow automatically triggers evaluation against your quality gates. If the model passes, it's approved for deployment. If it fails, you get a clear report of which criteria weren't met.</p>
+
+          <p>This is the CI/CD pipeline for ML that teams have been building manually for years. Most production ML teams I've seen have some combination of GitHub Actions, custom scripts, and manual approval steps to validate models before deployment. MLflow Deployment Jobs consolidates this into a single workflow that's integrated with the model registry.</p>
+
+          <p>The integration with Databricks Unity Catalog adds governance and audit trails, which matters for regulated industries. But even without Databricks, the open-source deployment validation workflow is a significant improvement over the status quo.</p>
+
+          <h2>What's Still Missing</h2>
+
+          <p>MLflow 3.0 is a major step forward, but it's not a complete MLOps platform. Here's what you'll still need other tools for:</p>
+
+          <ul>
+            <li><strong>Data versioning:</strong> MLflow tracks model artifacts but doesn't version training datasets. You'll still need DVC, Delta Lake, or LakeFS for reproducible data pipelines.</li>
+            <li><strong>Feature stores:</strong> MLflow doesn't manage features. Feast, Tecton, or Databricks Feature Store are still necessary for feature engineering in production.</li>
+            <li><strong>Orchestration:</strong> MLflow runs experiments but doesn't orchestrate workflows. Airflow, Prefect, Dagster, or Databricks Workflows handle the scheduling and dependency management.</li>
+            <li><strong>Real-time monitoring:</strong> While MLflow 3.9 added continuous monitoring with LLM judges, traditional model monitoring (data drift, prediction drift) is still better served by Evidently, Whylabs, or custom solutions.</li>
+            <li><strong>Infrastructure:</strong> MLflow doesn't provision compute. You're still managing GPU clusters through your cloud provider or Kubernetes.</li>
+          </ul>
+
+          <h2>The Practical 2026 Stack</h2>
+
+          <p>Based on the two production migrations I've completed, here's the MLOps stack I'd recommend for a team starting fresh in April 2026:</p>
+
+          <ol>
+            <li><strong>Experiment tracking &amp; model registry:</strong> MLflow 3.x (the obvious choice &mdash; 30M+ monthly downloads, massive community)</li>
+            <li><strong>Data versioning:</strong> DVC for small teams, Delta Lake for Spark-heavy environments</li>
+            <li><strong>Orchestration:</strong> Dagster (best developer experience) or Airflow (largest ecosystem)</li>
+            <li><strong>Feature store:</strong> Feast if open-source, Tecton if budget allows</li>
+            <li><strong>Monitoring:</strong> MLflow tracing for GenAI, Evidently for traditional ML drift detection</li>
+            <li><strong>Serving:</strong> vLLM for LLMs, BentoML or MLflow's built-in serving for traditional models</li>
+          </ol>
+
+          <p>The key insight from MLflow 3.0 is that the GenAI and traditional ML toolchains are converging. You no longer need separate experiment tracking for your classification models and your RAG pipelines. LoggedModel works for both. Evaluation works for both (with different methods). The model registry works for both.</p>
+
+          <h2>Migration Advice</h2>
+
+          <p>If you're on MLflow 2.x, be aware of breaking changes. The <code>mlflow.evaluate()</code> API is deprecated &mdash; you need to switch to <code>mlflow.models.evaluate()</code> or <code>mlflow.genai.evaluate()</code>. The fastai and mleap flavors are removed. Some deprecated parameters in <code>log_model()</code> are gone.</p>
+
+          <p>My recommendation: don't try to migrate everything at once. Start by upgrading your tracking server, then migrate experiments incrementally. Use LoggedModel for new projects and let existing run-based workflows continue until you naturally iterate on them.</p>
+
+          <blockquote>
+            <p>MLflow 3.0 doesn't replace your entire MLOps stack &mdash; no single tool does. But it finally closes the gap between experiment tracking and production deployment that made the 2.x experience feel incomplete. For data scientists who've been stitching together five tools to get a model into production, that's a meaningful improvement.</p>
+          </blockquote>
+
+        </div>
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="blog-post-sidebar">
+          <div class="blog-sidebar-section">
+            <h3 class="blog-sidebar-heading">On This Page</h3>
+            <ul class="blog-toc-list" id="toc-list"></ul>
+          </div>
+          <div class="blog-sidebar-section">
+            <h3 class="blog-sidebar-heading">Other Posts</h3>
+            <ul class="blog-sidebar-posts">
+              <li><a href="2026-04-01-vector-databases-compared.html"><div class="blog-sidebar-post-title">Vector Databases Compared</div><div class="blog-sidebar-post-date">Apr 1, 2026</div></a></li>
+              <li><a href="2026-03-31-fine-tuning-open-source-llms.html"><div class="blog-sidebar-post-title">Fine-Tuning Open Source LLMs on Custom Data</div><div class="blog-sidebar-post-date">Mar 31, 2026</div></a></li>
+              <li><a href="2026-03-30-rag-architectures.html"><div class="blog-sidebar-post-title">RAG Architectures in 2026</div><div class="blog-sidebar-post-date">Mar 30, 2026</div></a></li>
+              <li><a href="2026-03-29-gpu-costs-2026.html"><div class="blog-sidebar-post-title">GPU Costs in 2026: Cloud vs. On-Prem</div><div class="blog-sidebar-post-date">Mar 29, 2026</div></a></li>
+              <li><a href="2026-03-28-claude-mythos-leak.html"><div class="blog-sidebar-post-title">The Claude Mythos Leak</div><div class="blog-sidebar-post-date">Mar 28, 2026</div></a></li>
+              <li><a href="2026-03-27-ai-accountability-act.html"><div class="blog-sidebar-post-title">The AI Accountability Act</div><div class="blog-sidebar-post-date">Mar 27, 2026</div></a></li>
+            </ul>
+          </div>
+        </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== POST FOOTER ===== -->
+    <section class="blog-post-footer">
+      <div class="container">
+        <div class="blog-post-nav">
+          <a href="../blog.html">&larr; All Posts</a>
+          <a href="2026-04-01-vector-databases-compared.html">Previous: Vector Databases Compared &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 Ryan Ordonez</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    (function() {
+      var headings = document.querySelectorAll('.blog-post-body h2');
+      var tocList = document.getElementById('toc-list');
+      headings.forEach(function(h, i) {
+        h.id = 'section-' + i;
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = '#section-' + i;
+        a.textContent = h.textContent;
+        li.appendChild(a);
+        tocList.appendChild(li);
+      });
+      var tocLinks = tocList.querySelectorAll('a');
+      function onScroll() {
+        var fromTop = window.scrollY + 80;
+        var current = null;
+        headings.forEach(function(h, i) {
+          if (h.offsetTop <= fromTop) current = i;
+        });
+        tocLinks.forEach(function(a, i) {
+          a.classList.toggle('active', i === current);
+        });
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
+</body>
+</html>

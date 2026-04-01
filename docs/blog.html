@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/blog.css">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
   <link rel="alternate" type="application/rss+xml" title="Ryan Ordonez Blog RSS Feed" href="feed.xml">
 </head>
 <body>
@@ -53,6 +54,16 @@
     <!-- ===== BLOG POSTS ===== -->
     <section class="blog-posts">
       <div class="container">
+
+        <article class="blog-card" data-tags="MLOps" onclick="window.location.href='posts/2026-04-02-mlflow-production-pipelines.html'">
+          <div class="blog-card-meta">
+            <time datetime="2026-04-02">April 2, 2026</time>
+            <span class="blog-card-tag">MLOps</span>
+          </div>
+          <h2 class="blog-card-title">Building Production ML Pipelines with MLflow 3.0: What Actually Changed</h2>
+          <p class="blog-card-excerpt">MLflow 3.0 introduces LoggedModel as a first-class entity, comprehensive tracing for GenAI, LLM-as-judge evaluation, and deployment jobs that validate models before production. Here's what matters after migrating two production pipelines &mdash; and what's still missing.</p>
+          <span class="blog-card-read">Read more &rarr;</span>
+        </article>
 
         <article class="blog-card" data-tags="AI Engineering" onclick="window.location.href='posts/2026-04-01-vector-databases-compared.html'">
           <div class="blog-card-meta">
