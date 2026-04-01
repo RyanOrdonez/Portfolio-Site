@@ -43,6 +43,8 @@
         <div class="blog-post-layout">
         <div class="blog-post-body">
 
+          <img src="../assets/images/blog/vector-databases/hero.png" alt="A vast three-dimensional space filled with glowing data points clustered by similarity, with search queries finding nearest neighbors" class="blog-post-hero" loading="eager" />
+
           <p>Two years ago, choosing a vector database was simple: you picked Pinecone if you wanted managed, Milvus if you wanted self-hosted, and Chroma if you were prototyping. In 2026, the landscape has matured into a competitive market with six serious contenders, each carving out distinct strengths. If you're building RAG pipelines, semantic search, or recommendation systems, the database you choose will shape your architecture for years.</p>
 
           <p>After evaluating all six for production RAG systems across three projects, here's how they compare &mdash; and which one you should pick for your use case.</p>
@@ -119,6 +121,11 @@
           <p><strong>Weaknesses:</strong> Performance falls behind purpose-built solutions at scale (10M+ vectors). No built-in hybrid search &mdash; you combine tsvector and pgvector manually. Memory management requires careful tuning for large indexes. Missing advanced features like quantization and multi-vector search.</p>
 
           <p><strong>Best for:</strong> Teams already on Postgres who want vector search without adding infrastructure. Applications under 5&ndash;10M vectors. Use cases where transactional consistency between relational and vector data matters.</p>
+
+          <figure class="blog-post-figure">
+            <img src="../assets/images/blog/vector-databases/comparison.png" alt="Multiple vector database systems as distinct architectural structures side by side, each with unique visual characteristics" loading="lazy" />
+            <figcaption>Six contenders, six architectures &mdash; each vector database optimizes for different tradeoffs in indexing and search.</figcaption>
+          </figure>
 
           <h2>The Decision Framework</h2>
 
