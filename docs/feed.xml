@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Ryan Ordonez — AI &amp; Data Science Blog</title>
+    <link>https://ryanordonez.github.io/Portfolio-Site/blog.html</link>
+    <atom:link href="https://ryanordonez.github.io/Portfolio-Site/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Thoughts on AI, data science, and the technology shaping our future. Written by Ryan Ordonez, Data Scientist with an M.S. from CU Boulder.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 01 Apr 2026 08:00:00 GMT</lastBuildDate>
+    <managingEditor>ryanordonez7@gmail.com (Ryan Ordonez)</managingEditor>
+    <webMaster>ryanordonez7@gmail.com (Ryan Ordonez)</webMaster>
+    <copyright>2026 Ryan Ordonez</copyright>
+    <category>Data Science</category>
+    <category>Artificial Intelligence</category>
+    <category>Machine Learning</category>
+
+    <item>
+      <title>Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant in 2026</title>
+      <link>https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-01-vector-databases-compared.html</link>
+      <guid isPermaLink="true">https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-01-vector-databases-compared.html</guid>
+      <pubDate>Wed, 01 Apr 2026 08:00:00 GMT</pubDate>
+      <category>AI Engineering</category>
+      <description>The vector database market has matured from a handful of startups into a crowded, competitive landscape. Here's a practical comparison of Pinecone, Weaviate, Chroma, Qdrant, Milvus, and pgvector — with guidance on which to choose for your use case.</description>
+    </item>
+
+    <item>
+      <title>Fine-Tuning Open Source LLMs on Custom Data: A 2026 Practical Guide</title>
+      <link>https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-31-fine-tuning-open-source-llms.html</link>
+      <guid isPermaLink="true">https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-31-fine-tuning-open-source-llms.html</guid>
+      <pubDate>Tue, 31 Mar 2026 08:00:00 GMT</pubDate>
+      <category>Machine Learning</category>
+      <description>From LoRA to QLoRA, the barrier to fine-tuning has shifted from compute to judgment. Here's the practical playbook for choosing your base model, preparing data, setting hyperparameters, and deploying fine-tuned 8B models on consumer hardware.</description>
+    </item>
+
+    <item>
+      <title>RAG Architectures in 2026: A Practical Guide to Retrieval-Augmented Generation</title>
+      <link>https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-30-rag-architectures.html</link>
+      <guid isPermaLink="true">https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-30-rag-architectures.html</guid>
+      <pubDate>Mon, 30 Mar 2026 08:00:00 GMT</pubDate>
+      <category>AI Engineering</category>
+      <description>From naive retrieve-and-generate to agentic self-reflective pipelines and GraphRAG, the RAG landscape has evolved dramatically. Here's a practical framework for choosing between RAG, fine-tuning, and long context windows — and why most production systems in 2026 use all three.</description>
+    </item>
+
+    <item>
+      <title>GPU Costs in 2026: A Data Scientist's Guide to Cloud vs. On-Prem</title>
+      <link>https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-29-gpu-costs-2026.html</link>
+      <guid isPermaLink="true">https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-29-gpu-costs-2026.html</guid>
+      <pubDate>Sun, 29 Mar 2026 08:00:00 GMT</pubDate>
+      <category>MLOps</category>
+      <description>B200s range from $2.25 to $16/hour depending on where you rent. H100s have dropped 60% in two years. Here's how to think about cloud vs. on-prem vs. marketplace for your ML workloads — with real numbers and practical recommendations.</description>
+    </item>
+
+    <item>
+      <title>The Claude Mythos Leak: What a Misconfigured CMS Tells Us About the Next Wave of AI</title>
+      <link>https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-28-claude-mythos-leak.html</link>
+      <guid isPermaLink="true">https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-28-claude-mythos-leak.html</guid>
+      <pubDate>Sat, 28 Mar 2026 08:00:00 GMT</pubDate>
+      <category>AI Industry</category>
+      <description>Anthropic's leaked internal documents reveal Claude Mythos, a model that represents a "step change" in reasoning and cybersecurity capabilities. Markets reacted, but the real story is what this tells us about the accelerating frontier model race.</description>
+    </item>
+
+    <item>
+      <title>The AI Accountability Act: What Data Scientists Need to Know</title>
+      <link>https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-27-ai-accountability-act.html</link>
+      <guid isPermaLink="true">https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-27-ai-accountability-act.html</guid>
+      <pubDate>Fri, 27 Mar 2026 08:00:00 GMT</pubDate>
+      <category>AI Regulation</category>
+      <description>The US just passed its most significant AI legislation ever, requiring mandatory bias audits for AI in hiring, lending, healthcare, and criminal justice. Here's how it changes the way we build and deploy models.</description>
+    </item>
+
+    <item>
+      <title>The Rise of Agentic AI: Why 2026 Is the Year AI Stops Assisting and Starts Doing</title>
+      <link>https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-26-agentic-ai.html</link>
+      <guid isPermaLink="true">https://ryanordonez.github.io/Portfolio-Site/posts/2026-03-26-agentic-ai.html</guid>
+      <pubDate>Thu, 26 Mar 2026 08:00:00 GMT</pubDate>
+      <category>AI Trends</category>
+      <description>From autonomous code generation to supply chain orchestration, agentic AI systems are moving from research demos to production deployments. Here's what that means for data scientists and why Morgan Stanley says most of the world isn't ready.</description>
+    </item>
+
+  </channel>
+</rss>

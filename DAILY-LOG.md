@@ -11,7 +11,7 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 - [x] Create dedicated Skills page with proficiency levels and project links
 - [x] Create dedicated About page with full career timeline
 - [x] Add blog search and tag filtering
-- [ ] Add RSS feed for blog
+- [x] Add RSS feed for blog
 - [ ] Add project screenshots/demo GIFs to project cards
 - [ ] Add dark/light theme toggle
 - [ ] Add page transition animations
@@ -35,11 +35,28 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 - [x] Fine-tuning open source LLMs on custom data
 - [ ] The data scientist's guide to prompt engineering
 - [x] GPU costs in 2026: cloud vs on-prem analysis
-- [ ] Vector databases compared: Pinecone vs Weaviate vs Chroma
+- [x] Vector databases compared: Pinecone vs Weaviate vs Chroma
 
 ---
 
 ## Completed Work
+
+### Day 7 — April 1, 2026
+**Portfolio Action:** Added RSS Feed for Blog (Option D)
+- Created `docs/feed.xml` with full RSS 2.0 feed including Atom self-link and all 7 blog posts
+- Added RSS autodiscovery `<link>` tag to `docs/blog.html` `<head>` for browser/reader detection
+- Added visible RSS feed button with icon below blog subtitle on `docs/blog.html`
+- Styled `.blog-rss-link` in `docs/assets/css/blog.css` with accent color border, hover fill, and icon
+- Updated `README.md` structure to include `feed.xml` and mention RSS in Blog description
+
+**Blog:** "Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant in 2026"
+- Topic: Practical comparison of six major vector databases for RAG and semantic search
+- Covers: Pinecone (managed serverless), Weaviate (hybrid search leader), Chroma (lightweight prototyping), Qdrant (Rust performance + filtering), Milvus (billion-vector enterprise), pgvector (PostgreSQL extension)
+- Strengths and weaknesses analysis for each database
+- Decision framework: prototype (Chroma) → small-scale/Postgres (pgvector) → hybrid search (Weaviate) → filtered performance (Qdrant) → zero ops (Pinecone) → massive scale (Milvus)
+- Integration ecosystem overview: LangChain, LlamaIndex, embedding model compatibility
+- Practical recommendation stack for new RAG projects in 2026
+- Key insight: for most applications under 5M vectors, chunking and embedding quality matter more than database choice
 
 ### Day 6 — March 31, 2026
 **Portfolio Action:** Added Blog Search and Tag Filtering (Option D)

@@ -21,6 +21,31 @@
   max-width: 540px;
 }
 
+.blog-rss-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.blog-rss-link:hover {
+  background: var(--accent-color);
+  color: var(--bg-primary);
+}
+
+.blog-rss-link svg {
+  width: 16px;
+  height: 16px;
+}
+
 /* --- Blog Search & Tag Filters --- */
 .blog-filters {
   padding: 1.5rem 0 0;

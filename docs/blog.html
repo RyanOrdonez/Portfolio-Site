@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/blog.css">
+  <link rel="alternate" type="application/rss+xml" title="Ryan Ordonez Blog RSS Feed" href="feed.xml">
 </head>
 <body>
 
@@ -82,6 +83,10 @@
       <div class="container">
         <h1 class="blog-page-title">Blog</h1>
         <p class="blog-page-subtitle">Thoughts on AI, data science, and the technology shaping our future.</p>
+        <a href="feed.xml" class="blog-rss-link" target="_blank" rel="noopener noreferrer" aria-label="RSS Feed">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M6.18 15.64a2.18 2.18 0 010 4.36 2.18 2.18 0 010-4.36M4 4.44A15.56 15.56 0 0119.56 20h-2.83A12.73 12.73 0 004 7.27V4.44m0 5.66a9.9 9.9 0 019.9 9.9h-2.83A7.07 7.07 0 004 12.93v-2.83z"/></svg>
+          <span>RSS Feed</span>
+        </a>
       </div>
     </section>
 
@@ -107,6 +112,16 @@
     <!-- ===== BLOG POSTS ===== -->
     <section class="blog-posts">
       <div class="container">
+
+        <article class="blog-card" data-tags="AI Engineering" onclick="window.location.href='posts/2026-04-01-vector-databases-compared.html'">
+          <div class="blog-card-meta">
+            <time datetime="2026-04-01">April 1, 2026</time>
+            <span class="blog-card-tag">AI Engineering</span>
+          </div>
+          <h2 class="blog-card-title">Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant in 2026</h2>
+          <p class="blog-card-excerpt">The vector database market has matured from a handful of startups into a crowded, competitive landscape. Here's a practical comparison of Pinecone, Weaviate, Chroma, Qdrant, Milvus, and pgvector &mdash; with guidance on which to choose for your use case.</p>
+          <span class="blog-card-read">Read more &rarr;</span>
+        </article>
 
         <article class="blog-card" data-tags="Machine Learning" onclick="window.location.href='posts/2026-03-31-fine-tuning-open-source-llms.html'">
           <div class="blog-card-meta">
