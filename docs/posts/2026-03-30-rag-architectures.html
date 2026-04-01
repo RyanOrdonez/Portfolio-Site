@@ -75,12 +75,13 @@
 
     <!-- ===== POST HEADER ===== -->
     <section class="blog-post-header">
-      <div class="container" style="max-width: 720px;">
+      <div class="container" style="max-width: 1060px;">
         <a href="../blog.html" class="blog-back-link">&larr; Back to Blog</a>
         <h1 class="blog-post-title">RAG Architectures in 2026: A Practical Guide to Retrieval-Augmented Generation</h1>
         <div class="blog-post-meta">
           <time datetime="2026-03-30">March 30, 2026</time>
           <span class="blog-card-tag">AI Engineering</span>
+          <span class="blog-post-reading-time">7 min read</span>
           <span class="blog-post-author">Ryan Ordonez</span>
         </div>
       </div>
@@ -89,6 +90,7 @@
     <!-- ===== POST CONTENT ===== -->
     <section class="blog-post-content">
       <div class="container">
+        <div class="blog-post-layout">
         <div class="blog-post-body">
 
           <p>Every team building with LLMs in 2026 faces the same question: <strong>how do we get our model to answer accurately using our data?</strong> The three main approaches &mdash; retrieval-augmented generation (RAG), fine-tuning, and long context windows &mdash; each solve a different version of that problem. Most teams are still asking "which one should I use?" when the real question is "where should my intelligence live: in model weights, in external knowledge, or both?"</p>
@@ -176,6 +178,25 @@
           </blockquote>
 
         </div>
+
+        <aside class="blog-post-sidebar">
+          <div class="blog-sidebar-section">
+            <h3 class="blog-sidebar-heading">On This Page</h3>
+            <ul class="blog-toc-list" id="toc-list"></ul>
+          </div>
+          <div class="blog-sidebar-section">
+            <h3 class="blog-sidebar-heading">Other Posts</h3>
+            <ul class="blog-sidebar-posts">
+              <li><a href="2026-04-01-vector-databases-compared.html"><div class="blog-sidebar-post-title">Vector Databases Compared</div><div class="blog-sidebar-post-date">Apr 1, 2026</div></a></li>
+              <li><a href="2026-03-31-fine-tuning-open-source-llms.html"><div class="blog-sidebar-post-title">Fine-Tuning Open Source LLMs</div><div class="blog-sidebar-post-date">Mar 31, 2026</div></a></li>
+              <li><a href="2026-03-29-gpu-costs-2026.html"><div class="blog-sidebar-post-title">GPU Costs in 2026: Cloud vs. On-Prem</div><div class="blog-sidebar-post-date">Mar 29, 2026</div></a></li>
+              <li><a href="2026-03-28-claude-mythos-leak.html"><div class="blog-sidebar-post-title">The Claude Mythos Leak</div><div class="blog-sidebar-post-date">Mar 28, 2026</div></a></li>
+              <li><a href="2026-03-27-ai-accountability-act.html"><div class="blog-sidebar-post-title">The AI Accountability Act</div><div class="blog-sidebar-post-date">Mar 27, 2026</div></a></li>
+              <li><a href="2026-03-26-agentic-ai.html"><div class="blog-sidebar-post-title">The Rise of Agentic AI</div><div class="blog-sidebar-post-date">Mar 26, 2026</div></a></li>
+            </ul>
+          </div>
+        </aside>
+        </div>
       </div>
     </section>
 
@@ -199,5 +220,33 @@
   </main>
 
   <script src="../assets/js/main.js"></script>
+  <script>
+    (function() {
+      var headings = document.querySelectorAll('.blog-post-body h2');
+      var tocList = document.getElementById('toc-list');
+      headings.forEach(function(h, i) {
+        h.id = 'section-' + i;
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = '#section-' + i;
+        a.textContent = h.textContent;
+        li.appendChild(a);
+        tocList.appendChild(li);
+      });
+      var tocLinks = tocList.querySelectorAll('a');
+      function onScroll() {
+        var fromTop = window.scrollY + 80;
+        var current = null;
+        headings.forEach(function(h, i) {
+          if (h.offsetTop <= fromTop) current = i;
+        });
+        tocLinks.forEach(function(a, i) {
+          a.classList.toggle('active', i === current);
+        });
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    })();
+  </script>
 </body>
 </html>
