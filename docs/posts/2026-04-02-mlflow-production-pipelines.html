@@ -43,6 +43,8 @@
         <div class="blog-post-layout">
         <div class="blog-post-body">
 
+          <img src="../assets/images/blog/mlflow-pipelines/hero.png" alt="A modern ML production pipeline with interconnected stages for data ingestion, training, evaluation, and deployment" class="blog-post-hero" loading="eager" />
+
           <p>MLflow has been the de facto standard for ML experiment tracking since Databricks open-sourced it in 2018. But for most of its history, it solved only one problem well: logging metrics, parameters, and artifacts from training runs. Getting a model from a Jupyter notebook to a production endpoint still required stitching together a half-dozen other tools. MLflow 3.0, which shipped in early 2026 with rapid point releases through March, changes that calculus significantly.</p>
 
           <p>After migrating two production pipelines from MLflow 2.x to 3.x, here's what actually matters &mdash; and what's still missing.</p>
@@ -80,6 +82,11 @@ with mlflow.start_run():
           <p>The killer feature is automatic instrumentation. Add <code>mlflow.openai.autolog()</code> at the top of your script, and every OpenAI call, every LangChain chain execution, every retrieval step gets traced automatically. No decorators, no manual span creation. MLflow supports auto-instrumentation for 20+ frameworks including OpenAI, Anthropic, LangChain, LlamaIndex, and HuggingFace.</p>
 
           <p>Why does this matter for production? Because debugging a RAG pipeline failure at 2 AM is miserable without traces. When a user reports that the system gave a wrong answer, you need to see: which documents were retrieved, what the similarity scores were, how the prompt was constructed, what the LLM generated, and whether any post-processing modified the output. MLflow Tracing captures all of this in a single hierarchical trace that you can inspect in the UI or query programmatically.</p>
+
+          <figure class="blog-post-figure">
+            <img src="../assets/images/blog/mlflow-pipelines/tracing.png" alt="Cascading spans and traces flowing through a GenAI system, showing request flow from input through LLM calls to output" loading="lazy" />
+            <figcaption>MLflow Tracing &mdash; hierarchical visibility into complex LLM execution flows, from retrieval to generation.</figcaption>
+          </figure>
 
           <p>The traces also feed directly into evaluation, which brings us to the next major change.</p>
 
@@ -120,6 +127,11 @@ def domain_accuracy(request, response, expected):
           <p>This is the CI/CD pipeline for ML that teams have been building manually for years. Most production ML teams I've seen have some combination of GitHub Actions, custom scripts, and manual approval steps to validate models before deployment. MLflow Deployment Jobs consolidates this into a single workflow that's integrated with the model registry.</p>
 
           <p>The integration with Databricks Unity Catalog adds governance and audit trails, which matters for regulated industries. But even without Databricks, the open-source deployment validation workflow is a significant improvement over the status quo.</p>
+
+          <figure class="blog-post-figure">
+            <img src="../assets/images/blog/mlflow-pipelines/model-registry.png" alt="Organized shelves of AI models represented as glowing cubes with version numbers, connected by deployment arrows" loading="lazy" />
+            <figcaption>The model registry &mdash; LoggedModel tracks lineage from training through evaluation to production deployment.</figcaption>
+          </figure>
 
           <h2>What's Still Missing</h2>
 
