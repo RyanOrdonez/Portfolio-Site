@@ -14,7 +14,7 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 - [x] Add RSS feed for blog
 - [ ] Add project screenshots/demo GIFs to project cards
 - [x] Add dark/light theme toggle
-- [ ] Add page transition animations
+- [x] Add page transition animations
 
 ### Repo Improvements
 - [ ] Kaggle-Challenges: Add visual README with badges, results table, architecture diagrams
@@ -33,13 +33,35 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 - [x] RAG architectures and when to use them
 - [x] Building production ML pipelines with MLflow
 - [x] Fine-tuning open source LLMs on custom data
-- [ ] The data scientist's guide to prompt engineering
+- [x] The data scientist's guide to prompt engineering
 - [x] GPU costs in 2026: cloud vs on-prem analysis
 - [x] Vector databases compared: Pinecone vs Weaviate vs Chroma
 
 ---
 
 ## Completed Work
+
+### Day 9 — April 3, 2026
+**Portfolio Action:** Added Page Transition Animations (Option D)
+- Added CSS `@keyframes` animations: `pageEnter`, `fadeInUp`, `fadeInLeft`, `fadeInScale` in `docs/assets/css/style.css`
+- Main content container (`<main>`) animates in on every page load with a 0.5s fade-in + slide-up
+- Added `.slide-in-left` and `.scale-in` CSS classes as scroll-triggered animation variants
+- Added `.stagger-in` class for staggered child element animations with incremental delays (0.06s per item, up to 10 children)
+- Applied stagger-in to: projects grid and skills grid on `index.html`, blog posts container on `blog.html`, project details on `projects.html`, skills detail on `skills.html`, career timeline on `about.html`
+- Enhanced hover animations: blog cards lift 3px, project cards lift 2px with box-shadow, skill categories lift 2px with shadow
+- Added animated underline on blog card "Read more" links using `::after` pseudo-element
+- Updated `main.js` IntersectionObserver to support new animation classes (`.slide-in-left`, `.scale-in`, `.stagger-in`)
+- Added `@media (prefers-reduced-motion: reduce)` query to disable all animations for accessibility
+- All animations are CSS-only with JS IntersectionObserver triggers — no dependencies
+
+**Blog:** "The Data Scientist's Guide to Prompt Engineering in 2026"
+- Topic: Comprehensive practical guide to prompt engineering for data scientists (from blog topics queue)
+- Covers: Five core techniques that matter in production — structured outputs with JSON Schema, chain-of-thought with explicit reasoning steps, dynamic few-shot example selection via vector search, system prompt engineering for agents, retrieval-grounded prompts for RAG
+- DSPy framework deep dive: signatures, modules, MIPROv2/COPRO/GEPA optimizers, treating prompts as optimizable programs
+- Common data scientist mistakes: over-prompting, ignoring model-specific strengths, not evaluating prompts systematically, prompt-stuffing vs architecture, context window mismanagement
+- Practical 2026 toolkit: DSPy for optimization, MLflow GenAI eval, Prompt Registry, Pydantic + instructor for structured outputs
+- Forward-looking: convergence of prompt optimization and fine-tuning, prompt gradients research
+- Key insight: invest in evaluation/optimization infrastructure, not memorizing prompt patterns
 
 ### Day 8 — April 2, 2026
 **Portfolio Action:** Added Dark/Light Theme Toggle (Option D)

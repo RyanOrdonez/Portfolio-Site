@@ -58,7 +58,7 @@
   // 3. SCROLL ANIMATIONS
   // =========================================================================
   function initScrollAnimations() {
-    var elements = document.querySelectorAll(".fade-in");
+    var elements = document.querySelectorAll(".fade-in, .slide-in-left, .scale-in, .stagger-in");
     if (elements.length === 0) return;
 
     var observer = new IntersectionObserver(
@@ -69,7 +69,7 @@
           obs.unobserve(entry.target);
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.08 }
     );
 
     elements.forEach(function (el) {

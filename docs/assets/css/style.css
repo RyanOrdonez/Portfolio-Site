@@ -843,6 +843,58 @@ ul { list-style: none; }
 /* ============================================================
    ANIMATIONS
    ============================================================ */
+
+/* Page load entrance */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Main content page entrance animation */
+.main-content {
+  animation: pageEnter 0.5s ease-out both;
+}
+
+/* Scroll-triggered fade-in (existing, enhanced) */
 .fade-in {
   opacity: 0;
   transform: translateY(12px);
@@ -852,6 +904,123 @@ ul { list-style: none; }
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Slide-in from left variant */
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.slide-in-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scale-in variant */
+.scale-in {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.scale-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Staggered card entrance animations */
+.stagger-in > * {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.stagger-in.visible > *:nth-child(1) { transition-delay: 0s; }
+.stagger-in.visible > *:nth-child(2) { transition-delay: 0.06s; }
+.stagger-in.visible > *:nth-child(3) { transition-delay: 0.12s; }
+.stagger-in.visible > *:nth-child(4) { transition-delay: 0.18s; }
+.stagger-in.visible > *:nth-child(5) { transition-delay: 0.24s; }
+.stagger-in.visible > *:nth-child(6) { transition-delay: 0.30s; }
+.stagger-in.visible > *:nth-child(7) { transition-delay: 0.36s; }
+.stagger-in.visible > *:nth-child(8) { transition-delay: 0.42s; }
+.stagger-in.visible > *:nth-child(9) { transition-delay: 0.48s; }
+.stagger-in.visible > *:nth-child(10) { transition-delay: 0.54s; }
+
+.stagger-in.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Blog card hover lift animation */
+.blog-card {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.blog-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Project card hover lift */
+.project-card {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.project-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Skill category hover animation */
+.skill-category {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.skill-category:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Section header entrance */
+.section-title {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Smooth link underline animation */
+.blog-card-read {
+  position: relative;
+  display: inline-block;
+}
+
+.blog-card-read::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.blog-card:hover .blog-card-read::after {
+  width: 100%;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .main-content { animation: none; }
+  .fade-in,
+  .slide-in-left,
+  .scale-in { transition: none; opacity: 1; transform: none; }
+  .stagger-in > * { transition: none; opacity: 1; transform: none; }
+  .blog-card,
+  .project-card,
+  .skill-category { transition: background var(--transition), border-color var(--transition); }
+  .blog-card:hover,
+  .project-card:hover,
+  .skill-category:hover { transform: none; box-shadow: none; }
 }
 
 /* ============================================================
