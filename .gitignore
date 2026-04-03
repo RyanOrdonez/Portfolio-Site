@@ -1,3 +1,6 @@
+.env
+image-gen-progress.json
+generate-blog-images.py
 boilerplate-projects/
 daily-log/
 daily-ops/
