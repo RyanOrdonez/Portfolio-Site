@@ -31,12 +31,30 @@
       </div>
     </section>
 
+    <!-- ===== SEARCH & FILTER ===== -->
+    <section class="projects-filters">
+      <div class="container">
+        <div class="projects-search-wrapper">
+          <svg class="projects-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="projects-search" class="projects-search-input" placeholder="Search projects..." autocomplete="off" />
+        </div>
+        <div class="projects-category-filters">
+          <button class="projects-filter-btn active" data-category="all">All</button>
+          <button class="projects-filter-btn" data-category="Machine Learning">Machine Learning</button>
+          <button class="projects-filter-btn" data-category="NLP">NLP</button>
+          <button class="projects-filter-btn" data-category="Computer Vision">Computer Vision</button>
+          <button class="projects-filter-btn" data-category="Full-Stack">Full-Stack</button>
+          <button class="projects-filter-btn" data-category="Data Science">Data Science</button>
+        </div>
+      </div>
+    </section>
+
     <!-- ===== PROJECT DETAILS ===== -->
     <section class="project-details">
       <div class="container stagger-in">
 
         <!-- Prop Trading Dashboard -->
-        <article class="project-detail-card" id="prop-trading-dashboard">
+        <article class="project-detail-card" id="prop-trading-dashboard" data-category="Full-Stack">
           <div class="project-detail-header">
             <div>
               <h2>Prop Trading Dashboard</h2>
@@ -91,7 +109,7 @@
         </article>
 
         <!-- Falcon 9 Landing Prediction -->
-        <article class="project-detail-card" id="falcon-9">
+        <article class="project-detail-card" id="falcon-9" data-category="Data Science">
           <div class="project-detail-header">
             <div>
               <h2>Falcon 9 Landing Prediction</h2>
@@ -145,7 +163,7 @@
         </article>
 
         <!-- Histopathologic Cancer Detection -->
-        <article class="project-detail-card" id="cancer-detection">
+        <article class="project-detail-card" id="cancer-detection" data-category="Computer Vision">
           <div class="project-detail-header">
             <div>
               <h2>Histopathologic Cancer Detection</h2>
@@ -198,7 +216,7 @@
         </article>
 
         <!-- NLP Disaster Tweets -->
-        <article class="project-detail-card" id="disaster-tweets">
+        <article class="project-detail-card" id="disaster-tweets" data-category="NLP">
           <div class="project-detail-header">
             <div>
               <h2>NLP Disaster Tweets</h2>
@@ -252,7 +270,7 @@
         </article>
 
         <!-- Monet Style Transfer -->
-        <article class="project-detail-card" id="monet-style-transfer">
+        <article class="project-detail-card" id="monet-style-transfer" data-category="Computer Vision">
           <div class="project-detail-header">
             <div>
               <h2>Monet Style Transfer</h2>
@@ -306,7 +324,7 @@
         </article>
 
         <!-- Rotten Tomatoes Predictor -->
-        <article class="project-detail-card" id="rotten-tomatoes">
+        <article class="project-detail-card" id="rotten-tomatoes" data-category="NLP">
           <div class="project-detail-header">
             <div>
               <h2>Rotten Tomatoes Predictor</h2>
@@ -360,7 +378,7 @@
         </article>
 
         <!-- Maevie Project Manager -->
-        <article class="project-detail-card" id="maevie">
+        <article class="project-detail-card" id="maevie" data-category="Full-Stack">
           <div class="project-detail-header">
             <div>
               <h2>Maevie Project Manager</h2>
@@ -413,6 +431,8 @@
           </div>
         </article>
 
+        <p class="projects-no-results" id="projects-no-results" style="display: none;">No projects match your search. Try a different keyword or category.</p>
+
       </div>
     </section>
 
@@ -427,5 +447,49 @@
 
   <script src="assets/js/nav.js"></script>
   <script src="assets/js/main.js"></script>
+  <script>
+    (function() {
+      var searchInput = document.getElementById('projects-search');
+      var filterBtns = document.querySelectorAll('.projects-filter-btn');
+      var projectCards = document.querySelectorAll('.project-detail-card');
+      var noResults = document.getElementById('projects-no-results');
+      var activeCategory = 'all';
+
+      function filterProjects() {
+        var query = searchInput.value.toLowerCase().trim();
+        var visibleCount = 0;
+
+        projectCards.forEach(function(card) {
+          var title = card.querySelector('h2').textContent.toLowerCase();
+          var body = card.querySelector('.project-detail-body').textContent.toLowerCase();
+          var tags = card.querySelector('.project-detail-tags').textContent.toLowerCase();
+          var category = card.getAttribute('data-category');
+
+          var matchesSearch = !query || title.includes(query) || body.includes(query) || tags.includes(query);
+          var matchesCategory = activeCategory === 'all' || category === activeCategory;
+
+          if (matchesSearch && matchesCategory) {
+            card.style.display = '';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        noResults.style.display = visibleCount === 0 ? '' : 'none';
+      }
+
+      searchInput.addEventListener('input', filterProjects);
+
+      filterBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          filterBtns.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          activeCategory = btn.getAttribute('data-category');
+          filterProjects();
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

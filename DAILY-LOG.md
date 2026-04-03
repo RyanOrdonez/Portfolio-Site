@@ -48,6 +48,7 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 - [x] Add RSS feed for blog
 - [x] Add dark/light theme toggle
 - [x] Add page transition animations
+- [x] Add project search and category filtering to projects page
 - [ ] Add project screenshots/demo GIFs to project cards
 - [ ] Add new projects to projects page as they're built
 - [ ] Update skills page when new tech is used
@@ -133,6 +134,29 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 ---
 
 ## Completed Work
+
+### Day 10 — April 4, 2026
+**Portfolio Action:** Added Search and Category Filtering to Projects Page (Option D)
+- Added search input with magnifying glass icon to `docs/projects.html` for real-time text filtering across project titles, descriptions, methodology, and tech tags
+- Added category filter buttons (All, Machine Learning, NLP, Computer Vision, Full-Stack, Data Science) for one-click category filtering
+- Each project card now has a `data-category` attribute for JavaScript-based filtering
+- Search and category filters work together — users can combine text search with category selection
+- "No results" message displays when no projects match the current filters
+- Added CSS styles in `docs/assets/css/projects.css`: search input, filter buttons, active states, focus ring, and responsive breakpoints
+- All filtering logic runs client-side with vanilla JavaScript (no dependencies)
+- Mirrors the blog page's search/filter UX for consistency across the site
+
+**Blog:** "Gemini Embedding 2: What a Unified Multimodal Embedding Model Means for RAG"
+- Topic: Google DeepMind's Gemini Embedding 2 — the first natively multimodal embedding model (released March 2026)
+- Covers: Single model maps text, images, video, audio, and PDFs into unified 3,072-dimensional vector space
+- Benchmark analysis: 68.32 on MTEB English (top spot by 5.09 points), 68.8 on video retrieval (vs 60.3 Amazon Nova 2, 55.2 Voyage Multimodal 3.5)
+- Architecture simplification: replaces multi-model pipelines with single API call, Sparkonomy case study (70% latency reduction, 20% recall improvement)
+- Practical code examples showing old multi-model approach vs new unified approach
+- Pricing analysis: $0.25/M tokens competitive when accounting for total pipeline cost
+- Matryoshka Representation Learning (MRL) for flexible dimensionality (256-3,072)
+- When to use vs when not to (text-only, on-premise, fine-tuning needs)
+- Competitive landscape: Amazon Nova 2, Voyage Multimodal 3.5, OpenAI (text-only), open-source gap
+- Key insight: multimodal RAG just moved from "big company problem" to single API call
 
 ### Day 9 — April 3, 2026
 **Portfolio Action:** Added Page Transition Animations (Option D)

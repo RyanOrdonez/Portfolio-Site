@@ -6,13 +6,22 @@
     <atom:link href="https://ryanordonez.github.io/Portfolio-Site/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Thoughts on AI, data science, and the technology shaping our future. Written by Ryan Ordonez, Data Scientist with an M.S. from CU Boulder.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Apr 2026 08:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 04 Apr 2026 08:00:00 GMT</lastBuildDate>
     <managingEditor>ryanordonez7@gmail.com (Ryan Ordonez)</managingEditor>
     <webMaster>ryanordonez7@gmail.com (Ryan Ordonez)</webMaster>
     <copyright>2026 Ryan Ordonez</copyright>
     <category>Data Science</category>
     <category>Artificial Intelligence</category>
     <category>Machine Learning</category>
+
+    <item>
+      <title>Gemini Embedding 2: What a Unified Multimodal Embedding Model Means for RAG</title>
+      <link>https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-04-gemini-embedding-2-multimodal.html</link>
+      <guid isPermaLink="true">https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-04-gemini-embedding-2-multimodal.html</guid>
+      <pubDate>Sat, 04 Apr 2026 08:00:00 GMT</pubDate>
+      <category>AI Engineering</category>
+      <description>Google's Gemini Embedding 2 is the first production embedding model that natively maps text, images, video, audio, and documents into a single vector space. Early adopters report 70% latency reduction and 20% recall improvement — here's what it means for your RAG pipeline architecture.</description>
+    </item>
 
     <item>
       <title>The Data Scientist's Guide to Prompt Engineering in 2026</title>

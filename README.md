@@ -32,6 +32,7 @@ Personal portfolio website showcasing data science projects, technical blog, and
 
 | Date | Post | Topic |
 |------|------|-------|
+| Apr 4, 2026 | [Gemini Embedding 2: What a Unified Multimodal Embedding Model Means for RAG](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-04-gemini-embedding-2-multimodal.html) | AI Engineering |
 | Apr 3, 2026 | [The Data Scientist's Guide to Prompt Engineering in 2026](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-03-prompt-engineering-guide.html) | AI Engineering |
 | Apr 2, 2026 | [Building Production ML Pipelines with MLflow 3.0](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-02-mlflow-production-pipelines.html) | MLOps |
 | Apr 1, 2026 | [Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant in 2026](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-01-vector-databases-compared.html) | AI Engineering |
@@ -67,6 +68,7 @@ docs/
 ├── blog.html               # Blog listing (with search & tag filtering)
 ├── feed.xml                # RSS feed
 ├── posts/                  # Individual blog posts
+│   ├── 2026-04-04-gemini-embedding-2-multimodal.html
 │   ├── 2026-04-03-prompt-engineering-guide.html
 │   ├── 2026-04-02-mlflow-production-pipelines.html
 │   ├── 2026-04-01-vector-databases-compared.html
