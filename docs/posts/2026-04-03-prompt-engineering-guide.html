@@ -43,6 +43,8 @@
         <div class="blog-post-layout">
         <div class="blog-post-body">
 
+          <img src="../assets/images/blog/prompt-engineering/hero.png" alt="A human hand crafting glowing text that flows into an AI brain, transforming into structured outputs" class="blog-post-hero" loading="eager" />
+
           <p>Prompt engineering has evolved from an ad-hoc craft into a disciplined practice. Two years ago, it meant trial-and-error rewording of ChatGPT inputs. Today, it's a critical layer in production AI systems &mdash; one that determines whether your RAG pipeline returns accurate answers or hallucinates confidently, whether your agent completes a task or loops forever, and whether your structured outputs parse cleanly or break downstream processing.</p>
 
           <p>For data scientists, prompt engineering is no longer optional. If you're building anything that touches an LLM, you need a systematic approach. Here's what works in April 2026.</p>
@@ -76,6 +78,11 @@ result = client.messages.create(
           <p><strong>4. System prompt engineering for agents.</strong> Agentic systems demand a fundamentally different prompting approach. You're not prompting for a single completion &mdash; you're defining behavior over many turns with tool calls, error recovery, and state management. The key patterns: explicit tool use instructions, failure mode handling ("if X fails, try Y"), output format contracts, and scope constraints ("do NOT modify files outside /src").</p>
 
           <p><strong>5. Retrieval-grounded prompts.</strong> For RAG systems, the prompt structure around retrieved context matters as much as the retrieval quality. The 2026 pattern is: system instructions defining the task and constraints, retrieved context with source attribution metadata, the user query, and explicit instructions about how to handle missing or conflicting information. The last part is critical &mdash; without it, models will fabricate answers when the context doesn't contain the answer.</p>
+
+          <figure class="blog-post-figure">
+            <img src="../assets/images/blog/prompt-engineering/techniques.png" alt="Different prompt engineering techniques as distinct geometric patterns: chain-of-thought, few-shot, and system prompts" loading="lazy" />
+            <figcaption>The five core techniques &mdash; structured outputs, chain-of-thought, dynamic few-shot, agentic prompts, and retrieval-grounded patterns.</figcaption>
+          </figure>
 
           <h2>DSPy: The Framework That Changed Everything</h2>
 
