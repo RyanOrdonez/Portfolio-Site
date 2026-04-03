@@ -4,38 +4,131 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 
 ---
 
+## How This Works
+
+**Each day, the scheduled agent does TWO things:**
+
+1. **Project Action** — Real engineering work that produces GitHub commits. Priority order:
+   - Fix issues or improve existing repos (READMEs, code quality, features)
+   - Build new projects (scaffold, implement, deploy)
+   - Update portfolio site only when new project work needs to be displayed
+
+2. **Blog Post** — Research trending AI/data science news THAT MORNING, then write a post on the most relevant topic. No pre-planned topics — always current.
+
+---
+
 ## Backlog (Prioritized)
 
-### Portfolio Site Enhancements
+### P0 — Immediate Impact (Recruiters See These First)
+- [ ] RyanOrdonez profile README: GitHub stats, featured projects, recent blog posts, skills badges
+- [ ] Kaggle-Challenges: Visual README with badges, results table, per-challenge methodology
+- [ ] Prop-Trading-Dashboard: README overhaul with architecture diagram, setup instructions, feature overview
+
+### P1 — Repo Quality (Make Existing Work Shine)
+- [ ] Rotten-Tomatoes-Predictor: README with BERT architecture diagram, training results, evaluation metrics
+- [ ] Falcon-9-Landing-Prediction: README with methodology, results, Plotly dashboard description
+- [ ] Histopathologic-Cancer-Detection: README with CNN architecture, data pipeline, results
+- [ ] NLP-Disaster-Tweets: README with BiGRU/BiLSTM approach, preprocessing, results
+- [ ] Monet-Style-Transfer: README with GAN comparison (DCGAN vs CycleGAN vs NST), sample outputs
+- [ ] CU-Boulder-MSDS: Organize by semester, add course descriptions and key project links
+- [ ] Maevie-Project-Manager: README with features, tech stack, setup guide
+
+### P2 — New Projects (Show Range and Depth)
+- [ ] Sentiment Analysis API — FastAPI + HuggingFace, containerized, deployed (2-day build)
+- [ ] FIRE Simulator — Publish existing fire-simulator as standalone repo with polished README
+- [ ] Real-time Stock Dashboard — Streamlit + yfinance (2-day build)
+- [ ] AI-Powered Resume Screener — RAG pipeline with vector search (3-day build)
+- [ ] Data Engineering Pipeline — Airflow + dbt + Snowflake (3-day build)
+
+### P3 — Portfolio Site (Display Layer — Update When Projects Change)
 - [x] Create dedicated Projects page with expanded detail
 - [x] Create dedicated Skills page with proficiency levels and project links
 - [x] Create dedicated About page with full career timeline
 - [x] Add blog search and tag filtering
 - [x] Add RSS feed for blog
-- [ ] Add project screenshots/demo GIFs to project cards
 - [x] Add dark/light theme toggle
 - [x] Add page transition animations
+- [ ] Add project screenshots/demo GIFs to project cards
+- [ ] Add new projects to projects page as they're built
+- [ ] Update skills page when new tech is used
 
-### Repo Improvements
-- [ ] Kaggle-Challenges: Add visual README with badges, results table, architecture diagrams
-- [ ] Prop-Trading-Dashboard: Add screenshots, demo GIF, detailed setup instructions
-- [ ] Rotten-Tomatoes-Predictor: Add model architecture diagram, results visualization
-- [ ] CU-Boulder-MSDS: Organize coursework by semester, add course descriptions
-- [ ] RyanOrdonez profile README: Add GitHub stats, recent blog posts, featured projects
+### Blog
+- Topics are NOT pre-planned
+- Each morning the agent searches for trending AI/data science/ML news
+- Blog post is written on the most relevant, timely topic found that day
+- Tone: professional but accessible, practical takeaways for data scientists
 
-### New Project Ideas
-- [ ] Sentiment Analysis API (FastAPI + HuggingFace, deployed)
-- [ ] Real-time Stock Dashboard (Streamlit + yfinance)
-- [ ] AI-Powered Resume Screener (RAG pipeline)
-- [ ] Data Engineering Pipeline (Airflow + dbt + Snowflake)
+---
 
-### Blog Topics Queue
-- [x] RAG architectures and when to use them
-- [x] Building production ML pipelines with MLflow
-- [x] Fine-tuning open source LLMs on custom data
-- [x] The data scientist's guide to prompt engineering
-- [x] GPU costs in 2026: cloud vs on-prem analysis
-- [x] Vector databases compared: Pinecone vs Weaviate vs Chroma
+## Schedule: Days 10–19
+
+### Day 10
+**Project:** Create RyanOrdonez profile README (`RyanOrdonez/RyanOrdonez` repo)
+- Hero section, GitHub stats widgets, skills badges grid
+- Featured projects with descriptions and links
+- Recent blog posts list, education, contact
+**Blog:** Research trending AI news that morning, write post on most relevant topic
+
+### Day 11
+**Project:** Kaggle-Challenges README overhaul
+- Read current repo, understand structure
+- Add badges, results table (challenge | score | rank), methodology per challenge
+- Architecture/approach descriptions for each competition
+**Blog:** Research trending AI news that morning, write post on most relevant topic
+
+### Day 12
+**Project:** Prop-Trading-Dashboard README overhaul
+- Architecture diagram (TypeScript/React/Electron/SQLite flow)
+- Feature list, tech stack badges, setup instructions
+- Usage guide, screenshot descriptions
+**Blog:** Research trending AI news that morning, write post on most relevant topic
+
+### Day 13
+**Project:** Publish FIRE Simulator as standalone repo
+- Create `RyanOrdonez/FIRE-Simulator` repo
+- Polished README: Monte Carlo methodology, feature list, architecture, tech stack
+- Add to portfolio site projects page
+**Blog:** Research trending AI news that morning, write post on most relevant topic
+
+### Day 14
+**Project:** Rotten-Tomatoes-Predictor README + Falcon-9 README
+- BERT architecture description, training pipeline, evaluation metrics
+- Falcon-9: methodology, classification results, Plotly dashboard description
+**Blog:** Research trending AI news that morning, write post on most relevant topic
+
+### Day 15
+**Project:** Sentiment Analysis API — Day 1 (scaffold + core)
+- Create `RyanOrdonez/Sentiment-Analysis-API` repo
+- FastAPI project structure, endpoints, HuggingFace model integration
+- README with API design, Dockerfile, requirements.txt
+**Blog:** Research trending AI news that morning, write post on most relevant topic
+
+### Day 16
+**Project:** Sentiment Analysis API — Day 2 (tests + deploy config)
+- Add tests, error handling, model caching, rate limiting
+- Deployment config (Railway/Render/Docker)
+- Update portfolio site with new project
+**Blog:** Research trending AI news that morning, write post on most relevant topic
+
+### Day 17
+**Project:** Batch README updates — Histopathologic + NLP-Disaster-Tweets + Monet
+- Consistent format: badges, methodology, results, tech stack, setup
+- Each gets proper project structure documentation
+**Blog:** Research trending AI news that morning, write post on most relevant topic
+
+### Day 18
+**Project:** CU-Boulder-MSDS organization + Maevie-Project-Manager README
+- CU-Boulder: organize by semester, add course descriptions, link key projects
+- Maevie: features, tech stack, architecture, setup guide
+**Blog:** Research trending AI news that morning, write post on most relevant topic
+
+### Day 19
+**Project:** Real-time Stock Dashboard — Day 1 (scaffold + core)
+- Create `RyanOrdonez/Stock-Dashboard` repo
+- Streamlit app, yfinance data pipeline, core visualizations
+- README with features, architecture, tech stack
+- Update portfolio site with new project
+**Blog:** Research trending AI news that morning, write post on most relevant topic
 
 ---
 
