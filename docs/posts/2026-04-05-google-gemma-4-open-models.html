@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Google Gemma 4 is the most capable open model family yet — four sizes from 2B edge to 31B dense, Apache 2.0 licensed, with native agentic capabilities. Here's what it means for local AI deployment and data science workflows.">
+  <title>Google Gemma 4: What the Most Capable Open Models Mean for Local AI Agents | Ryan Ordonez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/blog.css">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+</head>
+<body>
+
+  <!-- ===== SIDEBAR NAVIGATION ===== -->
+  <aside id="sidebar" class="sidebar"></aside>
+
+  <!-- ===== MOBILE TOP NAV ===== -->
+  <nav id="mobile-nav" class="mobile-nav"></nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+
+    <!-- ===== POST HEADER ===== -->
+    <section class="blog-post-header">
+      <div class="container" style="max-width: 1060px;">
+        <a href="../blog.html" class="blog-back-link">&larr; Back to Blog</a>
+        <h1 class="blog-post-title">Google Gemma 4: What the Most Capable Open Models Mean for Local AI Agents</h1>
+        <div class="blog-post-meta">
+          <time datetime="2026-04-05">April 5, 2026</time>
+          <span class="blog-card-tag">Machine Learning</span>
+          <span class="blog-post-reading-time">10 min read</span>
+          <span class="blog-post-author">Ryan Ordonez</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== POST CONTENT ===== -->
+    <section class="blog-post-content">
+      <div class="container">
+        <div class="blog-post-layout">
+        <div class="blog-post-body">
+
+          <p>Google DeepMind released Gemma 4 this week, and it's the largest single-generation improvement the open model ecosystem has seen. Four model sizes &mdash; from a 2B-effective edge model that runs on a Raspberry Pi to a 31B dense model that rivals frontier APIs &mdash; all under Apache 2.0. Native function calling, structured JSON output, multimodal vision, and 256K context windows. If you've been waiting for open models to become genuinely useful for agentic AI workflows, the wait is over.</p>
+
+          <p>Here's what matters for data scientists building real systems.</p>
+
+          <h2>The Model Lineup</h2>
+
+          <p>Gemma 4 ships in four sizes, each targeting a different deployment scenario:</p>
+
+          <ul>
+            <li><strong>Gemma 4 E2B</strong> (Effective 2B): Ultra-lightweight edge model. Activates ~2B parameters during inference. Runs on phones, Raspberry Pi, NVIDIA Jetson Orin Nano. 128K context window.</li>
+            <li><strong>Gemma 4 E4B</strong> (Effective 4B): Mid-range edge model. ~4B effective parameters. Targets RTX laptops and tablets. 128K context window.</li>
+            <li><strong>Gemma 4 26B MoE</strong> (A4B): 25.2B total parameters, but only activates 3.8B per token via Mixture of Experts with 128 small experts (8 active + 1 shared per token). 256K context window. The efficiency story here is remarkable.</li>
+            <li><strong>Gemma 4 31B Dense</strong>: 30.7B dense parameters, all active during inference. 256K context window. Text and image multimodality. The flagship for quality.</li>
+          </ul>
+
+          <p>The naming convention reflects Google's shift toward communicating <em>effective</em> compute cost rather than raw parameter count &mdash; a welcome change that helps practitioners make deployment decisions based on actual resource requirements.</p>
+
+          <h2>The Benchmarks That Matter</h2>
+
+          <p>Numbers first, then what they mean in practice.</p>
+
+          <p>The 31B dense model scores an estimated <strong>1452 on LMArena</strong> (text only), making it the #3 open model globally. The 26B MoE reaches 1441 &mdash; nearly matching the dense model's quality with roughly one-eighth the active parameters. That's not a typo.</p>
+
+          <p>On specific benchmarks:</p>
+
+          <ul>
+            <li><strong>AIME 2026</strong> (math competition reasoning): 31B scores 89.2%, up from Gemma 3 27B's 20.8%. The 26B MoE hits 88.3% with just 3.8B active parameters.</li>
+            <li><strong>LiveCodeBench v6</strong> (code generation): 31B scores 80.0%</li>
+            <li><strong>Codeforces ELO</strong>: 31B reaches 2,150 &mdash; competitive programmer territory</li>
+            <li><strong>MMLU Pro</strong> (general knowledge): 26B A4B scores 82.6%, 31B scores 85.2%</li>
+          </ul>
+
+          <p>The AIME jump from 20.8% to 89.2% in a single generation is the number that should get your attention. That's not incremental improvement &mdash; it's a category change in what open models can do with mathematical reasoning. For data scientists who need models that can reason through multi-step quantitative problems, this closes a gap that previously required frontier API calls.</p>
+
+          <h2>Why Agentic Capabilities Change Everything</h2>
+
+          <p>The headline feature isn't raw benchmark performance &mdash; it's that Gemma 4 was designed from the ground up for agentic workflows. Every model in the family natively supports:</p>
+
+          <ul>
+            <li><strong>Structured function calling:</strong> Returns well-formed JSON with tool calls without special prompting or output parsers. No more regex extraction from free-text responses.</li>
+            <li><strong>Native system instructions:</strong> Proper system prompt handling built into the model architecture, not bolted on through prompt engineering.</li>
+            <li><strong>Multi-step planning:</strong> The models can decompose complex tasks into sequential tool calls, evaluate intermediate results, and adjust their approach.</li>
+            <li><strong>Structured JSON output:</strong> Reliable schema-conforming output for API integrations and data pipelines.</li>
+          </ul>
+
+          <p>This matters because the biggest friction point in building local AI agents hasn't been model quality &mdash; it's been reliability. When your agent needs to call a function, parse the result, decide what to do next, and call another function, even a 5% failure rate in structured output parsing compounds into unusable workflows. Gemma 4's native function calling eliminates that entire class of failure.</p>
+
+          <h2>The MoE Architecture: Why 3.8B Active Parameters Matter</h2>
+
+          <p>The 26B MoE model deserves special attention. It uses 128 small experts with a routing mechanism that activates 8 experts plus 1 shared expert per token. Total parameters: 25.2B. Active parameters per forward pass: 3.8B.</p>
+
+          <p>In practical terms, this means:</p>
+
+          <ul>
+            <li><strong>Inference speed</strong> comparable to a 4B model</li>
+            <li><strong>Quality</strong> approaching the 31B dense model (1441 vs 1452 on LMArena)</li>
+            <li><strong>Memory footprint</strong> that fits on consumer GPUs when quantized</li>
+            <li><strong>Latency</strong> suitable for interactive agentic workflows where the model needs to respond quickly between tool calls</li>
+          </ul>
+
+          <p>For data scientists building local inference pipelines, this is the sweet spot. You get 95%+ of the flagship model's quality at a fraction of the compute cost. Run it on an RTX 4090, serve it through vLLM or Ollama, and you have a local agentic backbone that doesn't require API calls or cloud spend.</p>
+
+          <h2>Multimodal by Default</h2>
+
+          <p>All Gemma 4 models natively process images and video at variable resolutions. The 31B model excels at visual tasks like OCR, chart understanding, and document analysis. This isn't a CLIP-style adapter bolted onto a text model &mdash; vision is integrated into the architecture from pre-training.</p>
+
+          <p>For practical data science workflows, this means a single local model can:</p>
+
+          <ul>
+            <li>Read and extract data from charts, tables, and screenshots</li>
+            <li>Process scanned documents without a separate OCR pipeline</li>
+            <li>Analyze images as part of agentic workflows (e.g., screenshot verification in automated testing)</li>
+            <li>Handle mixed text-and-image inputs in RAG pipelines</li>
+          </ul>
+
+          <p>Combined with the 256K context window on the larger models, you can feed substantial documents &mdash; with their images intact &mdash; directly into the model without chunking gymnastics.</p>
+
+          <h2>Apache 2.0: The License That Changes Adoption</h2>
+
+          <p>Gemma 4 ships under Apache 2.0. This is the same permissive license used by Qwen 3.5, and it's meaningfully more open than Llama 4's community license which includes usage restrictions and revenue thresholds.</p>
+
+          <p>For enterprise data science teams, Apache 2.0 means:</p>
+
+          <ul>
+            <li>No revenue caps or usage restrictions</li>
+            <li>Full commercial use without legal review of custom license terms</li>
+            <li>Freedom to fine-tune and distribute derivatives</li>
+            <li>Compatibility with existing open-source toolchains and compliance requirements</li>
+          </ul>
+
+          <p>Google's shift from Gemma 3's custom license to Apache 2.0 for Gemma 4 is a strategic move to win adoption in enterprise environments where legal teams have historically blocked models with non-standard licenses. For data scientists trying to get models approved for production use, this removes one of the most common organizational blockers.</p>
+
+          <h2>How It Compares: Gemma 4 vs. Llama 4 vs. Qwen 3.5</h2>
+
+          <p>The open model landscape in April 2026 has three serious contenders. Here's where each leads:</p>
+
+          <ul>
+            <li><strong>Gemma 4 31B:</strong> Best multimodal integration, best agentic capabilities (native function calling), strongest math reasoning (89.2% AIME). Apache 2.0. #3 on LMArena.</li>
+            <li><strong>Qwen 3.5:</strong> Leads in math, coding, and multilingual benchmarks. Strong MoE variants. Apache 2.0. Excellent CJK language support.</li>
+            <li><strong>Llama 4 Scout:</strong> Best long-context reasoning and largest effective context window. Community license (more restrictive). Strong general-purpose performance.</li>
+          </ul>
+
+          <p>The honest assessment: there's no single "best" open model. If your primary workflow is agentic with tool use, Gemma 4's native function calling gives it an edge. If you need maximum coding performance, Qwen 3.5 is still strong. If you need 1M+ token context, Llama 4 Scout's architecture is purpose-built for that. The good news is that all three are good enough for production use, and Apache 2.0 licensing on two of three makes deployment straightforward.</p>
+
+          <h2>Practical Deployment: Getting Started</h2>
+
+          <p>Gemma 4 is available immediately through multiple channels:</p>
+
+          <ul>
+            <li><strong>Ollama:</strong> <code>ollama pull gemma4</code> for the 26B MoE, <code>ollama pull gemma4:31b</code> for the dense model</li>
+            <li><strong>HuggingFace:</strong> Full weights on <code>google/gemma-4-31B</code>, <code>google/gemma-4-26B-A4B</code>, with GGUF quantizations available</li>
+            <li><strong>vLLM / TGI:</strong> Production serving with tensor parallelism and continuous batching</li>
+            <li><strong>Google AI Studio:</strong> API access for prototyping before committing to local deployment</li>
+            <li><strong>NVIDIA RTX AI:</strong> Optimized builds for RTX GPUs and DGX Spark</li>
+          </ul>
+
+          <p>For a data science team looking to evaluate Gemma 4, I'd recommend starting with the 26B MoE through Ollama. It gives you 95% of the quality at a fraction of the cost, and you can run it on a single GPU. Test your agentic workflows, validate function calling reliability on your specific tool schemas, and benchmark against your current API-based pipeline. If the quality meets your threshold, you've just eliminated your inference API costs.</p>
+
+          <h2>What This Means for Data Scientists</h2>
+
+          <p>Three takeaways:</p>
+
+          <p><strong>1. Local agentic AI is now production-viable.</strong> The combination of reliable function calling, strong reasoning, and efficient inference means you can build agent pipelines that run entirely on your hardware. For sensitive data workflows &mdash; healthcare, finance, legal &mdash; this eliminates the data-leaves-your-infrastructure problem entirely.</p>
+
+          <p><strong>2. The MoE efficiency gains change the cost calculus.</strong> When 3.8B active parameters can match a 31B dense model on most benchmarks, the argument for expensive cloud inference weakens significantly. A single RTX 4090 running the 26B MoE model can handle interactive agentic workloads that previously required cloud API calls at $15-60/million tokens.</p>
+
+          <p><strong>3. The open model gap with frontier APIs is closing faster than expected.</strong> Gemma 4's AIME score of 89.2% puts it in the same league as models that cost orders of magnitude more to run. The remaining gap is in the longest-horizon reasoning tasks and the most complex multi-turn conversations. For most data science applications &mdash; data extraction, classification, summarization, structured analysis, tool-augmented workflows &mdash; open models are now genuinely competitive.</p>
+
+          <p>The practical implication: if you haven't evaluated local model deployment in the last six months, your cost-benefit analysis is probably outdated. Gemma 4 represents a step change in what's possible without an API key.</p>
+
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 Ryan Ordonez</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

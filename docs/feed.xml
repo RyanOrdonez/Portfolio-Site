@@ -6,13 +6,22 @@
     <atom:link href="https://ryanordonez.github.io/Portfolio-Site/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Thoughts on AI, data science, and the technology shaping our future. Written by Ryan Ordonez, Data Scientist with an M.S. from CU Boulder.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Apr 2026 08:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 05 Apr 2026 08:00:00 GMT</lastBuildDate>
     <managingEditor>ryanordonez7@gmail.com (Ryan Ordonez)</managingEditor>
     <webMaster>ryanordonez7@gmail.com (Ryan Ordonez)</webMaster>
     <copyright>2026 Ryan Ordonez</copyright>
     <category>Data Science</category>
     <category>Artificial Intelligence</category>
     <category>Machine Learning</category>
+
+    <item>
+      <title>Google Gemma 4: What the Most Capable Open Models Mean for Local AI Agents</title>
+      <link>https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-05-google-gemma-4-open-models.html</link>
+      <guid isPermaLink="true">https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-05-google-gemma-4-open-models.html</guid>
+      <pubDate>Sun, 05 Apr 2026 08:00:00 GMT</pubDate>
+      <category>Machine Learning</category>
+      <description>Google DeepMind's Gemma 4 ships four model sizes under Apache 2.0 with native function calling, 256K context, and MoE efficiency that puts 3.8B active parameters within striking distance of 31B dense quality. Local agentic AI just became production-viable.</description>
+    </item>
 
     <item>
       <title>Gemini Embedding 2: What a Unified Multimodal Embedding Model Means for RAG</title>

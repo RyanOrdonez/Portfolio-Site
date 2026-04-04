@@ -135,6 +135,28 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 
 ## Completed Work
 
+### Day 11 — April 5, 2026
+**Portfolio Action:** Added SEO Infrastructure — sitemap.xml and robots.txt (Option D)
+- Created `docs/sitemap.xml` with full XML Sitemap covering all 6 site pages and all 11 blog posts
+- Each URL includes `<lastmod>`, `<changefreq>`, and `<priority>` metadata for search engine optimization
+- Homepage and blog set to highest priority (1.0/0.9) with daily/weekly update frequency
+- Blog posts set to `changefreq=never` since published content is stable
+- Created `docs/robots.txt` with universal allow rule and sitemap reference
+- Both files follow Google's sitemap protocol and are immediately discoverable by search engine crawlers
+- Helps recruiters and visitors find the portfolio through organic search
+
+**Blog:** "Google Gemma 4: What the Most Capable Open Models Mean for Local AI Agents"
+- Topic: Google DeepMind's Gemma 4 release — the most capable open model family (released April 2-3, 2026)
+- Covers: Four model sizes — E2B (2B edge), E4B (4B edge), 26B MoE (3.8B active), 31B Dense
+- Benchmark analysis: 89.2% on AIME 2026 (up from 20.8% Gemma 3), #3 open model on LMArena (1452), 80% LiveCodeBench v6, Codeforces ELO 2150
+- MoE architecture deep dive: 128 small experts, 8+1 active per token, 95% of dense quality at fraction of compute
+- Native agentic capabilities: structured function calling, JSON output, system instructions, multi-step planning
+- Multimodal by default: all models process images and video at variable resolutions, OCR, chart understanding
+- Apache 2.0 licensing: strategic shift from custom license, enterprise adoption implications
+- Competitive comparison: Gemma 4 vs Llama 4 Scout vs Qwen 3.5 — strengths and tradeoffs
+- Deployment guide: Ollama, HuggingFace, vLLM, Google AI Studio, NVIDIA RTX AI
+- Key insight: local agentic AI is now production-viable — the MoE efficiency gains fundamentally change the cost calculus for data science teams
+
 ### Day 10 — April 4, 2026
 **Portfolio Action:** Added Search and Category Filtering to Projects Page (Option D)
 - Added search input with magnifying glass icon to `docs/projects.html` for real-time text filtering across project titles, descriptions, methodology, and tech tags
