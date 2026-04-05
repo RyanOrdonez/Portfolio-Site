@@ -78,6 +78,11 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 **Blog:** Research trending AI news that morning, write post on most relevant topic
 
 ### Day 12
+**Pre-flight:** SEO / Google indexing check
+- Search Google for `site:ryanordonez.github.io/Portfolio-Site/` to see how many pages are indexed
+- Fetch `https://ryanordonez.github.io/Portfolio-Site/sitemap.xml` to confirm it's still serving correctly
+- Fetch a blog post URL to confirm pages are live and meta tags are intact
+- Log indexing status in the day's completed work entry
 **Project:** Prop-Trading-Dashboard README overhaul
 - Architecture diagram (TypeScript/React/Electron/SQLite flow)
 - Feature list, tech stack badges, setup instructions
