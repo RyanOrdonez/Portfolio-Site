@@ -2,6 +2,19 @@
    Blog Styles - Ryan Ordonez Portfolio
    ============================================================ */
 
+/* --- Reading Progress Bar --- */
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent, #4FC3F7), var(--accent-secondary, #81D4FA));
+  z-index: 9999;
+  transition: width 0.1s linear;
+  pointer-events: none;
+}
+
 /* --- Blog Header --- */
 .blog-header {
   padding: 6rem 0 2rem;

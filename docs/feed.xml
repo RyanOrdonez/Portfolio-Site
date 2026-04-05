@@ -6,13 +6,22 @@
     <atom:link href="https://ryanordonez.github.io/Portfolio-Site/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Thoughts on AI, data science, and the technology shaping our future. Written by Ryan Ordonez, Data Scientist with an M.S. from CU Boulder.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 05 Apr 2026 08:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 06 Apr 2026 08:00:00 GMT</lastBuildDate>
     <managingEditor>ryanordonez7@gmail.com (Ryan Ordonez)</managingEditor>
     <webMaster>ryanordonez7@gmail.com (Ryan Ordonez)</webMaster>
     <copyright>2026 Ryan Ordonez</copyright>
     <category>Data Science</category>
     <category>Artificial Intelligence</category>
     <category>Machine Learning</category>
+
+    <item>
+      <title>Google's TurboQuant: How 3-Bit KV Cache Compression Changes LLM Deployment Math</title>
+      <link>https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-06-turboquant-kv-cache-compression.html</link>
+      <guid isPermaLink="true">https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-06-turboquant-kv-cache-compression.html</guid>
+      <pubDate>Mon, 06 Apr 2026 08:00:00 GMT</pubDate>
+      <category>AI Engineering</category>
+      <description>Google Research's TurboQuant compresses LLM KV caches to 3 bits with zero accuracy loss, delivering 6x memory reduction and up to 8x faster attention on H100 GPUs. No retraining, no calibration data. Here's why this infrastructure breakthrough matters more than the next model release.</description>
+    </item>
 
     <item>
       <title>Google Gemma 4: What the Most Capable Open Models Mean for Local AI Agents</title>

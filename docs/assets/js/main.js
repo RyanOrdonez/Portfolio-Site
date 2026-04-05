@@ -164,6 +164,107 @@
   }
 
   // =========================================================================
+  // 7. READING PROGRESS BAR (Blog Posts)
+  // =========================================================================
+  function initReadingProgress() {
+    var postBody = document.querySelector(".blog-post-body");
+    if (!postBody) return;
+
+    var bar = document.createElement("div");
+    bar.className = "reading-progress-bar";
+    document.body.appendChild(bar);
+
+    function updateProgress() {
+      var rect = postBody.getBoundingClientRect();
+      var postTop = rect.top + window.scrollY;
+      var postHeight = postBody.offsetHeight;
+      var viewportHeight = window.innerHeight;
+      var scrolled = window.scrollY - postTop + viewportHeight * 0.3;
+      var progress = Math.min(Math.max(scrolled / postHeight * 100, 0), 100);
+      bar.style.width = progress + "%";
+    }
+
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    updateProgress();
+  }
+
+  // =========================================================================
+  // 8. AUTO TABLE OF CONTENTS (Blog Posts)
+  // =========================================================================
+  function initAutoTOC() {
+    var postBody = document.querySelector(".blog-post-body");
+    var postLayout = document.querySelector(".blog-post-layout");
+    if (!postBody || !postLayout) return;
+
+    var headings = postBody.querySelectorAll("h2");
+    if (headings.length < 2) return;
+
+    // Assign IDs to headings
+    headings.forEach(function (h, i) {
+      if (!h.id) {
+        h.id = "section-" + (i + 1);
+      }
+    });
+
+    // Build sidebar HTML
+    var sidebar = document.createElement("aside");
+    sidebar.className = "blog-post-sidebar";
+
+    var tocSection = document.createElement("div");
+    tocSection.className = "blog-sidebar-section";
+
+    var tocHeading = document.createElement("h3");
+    tocHeading.className = "blog-sidebar-heading";
+    tocHeading.textContent = "On This Page";
+    tocSection.appendChild(tocHeading);
+
+    var tocList = document.createElement("ul");
+    tocList.className = "blog-toc-list";
+
+    headings.forEach(function (h) {
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = "#" + h.id;
+      a.textContent = h.textContent;
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        h.scrollIntoView({ behavior: "smooth" });
+      });
+      li.appendChild(a);
+      tocList.appendChild(li);
+    });
+
+    tocSection.appendChild(tocList);
+    sidebar.appendChild(tocSection);
+    postLayout.appendChild(sidebar);
+
+    // Highlight active TOC item on scroll
+    var tocLinks = tocList.querySelectorAll("a");
+
+    function updateActiveTOC() {
+      var scrollPos = window.scrollY + 120;
+      var activeIndex = 0;
+
+      for (var i = 0; i < headings.length; i++) {
+        if (headings[i].getBoundingClientRect().top + window.scrollY <= scrollPos) {
+          activeIndex = i;
+        }
+      }
+
+      tocLinks.forEach(function (link, idx) {
+        if (idx === activeIndex) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
+    }
+
+    window.addEventListener("scroll", updateActiveTOC, { passive: true });
+    updateActiveTOC();
+  }
+
+  // =========================================================================
   // INIT
   // =========================================================================
   function init() {
@@ -173,6 +274,8 @@
     initActiveSidebarLink();
     initTypingEffect();
     initScrollToTop();
+    initReadingProgress();
+    initAutoTOC();
   }
 
   if (document.readyState === "loading") {

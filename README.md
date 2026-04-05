@@ -32,6 +32,7 @@ Personal portfolio website showcasing data science projects, technical blog, and
 
 | Date | Post | Topic |
 |------|------|-------|
+| Apr 6, 2026 | [Google's TurboQuant: How 3-Bit KV Cache Compression Changes LLM Deployment Math](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-06-turboquant-kv-cache-compression.html) | AI Engineering |
 | Apr 5, 2026 | [Google Gemma 4: What the Most Capable Open Models Mean for Local AI Agents](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-05-google-gemma-4-open-models.html) | Machine Learning |
 | Apr 4, 2026 | [Gemini Embedding 2: What a Unified Multimodal Embedding Model Means for RAG](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-04-gemini-embedding-2-multimodal.html) | AI Engineering |
 | Apr 3, 2026 | [The Data Scientist's Guide to Prompt Engineering in 2026](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-03-prompt-engineering-guide.html) | AI Engineering |
@@ -71,6 +72,7 @@ docs/
 ├── sitemap.xml             # SEO sitemap
 ├── robots.txt              # Search engine directives
 ├── posts/                  # Individual blog posts
+│   ├── 2026-04-06-turboquant-kv-cache-compression.html
 │   ├── 2026-04-05-google-gemma-4-open-models.html
 │   ├── 2026-04-04-gemini-embedding-2-multimodal.html
 │   ├── 2026-04-03-prompt-engineering-guide.html

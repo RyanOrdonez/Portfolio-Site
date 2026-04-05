@@ -140,6 +140,30 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 
 ## Completed Work
 
+### Day 12 — April 6, 2026
+**Portfolio Action:** Added Reading Progress Bar and Auto-Generated Table of Contents to Blog Posts (Option D)
+- Added reading progress bar to all blog post pages — thin accent-colored bar fixed at top of viewport that fills as you scroll through the post content
+- Progress bar uses CSS gradient (`linear-gradient`) matching the site's accent color scheme
+- Added auto-generated Table of Contents sidebar that dynamically builds from `<h2>` headings in the blog post body
+- TOC sidebar is sticky-positioned and highlights the active section as you scroll (using IntersectionObserver-style scroll tracking)
+- TOC links support smooth scrolling to each section
+- Both features are implemented in shared `main.js` — they work on ALL existing and future blog posts automatically, no per-post HTML changes needed
+- TOC only appears when a post has 2+ headings (graceful degradation)
+- Uses existing CSS classes (`.blog-post-sidebar`, `.blog-toc-list`) that were already defined in `blog.css` but previously unused
+- Responsive: TOC collapses below the post content on mobile (≤960px)
+- Added `.reading-progress-bar` CSS styles in `blog.css`
+
+**Blog:** "Google's TurboQuant: How 3-Bit KV Cache Compression Changes LLM Deployment Math"
+- Topic: Google Research's TurboQuant algorithm, presented at ICLR 2026 — compresses LLM KV caches to 3 bits with zero accuracy loss
+- Covers: The KV cache memory bottleneck problem — why it's the dominant cost factor for long-context inference
+- Two-stage compression pipeline: PolarQuant (2-bit base via random rotation + polar coordinate quantization) + QJL (1-bit residual correction via Quantized Johnson-Lindenstrauss transform)
+- Performance results: 6x KV cache memory reduction, up to 8x faster attention on H100 GPUs, zero measurable accuracy degradation
+- Deployment economics deep dive: concrete math on how 6x cache reduction translates to 6x more concurrent users or dramatically cheaper long-context serving
+- Comparison with KIVI, PagedAttention, sparse attention, GQA — TurboQuant is additive to all other optimizations
+- Community adoption: llama.cpp discussion, SGLang feature request, independent PyTorch reimplementations validating 99.5% attention fidelity
+- Practical implementation note: at 2-bit, MSE-only outperforms MSE+QJL (softmax amplifies QJL variance)
+- Key insight: the most impactful AI advances in 2026 aren't bigger models — they're infrastructure innovations that make existing models cheaper and more deployable
+
 ### Day 11 — April 5, 2026
 **Portfolio Action:** Added SEO Infrastructure — sitemap.xml and robots.txt (Option D)
 - Created `docs/sitemap.xml` with full XML Sitemap covering all 6 site pages and all 11 blog posts
