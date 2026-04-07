@@ -35,7 +35,7 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 
 ### P2 — New Projects (Show Range and Depth)
 - [ ] Sentiment Analysis API — FastAPI + HuggingFace, containerized, deployed (2-day build)
-- [ ] FIRE Simulator — Publish existing fire-simulator as standalone repo with polished README
+- [x] FIRE Simulator — Publish existing fire-simulator as standalone repo with polished README
 - [ ] Real-time Stock Dashboard — Streamlit + yfinance (2-day build)
 - [ ] AI-Powered Resume Screener — RAG pipeline with vector search (3-day build)
 - [ ] Data Engineering Pipeline — Airflow + dbt + Snowflake (3-day build)
@@ -50,7 +50,7 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 - [x] Add page transition animations
 - [x] Add project search and category filtering to projects page
 - [ ] Add project screenshots/demo GIFs to project cards
-- [ ] Add new projects to projects page as they're built
+- [x] Add new projects to projects page as they're built (FIRE Simulator added Day 13)
 - [ ] Update skills page when new tech is used
 
 ### Blog
@@ -139,6 +139,23 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 ---
 
 ## Completed Work
+
+### Day 13 — April 7, 2026
+**Portfolio Action:** Published FIRE Simulator and added it to the portfolio site (Option B + D)
+- Wrote a polished `fire-simulator/README.md` inside the Portfolio-Site repo: project overview, Monte Carlo methodology with full equations (Box-Muller, Cholesky, withdraw-first-then-grow), data source citations (Dimson/Marsh/Staunton, Shiller), feature list (free vs Pro tier), full tech stack table, architecture tree, performance benchmarks, data sources with academic citations, design decisions table, and roadmap — ready to use as the README when the repo is published as `RyanOrdonez/FIRE-Simulator`
+- Added a new "FIRE Simulator" featured project card to `docs/projects.html` with overview, methodology (Monte Carlo + Cholesky correlated returns + Trinity Study withdrawal), key metrics (10K sims stable to ±0.5% at 95% CI, <500ms runtime, 4 historical crisis backtests), and tech tags
+- Added a matching featured FIRE Simulator card to the homepage `docs/index.html` projects grid (second Featured project alongside Prop Trading Dashboard)
+- Repo link points to the planned `RyanOrdonez/FIRE-Simulator` GitHub URL for when the standalone repo is published
+- Updated `README.md` featured projects table to include FIRE Simulator at the top
+
+**Blog:** "NVIDIA Nemotron 3: Why an Open Agentic Stack Changes How Data Scientists Build AI Systems"
+- Topic: NVIDIA's Nemotron 3 family release — the first serious attempt to ship an entire agentic AI stack as a single unified, fully-open model family (weights, training data, and training recipes all published)
+- Covers: The four main model groups — Nemotron 3 Super (long-context reasoning), Nemotron RAG (multimodal embed + reranker VLMs), Nemotron Speech (leaderboard-topping ASR + VoiceChat), Nemotron Content Safety (4B multilingual/multimodal moderation + PII detection)
+- Core argument: integration cost dominates agent development, not marginal single-model quality — a unified open stack dissolves impedance mismatches, latency stacking, failure mode combinatorics, cost unpredictability, and data residency problems
+- What "fully open" means here: open weights (Apache 2.0-style), 10T training tokens + 500K robotics trajectories + 455K protein structures + 100TB vehicle sensor data released, full post-training recipes including data mixtures and reward model setup, tuned Triton/TensorRT inference kernels
+- Reference agent architecture diagram showing voice input → ASR → safety → multimodal RAG embed → rerank → Nemotron Super reasoning → tools → safety → TTS → voice output with every step from the same family
+- Three practical takeaways: benchmark Nemotron RAG against current embeddings this week, add Content Safety as a pre-filter regardless of main model choice, treat this as the reference architecture for new projects
+- Broader insight: 2026 is the year the open-source ecosystem caught up to closed vendors on completeness (not just individual metrics) — structural shift in agentic system economics
 
 ### Day 12 — April 6, 2026
 **Portfolio Action:** Added Reading Progress Bar and Auto-Generated Table of Contents to Blog Posts (Option D)

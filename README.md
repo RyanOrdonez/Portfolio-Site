@@ -32,6 +32,7 @@ Personal portfolio website showcasing data science projects, technical blog, and
 
 | Date | Post | Topic |
 |------|------|-------|
+| Apr 7, 2026 | [NVIDIA Nemotron 3: Why an Open Agentic Stack Changes How Data Scientists Build AI Systems](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-07-nvidia-nemotron-3-agentic-stack.html) | AI Engineering |
 | Apr 6, 2026 | [Google's TurboQuant: How 3-Bit KV Cache Compression Changes LLM Deployment Math](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-06-turboquant-kv-cache-compression.html) | AI Engineering |
 | Apr 5, 2026 | [Google Gemma 4: What the Most Capable Open Models Mean for Local AI Agents](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-05-google-gemma-4-open-models.html) | Machine Learning |
 | Apr 4, 2026 | [Gemini Embedding 2: What a Unified Multimodal Embedding Model Means for RAG](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-04-gemini-embedding-2-multimodal.html) | AI Engineering |
@@ -49,6 +50,7 @@ Personal portfolio website showcasing data science projects, technical blog, and
 
 | Project | Stack | Highlights |
 |---------|-------|------------|
+| [**FIRE Simulator**](https://github.com/RyanOrdonez/FIRE-Simulator) | React, Vite, Monte Carlo, Recharts | Browser-based retirement stress-test — 10K Monte Carlo sims, historical crisis backtests (1929/1966/2000/2008), sub-500ms client-side |
 | [**Prop Trading Dashboard**](https://github.com/RyanOrdonez/Prop-Trading-Dashboard) | TypeScript, React, Electron, SQLite | Desktop analytics for prop firm traders — trade aggregation, P&L curves, payout modeling |
 | [**Rotten Tomatoes Predictor**](https://github.com/RyanOrdonez/Rotten-Tomatoes-Predictor) | Python, PyTorch, BERT, HuggingFace | BERT fusion architecture predicting critic scores from screenplay text |
 | [**Kaggle Challenges**](https://github.com/RyanOrdonez/Kaggle-Challenges) | Python, TensorFlow, GANs, NLP | Cancer detection (84.8%), Monet style transfer (Rank 20), Disaster tweets (Rank 377) |
@@ -72,6 +74,7 @@ docs/
 ├── sitemap.xml             # SEO sitemap
 ├── robots.txt              # Search engine directives
 ├── posts/                  # Individual blog posts
+│   ├── 2026-04-07-nvidia-nemotron-3-agentic-stack.html
 │   ├── 2026-04-06-turboquant-kv-cache-compression.html
 │   ├── 2026-04-05-google-gemma-4-open-models.html
 │   ├── 2026-04-04-gemini-embedding-2-multimodal.html

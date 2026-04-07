@@ -6,13 +6,22 @@
     <atom:link href="https://ryanordonez.github.io/Portfolio-Site/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Thoughts on AI, data science, and the technology shaping our future. Written by Ryan Ordonez, Data Scientist with an M.S. from CU Boulder.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 06 Apr 2026 08:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 07 Apr 2026 08:00:00 GMT</lastBuildDate>
     <managingEditor>ryanordonez7@gmail.com (Ryan Ordonez)</managingEditor>
     <webMaster>ryanordonez7@gmail.com (Ryan Ordonez)</webMaster>
     <copyright>2026 Ryan Ordonez</copyright>
     <category>Data Science</category>
     <category>Artificial Intelligence</category>
     <category>Machine Learning</category>
+
+    <item>
+      <title>NVIDIA Nemotron 3: Why an Open Agentic Stack Changes How Data Scientists Build AI Systems</title>
+      <link>https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-07-nvidia-nemotron-3-agentic-stack.html</link>
+      <guid isPermaLink="true">https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-07-nvidia-nemotron-3-agentic-stack.html</guid>
+      <pubDate>Tue, 07 Apr 2026 08:00:00 GMT</pubDate>
+      <category>AI Engineering</category>
+      <description>NVIDIA shipped reasoning, multimodal RAG, voice, and content safety as a single unified family of fully-open models — weights, training data, and recipes included. The individual benchmarks don't tell the real story. Integration cost does, and this release dissolves most of it.</description>
+    </item>
 
     <item>
       <title>Google's TurboQuant: How 3-Bit KV Cache Compression Changes LLM Deployment Math</title>
