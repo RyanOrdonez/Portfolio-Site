@@ -32,6 +32,7 @@ Personal portfolio website showcasing data science projects, technical blog, and
 
 | Date | Post | Topic |
 |------|------|-------|
+| Apr 8, 2026 | [Model Context Protocol at 18 Months: Why the Boring Standard Won](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-08-mcp-at-18-months-boring-standard-won.html) | AI Engineering |
 | Apr 7, 2026 | [NVIDIA Nemotron 3: Why an Open Agentic Stack Changes How Data Scientists Build AI Systems](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-07-nvidia-nemotron-3-agentic-stack.html) | AI Engineering |
 | Apr 6, 2026 | [Google's TurboQuant: How 3-Bit KV Cache Compression Changes LLM Deployment Math](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-06-turboquant-kv-cache-compression.html) | AI Engineering |
 | Apr 5, 2026 | [Google Gemma 4: What the Most Capable Open Models Mean for Local AI Agents](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-05-google-gemma-4-open-models.html) | Machine Learning |
@@ -74,6 +75,7 @@ docs/
 ├── sitemap.xml             # SEO sitemap
 ├── robots.txt              # Search engine directives
 ├── posts/                  # Individual blog posts
+│   ├── 2026-04-08-mcp-at-18-months-boring-standard-won.html
 │   ├── 2026-04-07-nvidia-nemotron-3-agentic-stack.html
 │   ├── 2026-04-06-turboquant-kv-cache-compression.html
 │   ├── 2026-04-05-google-gemma-4-open-models.html

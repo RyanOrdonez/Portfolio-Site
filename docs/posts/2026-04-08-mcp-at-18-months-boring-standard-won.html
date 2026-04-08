@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Eighteen months after Anthropic shipped the Model Context Protocol, it's become the boring standard that every serious AI agent stack quietly adopted. Here's why MCP won, what it changed about how data scientists build tool-using systems, and what to watch next.">
+  <meta property="og:title" content="Model Context Protocol at 18 Months: Why the Boring Standard Won">
+  <meta property="og:description" content="Eighteen months after Anthropic shipped the Model Context Protocol, it's become the boring standard that every serious AI agent stack quietly adopted. Here's why MCP won, what it changed about how data scientists build tool-using systems, and what to watch next.">
+  <meta property="og:url" content="https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-08-mcp-at-18-months-boring-standard-won.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Ryan Ordonez">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Model Context Protocol at 18 Months: Why the Boring Standard Won">
+  <meta name="twitter:description" content="Eighteen months after Anthropic shipped the Model Context Protocol, it's become the boring standard that every serious AI agent stack quietly adopted. Here's why MCP won, what it changed about how data scientists build tool-using systems, and what to watch next.">
+  <link rel="canonical" href="https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-08-mcp-at-18-months-boring-standard-won.html">
+  <title>Model Context Protocol at 18 Months: Why the Boring Standard Won | Ryan Ordonez</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/blog.css">
+  <script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Model Context Protocol at 18 Months: Why the Boring Standard Won",
+    "description": "Eighteen months after Anthropic shipped the Model Context Protocol, it's become the boring standard that every serious AI agent stack quietly adopted. Here's why MCP won, what it changed about how data scientists build tool-using systems, and what to watch next.",
+    "author": {"@type": "Person", "name": "Ryan Ordonez"},
+    "datePublished": "2026-04-08",
+    "url": "https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-08-mcp-at-18-months-boring-standard-won.html"
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ===== SIDEBAR NAVIGATION ===== -->
+  <aside id="sidebar" class="sidebar"></aside>
+
+  <!-- ===== MOBILE TOP NAV ===== -->
+  <nav id="mobile-nav" class="mobile-nav"></nav>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content">
+
+    <!-- ===== POST HEADER ===== -->
+    <section class="blog-post-header">
+      <div class="container" style="max-width: 1060px;">
+        <a href="../blog.html" class="blog-back-link">&larr; Back to Blog</a>
+        <h1 class="blog-post-title">Model Context Protocol at 18 Months: Why the Boring Standard Won</h1>
+        <div class="blog-post-meta">
+          <time datetime="2026-04-08">April 8, 2026</time>
+          <span class="blog-card-tag">AI Engineering</span>
+          <span class="blog-post-reading-time">9 min read</span>
+          <span class="blog-post-author">Ryan Ordonez</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== POST CONTENT ===== -->
+    <section class="blog-post-content">
+      <div class="container">
+        <div class="blog-post-layout">
+        <div class="blog-post-body">
+
+          <p>Every few years, a boring standard wins. HTTP beat the exciting stuff. JSON beat XML. Markdown beat rich text formats. The winning standard is almost always the one that stays out of your way, works across vendors, and is so unglamorous that nobody wants to fight about it. In the last 18 months, the same thing has quietly happened to tool use in AI agents. The <strong>Model Context Protocol (MCP)</strong>, which Anthropic open-sourced in late 2024, has become the default way that production agents integrate with the outside world &mdash; databases, file systems, internal APIs, code repositories, Jira, Slack, you name it.</p>
+
+          <p>Eighteen months ago I would have bet on a noisier fight. OpenAI had its own function calling schema, Google was pushing Gemini function calling, LangChain had its own tool abstractions, LlamaIndex had a different one, and every agent framework wanted its own standard. Instead, what happened is that everyone quietly adopted MCP as the interop layer, kept their own internal abstractions on top, and moved on. Today, if you build an agent that needs to call tools, the path of least resistance is to expose those tools as MCP servers and let whatever framework you're using handle the client side.</p>
+
+          <p>Here's why the boring standard won, what it actually gives you as a data scientist, and where the remaining gaps are if you're building an agent today.</p>
+
+          <h2>What MCP Actually Is</h2>
+
+          <p>Strip away the marketing and MCP is a small JSON-RPC-based protocol for letting a language model discover and invoke capabilities exposed by an external process. There are three core primitives:</p>
+
+          <ul>
+            <li><strong>Tools:</strong> Functions the model can call. Each tool has a name, a description, and a JSON Schema describing its arguments. The client (the model or its host) queries the server for a tool list, then calls them with arguments, and receives structured responses back.</li>
+            <li><strong>Resources:</strong> Read-only data the model can pull into context. Think files, database rows, Confluence pages, anything the model should be able to "open" without performing an action. Resources are addressable by URI and can be streamed incrementally.</li>
+            <li><strong>Prompts:</strong> Parameterized prompt templates the server can offer to the client. Useful for wrapping common workflows (e.g., "summarize this commit range using our team's style") without duplicating the logic on every client.</li>
+          </ul>
+
+          <p>On top of that, MCP has first-class support for progress updates, cancellation, sampling (asking the client to run an LLM on the server's behalf), and authorization. It runs over stdio, HTTP+SSE, and WebSockets depending on where the client and server live relative to each other. That's basically the whole protocol surface area. Deliberately small.</p>
+
+          <p>The deliberately-small part is what made MCP win. Every competitor tried to be more than a protocol &mdash; a framework, an orchestrator, an agent runtime &mdash; and ended up losing flexibility to opinionation. MCP just says: here's how a tool provider and a tool consumer talk to each other. What you do with the tools on either side is your problem.</p>
+
+          <h2>Why It Won</h2>
+
+          <p>Three things made MCP the default in 18 months, and none of them are technical brilliance. The protocol itself is well-designed, but so were the alternatives. What MCP had that they didn't:</p>
+
+          <h3>1. Reference implementations in every major language</h3>
+
+          <p>Within six months of launch, the MCP ecosystem had production-quality SDKs in TypeScript, Python, Rust, Go, Java, and C#. More importantly, those SDKs had consistent ergonomics &mdash; the Python version feels like idiomatic Python, the Rust version feels like idiomatic Rust, but they all model the same underlying primitives the same way. If you've used one SDK you can read code that uses another.</p>
+
+          <p>This sounds obvious, but it was the thing that killed a lot of previous attempts at agent standardization. When the "reference implementation" is only in one language and everyone else has to reverse-engineer it from the spec, the protocol fragments within a year. MCP avoided that trap.</p>
+
+          <h3>2. It separated the protocol from the agent framework</h3>
+
+          <p>The big lesson from watching the agent framework wars of 2024 is that people are incredibly attached to their orchestration layer. Teams that built on LangChain want to keep using LangChain. Teams on LlamaIndex want to keep using LlamaIndex. Teams that rolled their own agent loops want to keep rolling their own. MCP didn't try to replace any of that. It slotted in underneath all of them as the transport between the agent framework and whatever external system the agent needed to touch.</p>
+
+          <p>The practical effect: a tool exposed as an MCP server works identically with LangGraph, LlamaIndex, DSPy, OpenAI's Assistants API, Claude's native tool use, and any custom agent loop. Write the server once, consume it from whatever framework happens to be in fashion. That's a huge reduction in lock-in, and it's exactly what platform engineering teams wanted.</p>
+
+          <h3>3. The app-store moment</h3>
+
+          <p>The inflection point wasn't technical. It was when Anthropic shipped desktop clients that could consume MCP servers directly, and third-party developers started publishing open-source servers for every tool they could think of &mdash; Postgres, SQLite, Git, GitHub, Google Drive, Notion, Linear, Jira, Slack, Brave Search, Puppeteer, file systems, shell access, the works. Within a few months there was an entire directory of community-maintained servers you could point a client at and immediately have that capability in your agent.</p>
+
+          <p>Once that critical mass existed, the incentive structure flipped. If you were building an AI product and wanted to support connecting to a user's data sources, the cheapest thing to do was consume MCP. If you were maintaining an enterprise integration and wanted AI products to connect to your API, the cheapest thing to do was publish an MCP server. Everyone was doing it because everyone else was doing it, and the friction of not participating became higher than the friction of participating.</p>
+
+          <h2>What It Actually Changes for Data Scientists</h2>
+
+          <p>If you're building agents as part of a data science workflow &mdash; analysis agents, RAG pipelines with tool use, automated reporting, data exploration copilots &mdash; MCP changes three concrete things about how you structure your work.</p>
+
+          <h3>Tool development becomes independent of model development</h3>
+
+          <p>Before MCP, if you wanted your agent to query your data warehouse, you wrote a tool function in your agent framework's native abstraction. That tool was married to that framework, which meant it was effectively married to the model provider you'd chosen, which meant that every time you wanted to evaluate a different model you had to port your tool layer. Not a huge amount of work per tool, but painful at scale and friction-inducing on experimentation.</p>
+
+          <p>With MCP, the data warehouse tool is a standalone process. It speaks MCP. Any model or framework that speaks MCP can use it. You can A/B test Claude against GPT against Gemini against a local Llama deployment without touching the tool code. You can even test the same tool in production against your actual user workload by switching the client side, which used to require a refactor.</p>
+
+          <h3>Context becomes a first-class, composable thing</h3>
+
+          <p>The resources primitive &mdash; the read-only "opening a file" abstraction &mdash; is the underrated part of MCP. What it gives you is a standard way to expose "things the model should be able to look at" without making them tool calls. Your data dictionary, your team's style guide, your production metrics dashboard, your recent Jira tickets &mdash; all of these can be exposed as resources that the model can pull into its context window on demand, with consistent URIs and consistent metadata.</p>
+
+          <p>This matters for RAG pipelines specifically. Rather than hardcoding your retriever into the agent, you can expose your vector store as a resource server. The model decides what to retrieve based on the task; the retriever is just another MCP endpoint. Swap vector databases without touching the agent. Add a new document source without retraining anything. The retrieval layer becomes pluggable in exactly the same way tools became pluggable.</p>
+
+          <h3>Evaluation finally becomes portable</h3>
+
+          <p>The unsung benefit of a standard tool protocol is that evaluation harnesses can be built once and reused across projects. If every agent you build talks to the outside world through MCP, you can write an evaluation harness that records all MCP calls, injects faults, mocks responses, and replays conversations &mdash; and that harness works for every agent you build. You don't rebuild your test fixtures every time you swap frameworks.</p>
+
+          <p>Tools like <code>mcp-tape</code> and the built-in recording support in the Python SDK have made this the dominant way of doing agent regression testing in 2026. You capture a real conversation with real tool calls, convert it into a replayable fixture, and then run your evaluation suite against any future model or framework using the same fixture. Before MCP, this required framework-specific instrumentation that nobody wrote.</p>
+
+          <h2>The Gaps That Remain</h2>
+
+          <p>MCP is not perfect, and the gaps are worth knowing about if you're building on it today.</p>
+
+          <p><strong>Authorization is still the hard part.</strong> The protocol supports OAuth 2.0 flows and custom auth schemes, but enterprise authorization (row-level permissions, multi-tenant isolation, audit logging) is still something you have to design carefully on the server side. MCP gives you the transport; it doesn't give you the policy layer. Most production deployments end up building a thin auth middleware that sits between the MCP server and the backing system, and getting that middleware right is non-trivial.</p>
+
+          <p><strong>Long-running operations are awkward.</strong> MCP has progress updates, but the model of "client sends request, server streams progress, server returns result" doesn't fit workflows that should run for hours or days without a persistent client connection. Agentic workflows that need to orchestrate long-running jobs (training runs, data pipelines, multi-day analyses) usually end up using MCP for the synchronous parts and something else (queues, workflow engines) for the asynchronous parts.</p>
+
+          <p><strong>Observability is fragmented.</strong> Every framework on top of MCP has its own way of logging, tracing, and metric collection, which means that debugging an agent that calls five different MCP servers requires correlating logs from five different sources. The community is converging on OpenTelemetry spans for MCP calls, but the conventions aren't fully standardized yet.</p>
+
+          <p><strong>Security posture varies wildly.</strong> Because anyone can publish an MCP server, and because the protocol is designed to give clients broad access to whatever the server exposes, running a third-party MCP server is basically running third-party code with some level of access to your data. Treat community servers the way you'd treat any open-source dependency: pin versions, read the source, run them in sandboxes, and don't give them more credentials than they need.</p>
+
+          <h2>Practical Takeaways</h2>
+
+          <p>Three things worth doing if you're a data scientist working with agents in the next quarter:</p>
+
+          <p><strong>1. Wrap your custom tools as MCP servers.</strong> If you have tool functions buried inside a LangChain or LlamaIndex project, extract them into a standalone MCP server. You'll get reuse across projects immediately, and when you inevitably want to try a different framework or model provider, your tool code won't need to move.</p>
+
+          <p><strong>2. Point your agent at community servers for common integrations.</strong> Don't rewrite a Postgres or Git or Slack tool layer. The community versions are battle-tested, maintained, and mostly good enough. Save your engineering time for the tools that are specific to your domain.</p>
+
+          <p><strong>3. Capture real conversations as eval fixtures.</strong> Set up MCP call recording early &mdash; before you have a lot of production traffic &mdash; and use those recordings as your regression test suite. The cheapest time to build this is day one. The most expensive time is six months in, after you've shipped a dozen iterations without a stable evaluation baseline.</p>
+
+          <p>The broader pattern worth noticing: the AI tooling ecosystem in 2026 is starting to look more like the boring parts of web infrastructure than like the chaotic early days of deep learning. Standards are emerging. Interop matters. Reference implementations exist. The people still trying to lock their tools into a proprietary stack look increasingly out of step, and the teams that bet on open protocols are getting the reuse benefits to show for it.</p>
+
+          <p>MCP won't be the last protocol to do this. There are probably another three or four layers of the agent stack that need the same treatment (long-running workflow orchestration, evaluation, observability, policy enforcement). But the fact that the first one succeeded quickly and unglamorously is a good sign. Boring standards are how mature ecosystems are built. Eighteen months in, AI agent infrastructure is finally starting to get boring in the best possible way.</p>
+
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 Ryan Ordonez</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="../assets/js/nav.js"></script>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -25,8 +25,8 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 - [ ] Prop-Trading-Dashboard: README overhaul with architecture diagram, setup instructions, feature overview
 
 ### P1 — Repo Quality (Make Existing Work Shine)
-- [ ] Rotten-Tomatoes-Predictor: README with BERT architecture diagram, training results, evaluation metrics
-- [ ] Falcon-9-Landing-Prediction: README with methodology, results, Plotly dashboard description
+- [x] Rotten-Tomatoes-Predictor: README with BERT architecture diagram, training results, evaluation metrics (drafted in `readmes/` Day 14)
+- [x] Falcon-9-Landing-Prediction: README with methodology, results, Plotly dashboard description (drafted in `readmes/` Day 14)
 - [ ] Histopathologic-Cancer-Detection: README with CNN architecture, data pipeline, results
 - [ ] NLP-Disaster-Tweets: README with BiGRU/BiLSTM approach, preprocessing, results
 - [ ] Monet-Style-Transfer: README with GAN comparison (DCGAN vs CycleGAN vs NST), sample outputs
@@ -139,6 +139,23 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 ---
 
 ## Completed Work
+
+### Day 14 — April 8, 2026
+**Portfolio Action:** Drafted polished READMEs for Rotten-Tomatoes-Predictor and Falcon-9-Landing-Prediction (Option A, following Day 13's staging pattern)
+- Created `readmes/` folder in Portfolio-Site to stage README drafts for external repos before publication (same approach as Day 13's `fire-simulator/README.md`)
+- Wrote `readmes/rotten-tomatoes-predictor.md`: full BERT fusion architecture ASCII diagram (text branch + numeric branch + regression head), complete results table with four baselines (Linear Regression, TF-IDF+Ridge, BERT-only, BERT Fusion) showing +3 R² gain from fusion, numeric feature documentation table with rationale for all 8 handcrafted features, data pipeline (source, cleaning, deduplication, stratified splits), training hyperparameters table (AdamW, cosine annealing, mixed-precision on A100), full repository structure, quick start instructions, design decisions rationale table, and citation block
+- Wrote `readmes/falcon-9-landing-prediction.md`: commercial context opening (why SpaceX cares about first-stage landing accuracy), full results table with four classifiers (LR, SVM, Decision Tree, KNN) and cross-validation methodology, data insights section (launch site, payload threshold, orbit type, flight number, booster generation findings), end-to-end pipeline ASCII diagram (API + Wikipedia → pandas → SQLite → sklearn + Dash), data collection details for both SpaceX REST API and Wikipedia scraping, feature engineering table, reference SQL queries section (success rate by site, orbit, first success date), modeling code snippet with GridSearchCV, dashboard feature description (Plotly Dash + Folium), full repository structure, and tech stack badges
+- Both READMEs include badges for Python/framework versions, consistent section ordering, and methodology clear enough to reproduce the work — ready to be published as the README when each repo is scaffolded on GitHub
+- Marked Rotten-Tomatoes-Predictor and Falcon-9-Landing-Prediction entries as complete in the P1 backlog
+
+**Blog:** "Model Context Protocol at 18 Months: Why the Boring Standard Won"
+- Topic: Retrospective on how Anthropic's Model Context Protocol (MCP) became the default tool-use transport layer for agent systems over the last 18 months
+- Covers: MCP's three core primitives (Tools, Resources, Prompts), the deliberately-small protocol surface area, and why that minimalism was the winning design choice
+- Why it won analysis: (1) reference implementations in TypeScript/Python/Rust/Go/Java/C# with consistent ergonomics, (2) separation of the protocol from the agent framework (works with LangGraph, LlamaIndex, DSPy, OpenAI Assistants, Claude native, custom loops), (3) the "app-store moment" when community-published open-source servers for Postgres/Git/GitHub/Notion/Linear/Jira/Slack hit critical mass
+- What it changes for data scientists: (1) tool development becomes independent of model development — A/B test Claude vs GPT vs Gemini vs local Llama without porting tool code, (2) resources primitive makes context composable — vector stores exposed as MCP endpoints for pluggable retrieval, (3) evaluation becomes portable via MCP call recording and replayable fixtures with `mcp-tape` and Python SDK recording support
+- Remaining gaps: enterprise authorization (row-level permissions, multi-tenancy) still needs custom middleware; long-running operations are awkward because the client/server model doesn't fit multi-hour workflows; observability is fragmented across frameworks (OpenTelemetry convergence in progress); security posture of third-party community servers requires sandboxing and credential hygiene
+- Three practical takeaways: wrap custom tools as standalone MCP servers, consume community servers for common integrations, capture real conversations as eval fixtures from day one
+- Broader insight: the AI tooling ecosystem in 2026 is starting to resemble mature web infrastructure — boring standards, interop-first, reference implementations — and that's the sign of a healthy ecosystem
 
 ### Day 13 — April 7, 2026
 **Portfolio Action:** Published FIRE Simulator and added it to the portfolio site (Option B + D)
