@@ -118,6 +118,64 @@
           </div>
         </article>
 
+        <!-- Sentiment Analysis API -->
+        <article class="project-detail-card" id="sentiment-analysis-api" data-category="NLP">
+          <div class="project-detail-header">
+            <div>
+              <h2>Sentiment Analysis API</h2>
+              <span class="project-detail-badge">New</span>
+            </div>
+            <a href="https://github.com/RyanOrdonez/Sentiment-Analysis-API" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              View Code
+            </a>
+          </div>
+          <div class="project-detail-body">
+            <div class="project-detail-section">
+              <h3>Overview</h3>
+              <p>A production-ready FastAPI service that wraps a HuggingFace DistilBERT sentiment classifier behind a clean HTTP interface. Designed as a reference for deploying ML models with the concerns that are easy to get wrong the first time: singleton model lifecycle, Pydantic request validation, batched inference, structured logging, and a multi-stage Docker build.</p>
+            </div>
+            <div class="project-detail-section">
+              <h3>Methodology</h3>
+              <ul>
+                <li>FastAPI with Pydantic v2 request/response schemas and auto-generated OpenAPI docs</li>
+                <li>HuggingFace Transformers pinned to a specific model revision hash for reproducibility</li>
+                <li>Singleton model loaded once at application startup via FastAPI lifespan (2&ndash;5s load amortized across all requests)</li>
+                <li>Batched inference endpoint that amortizes tokenization and GPU transfer overhead (~5x throughput vs sequential)</li>
+                <li>Device-aware placement with automatic CPU/CUDA/MPS fallback</li>
+                <li>pytest suite covering happy paths, validation failures, and model fallback behavior</li>
+                <li>Multi-stage Dockerfile that pre-downloads the model so runtime starts deterministic and offline-capable</li>
+              </ul>
+            </div>
+            <div class="project-detail-section">
+              <h3>Key Results</h3>
+              <div class="result-metrics">
+                <div class="metric">
+                  <span class="metric-value">~15 ms</span>
+                  <span class="metric-label">Single prediction (CPU, short text)</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">64 items</span>
+                  <span class="metric-label">Max batch size per request</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-value">4 endpoints</span>
+                  <span class="metric-label">Health, model, predict, predict/batch</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-detail-tags">
+            <span class="project-tag">FastAPI</span>
+            <span class="project-tag">Python</span>
+            <span class="project-tag">HuggingFace</span>
+            <span class="project-tag">PyTorch</span>
+            <span class="project-tag">DistilBERT</span>
+            <span class="project-tag">Docker</span>
+            <span class="project-tag">pytest</span>
+          </div>
+        </article>
+
         <!-- Prop Trading Dashboard -->
         <article class="project-detail-card" id="prop-trading-dashboard" data-category="Full-Stack">
           <div class="project-detail-header">

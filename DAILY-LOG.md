@@ -34,7 +34,7 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 - [ ] Maevie-Project-Manager: README with features, tech stack, setup guide
 
 ### P2 — New Projects (Show Range and Depth)
-- [ ] Sentiment Analysis API — FastAPI + HuggingFace, containerized, deployed (2-day build)
+- [ ] Sentiment Analysis API — FastAPI + HuggingFace, containerized, deployed (2-day build; Day 1 scaffold complete in `sentiment-analysis-api/` Day 15)
 - [x] FIRE Simulator — Publish existing fire-simulator as standalone repo with polished README
 - [ ] Real-time Stock Dashboard — Streamlit + yfinance (2-day build)
 - [ ] AI-Powered Resume Screener — RAG pipeline with vector search (3-day build)
@@ -139,6 +139,27 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 ---
 
 ## Completed Work
+
+### Day 15 — April 9, 2026
+**Portfolio Action:** Scaffolded Sentiment Analysis API — Day 1 of 2-day build (Option B, following Day 13's fire-simulator staging pattern)
+- Created `sentiment-analysis-api/` folder in Portfolio-Site to stage the full FastAPI project before publication as `RyanOrdonez/Sentiment-Analysis-API`
+- Wrote `sentiment-analysis-api/README.md`: overview, model selection rationale (DistilBERT SST-2, pinned revision), complete API design table with request/response schemas for both `/predict` and `/predict/batch`, input validation rules, architecture diagram (FastAPI → SentimentService singleton → HuggingFace pipeline), repository structure, quick start for local and Docker, testing section, environment variable configuration table, roadmap for Day 2, design decisions rationale table
+- Scaffolded full FastAPI app: `app/main.py` with lifespan context manager for one-shot model loading, `app/config.py` with `pydantic-settings` for env-driven config and `@lru_cache` singleton, `app/schemas.py` with Pydantic v2 request/response models including field validators that reject empty/whitespace/oversized/non-string inputs at HTTP 422, `app/services/sentiment.py` with the `SentimentService` class (singleton wrapper around HuggingFace pipeline, device-aware CPU/CUDA/MPS fallback, separate `load()` from `__init__` so lifespan can report load failures via `/health`), `app/routers/health.py` (`/health`, `/model`), `app/routers/predict.py` (`/predict`, `/predict/batch` with request ID, latency timing, structured logging)
+- Scaffolded pytest suite: `tests/conftest.py` with session-scoped `TestClient` fixture that loads the model once, `tests/test_health.py` covering `/health` and `/model` endpoints, `tests/test_predict.py` covering positive/negative/batch predictions and checking batched-vs-single agreement, `tests/test_validation.py` covering empty strings, whitespace-only, missing fields, non-string types, oversized inputs, empty batches, and oversized batches
+- Wrote multi-stage `Dockerfile`: `builder` stage installs dependencies and pre-downloads the model into `HF_HOME=/opt/hf-cache` so runtime containers start deterministically without network access, `runtime` stage runs as non-root user with HEALTHCHECK hitting `/health`
+- Wrote `requirements.txt` with pinned versions for fastapi 0.110, uvicorn 0.29, pydantic 2.6, transformers 4.39, torch 2.3, pytest 8.1
+- Added a Sentiment Analysis API project card to `docs/projects.html` after the FIRE Simulator — category NLP, full overview/methodology/key metrics/tech tags, repo link points to the planned `RyanOrdonez/Sentiment-Analysis-API` GitHub URL
+- Added a matching Sentiment Analysis API card to the homepage `docs/index.html` projects grid
+- Updated `README.md` featured projects table to include Sentiment Analysis API
+- Day 2 work (next session): error handling polish, rate limiting with slowapi, Prometheus metrics, deployment config for Railway/Render, GitHub Actions CI for image builds
+
+**Blog:** "Meta's Muse Spark: The End of Meta's Open-Source Era and What It Means for Data Scientists"
+- Topic: Meta's Muse Spark release on April 8, 2026 — the first flagship LLM to come out of the new Superintelligence Labs group under Alexandr Wang (hired as Meta's first CAO after the $14.3B Scale AI stake deal in June 2025), and the first time Meta has shipped a flagship model behind a closed license
+- Covers: What Muse Spark actually is — model code-named Avocado, built over 9 months, benchmark-competitive with GPT/Claude/Gemini across most tasks, claims ~10x compute efficiency over Llama 4 midsize, powers Meta AI across Facebook/Instagram/WhatsApp/Messenger/Ray-Ban Meta glasses, weights/architecture/recipes not being published, $115-135B AI capex guidance for 2026 (roughly 2x 2025)
+- Why the closed pivot isn't a surprise: Llama 3.2 through Llama 4 progressively added license restrictions and carve-outs; Muse Spark is the logical endpoint — Meta just stopped pretending. The fiduciary math at $115B+ capex per year makes "release as public good" untenable regardless of stated philosophy
+- What this leaves the open-source ecosystem: Qwen and DeepSeek as the de facto open-weights leaders, Google Gemma 4 as the credible Western open stack with Apache 2.0, NVIDIA Nemotron as the integrated hardware-vendor open play (economics favor continued openness since it drives GPU sales), Mistral as the remaining European open-source pure-play. Diffused leadership is structurally healthier than one dominant benefactor
+- Three practical takeaways for data scientists: (1) re-evaluate Llama-pinned dependencies and benchmark Qwen 3 and Gemma 4 as drop-in replacements on real eval suites, (2) treat "open weights" as a risk category not a binary — plan assuming any provider could close up, build abstraction layers (MCP for tools, standard embedding interfaces) to enable swaps without refactoring, (3) re-price long-term compute against the new capex reality — projects on the efficient frontier of 7-70B open models look relatively better than projects that require the absolute frontier
+- Bigger picture: the AI industry is maturing past the phase where the boundary between research and product could stay blurry for a company with Meta's capital exposure. Betting on any single provider's strategy being permanent is a losing move. Build for the pivot because the pivot keeps happening
 
 ### Day 14 — April 8, 2026
 **Portfolio Action:** Drafted polished READMEs for Rotten-Tomatoes-Predictor and Falcon-9-Landing-Prediction (Option A, following Day 13's staging pattern)

@@ -32,6 +32,7 @@ Personal portfolio website showcasing data science projects, technical blog, and
 
 | Date | Post | Topic |
 |------|------|-------|
+| Apr 9, 2026 | [Meta's Muse Spark: The End of Meta's Open-Source Era and What It Means for Data Scientists](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-09-meta-muse-spark-closed-model-pivot.html) | AI Industry |
 | Apr 8, 2026 | [Model Context Protocol at 18 Months: Why the Boring Standard Won](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-08-mcp-at-18-months-boring-standard-won.html) | AI Engineering |
 | Apr 7, 2026 | [NVIDIA Nemotron 3: Why an Open Agentic Stack Changes How Data Scientists Build AI Systems](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-07-nvidia-nemotron-3-agentic-stack.html) | AI Engineering |
 | Apr 6, 2026 | [Google's TurboQuant: How 3-Bit KV Cache Compression Changes LLM Deployment Math](https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-06-turboquant-kv-cache-compression.html) | AI Engineering |
@@ -52,6 +53,7 @@ Personal portfolio website showcasing data science projects, technical blog, and
 | Project | Stack | Highlights |
 |---------|-------|------------|
 | [**FIRE Simulator**](https://github.com/RyanOrdonez/FIRE-Simulator) | React, Vite, Monte Carlo, Recharts | Browser-based retirement stress-test — 10K Monte Carlo sims, historical crisis backtests (1929/1966/2000/2008), sub-500ms client-side |
+| [**Sentiment Analysis API**](https://github.com/RyanOrdonez/Sentiment-Analysis-API) | FastAPI, HuggingFace, PyTorch, Docker | Production-ready FastAPI wrapper around DistilBERT — Pydantic validation, singleton model lifecycle, batched inference, multi-stage Dockerfile |
 | [**Prop Trading Dashboard**](https://github.com/RyanOrdonez/Prop-Trading-Dashboard) | TypeScript, React, Electron, SQLite | Desktop analytics for prop firm traders — trade aggregation, P&L curves, payout modeling |
 | [**Rotten Tomatoes Predictor**](https://github.com/RyanOrdonez/Rotten-Tomatoes-Predictor) | Python, PyTorch, BERT, HuggingFace | BERT fusion architecture predicting critic scores from screenplay text |
 | [**Kaggle Challenges**](https://github.com/RyanOrdonez/Kaggle-Challenges) | Python, TensorFlow, GANs, NLP | Cancer detection (84.8%), Monet style transfer (Rank 20), Disaster tweets (Rank 377) |
@@ -75,6 +77,7 @@ docs/
 ├── sitemap.xml             # SEO sitemap
 ├── robots.txt              # Search engine directives
 ├── posts/                  # Individual blog posts
+│   ├── 2026-04-09-meta-muse-spark-closed-model-pivot.html
 │   ├── 2026-04-08-mcp-at-18-months-boring-standard-won.html
 │   ├── 2026-04-07-nvidia-nemotron-3-agentic-stack.html
 │   ├── 2026-04-06-turboquant-kv-cache-compression.html

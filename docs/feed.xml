@@ -6,13 +6,22 @@
     <atom:link href="https://ryanordonez.github.io/Portfolio-Site/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Thoughts on AI, data science, and the technology shaping our future. Written by Ryan Ordonez, Data Scientist with an M.S. from CU Boulder.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 Apr 2026 08:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 09 Apr 2026 08:00:00 GMT</lastBuildDate>
     <managingEditor>ryanordonez7@gmail.com (Ryan Ordonez)</managingEditor>
     <webMaster>ryanordonez7@gmail.com (Ryan Ordonez)</webMaster>
     <copyright>2026 Ryan Ordonez</copyright>
     <category>Data Science</category>
     <category>Artificial Intelligence</category>
     <category>Machine Learning</category>
+
+    <item>
+      <title>Meta's Muse Spark: The End of Meta's Open-Source Era and What It Means for Data Scientists</title>
+      <link>https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-09-meta-muse-spark-closed-model-pivot.html</link>
+      <guid isPermaLink="true">https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-09-meta-muse-spark-closed-model-pivot.html</guid>
+      <pubDate>Thu, 09 Apr 2026 08:00:00 GMT</pubDate>
+      <category>AI Industry</category>
+      <description>Meta shipped its first flagship model since the $14.3B Scale AI deal &#8212; and quietly closed it. The weights aren't coming. Here's what the pivot means for the open-source ecosystem, why Qwen, Gemma, and Nemotron are now the real open-weights leaders, and three concrete things data scientists should do this week.</description>
+    </item>
 
     <item>
       <title>Model Context Protocol at 18 Months: Why the Boring Standard Won</title>
