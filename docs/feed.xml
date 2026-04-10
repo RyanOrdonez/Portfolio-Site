@@ -6,13 +6,22 @@
     <atom:link href="https://ryanordonez.github.io/Portfolio-Site/feed.xml" rel="self" type="application/rss+xml"/>
     <description>Thoughts on AI, data science, and the technology shaping our future. Written by Ryan Ordonez, Data Scientist with an M.S. from CU Boulder.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Apr 2026 08:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 10 Apr 2026 08:00:00 GMT</lastBuildDate>
     <managingEditor>ryanordonez7@gmail.com (Ryan Ordonez)</managingEditor>
     <webMaster>ryanordonez7@gmail.com (Ryan Ordonez)</webMaster>
     <copyright>2026 Ryan Ordonez</copyright>
     <category>Data Science</category>
     <category>Artificial Intelligence</category>
     <category>Machine Learning</category>
+
+    <item>
+      <title>Shopify's AI Toolkit: What the First MCP-Native Commerce Platform Means for Agent Development</title>
+      <link>https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-10-shopify-ai-toolkit-agentic-commerce.html</link>
+      <guid isPermaLink="true">https://ryanordonez.github.io/Portfolio-Site/posts/2026-04-10-shopify-ai-toolkit-agentic-commerce.html</guid>
+      <pubDate>Fri, 10 Apr 2026 08:00:00 GMT</pubDate>
+      <category>AI Engineering</category>
+      <description>Shopify's April 9 AI Toolkit release makes it the first major enterprise platform to go MCP-native. Here's why the architecture pattern matters for every data scientist building agent tools, even outside e-commerce, and three concrete takeaways for your own MCP server designs.</description>
+    </item>
 
     <item>
       <title>Meta's Muse Spark: The End of Meta's Open-Source Era and What It Means for Data Scientists</title>
