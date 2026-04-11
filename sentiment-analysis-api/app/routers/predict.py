@@ -1,8 +1,11 @@
-"""Prediction endpoints.
+"""Prediction endpoints with rate limiting.
 
 Two endpoints: one for single-text prediction and one for batched prediction.
 Both share the same underlying ``SentimentService`` but have different request
 and response schemas so the OpenAPI docs show each case clearly.
+
+Rate limits are applied per-IP via SlowAPI to protect the model from
+runaway clients. Limits are configurable via environment variables.
 """
 
 import logging
@@ -12,6 +15,7 @@ import uuid
 from fastapi import APIRouter, HTTPException, Request, status
 
 from app.config import get_settings
+from app.rate_limit import limiter
 from app.schemas import (
     BatchPredictRequest,
     BatchPredictResponse,
@@ -24,17 +28,23 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/predict", tags=["predict"])
 
+_settings = get_settings()
+
 
 def _require_loaded(request: Request) -> None:
     service = request.app.state.sentiment_service
     if not service.is_loaded:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail="model is not loaded",
+            detail={
+                "error": "model_not_loaded",
+                "message": "The sentiment model is not loaded. Check /health for status.",
+            },
         )
 
 
 @router.post("", response_model=PredictResponse)
+@limiter.limit(_settings.rate_limit_predict)
 async def predict_single(request: Request, body: PredictRequest) -> PredictResponse:
     """Classify a single piece of text."""
     _require_loaded(request)
@@ -64,6 +74,7 @@ async def predict_single(request: Request, body: PredictRequest) -> PredictRespo
 
 
 @router.post("/batch", response_model=BatchPredictResponse)
+@limiter.limit(_settings.rate_limit_batch)
 async def predict_batch(
     request: Request, body: BatchPredictRequest
 ) -> BatchPredictResponse:

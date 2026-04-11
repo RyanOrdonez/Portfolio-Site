@@ -37,13 +37,23 @@ class Settings(BaseSettings):
     max_batch_size: int = Field(default=64, ge=1, le=256)
     max_text_length: int = Field(default=5000, ge=1, le=20000)
 
+    # Rate limiting. Per-IP limits applied by SlowAPI.
+    rate_limit_predict: str = Field(
+        default="60/minute",
+        description="Rate limit for /predict endpoint (per IP).",
+    )
+    rate_limit_batch: str = Field(
+        default="20/minute",
+        description="Rate limit for /predict/batch endpoint (per IP).",
+    )
+
     # Device placement. "auto" lets torch pick the best available device.
     device: Literal["auto", "cpu", "cuda", "mps"] = "auto"
 
     # Operational
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
     app_name: str = "sentiment-analysis-api"
-    app_version: str = "0.1.0"
+    app_version: str = "1.0.0"
 
 
 @lru_cache

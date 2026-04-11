@@ -1,0 +1,31 @@
+# Render.com deployment manifest.
+#
+# Render auto-detects this file on repo connect and provisions the service.
+# The Dockerfile is the source of truth for the runtime image; render.yaml
+# only controls environment variables, health checks, and service topology.
+
+services:
+  - type: web
+    name: sentiment-analysis-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: standard
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: MODEL_NAME
+        value: distilbert-base-uncased-finetuned-sst-2-english
+      - key: MODEL_REVISION
+        value: af0f99b
+      - key: MAX_BATCH_SIZE
+        value: "64"
+      - key: MAX_TEXT_LENGTH
+        value: "5000"
+      - key: RATE_LIMIT_PREDICT
+        value: 60/minute
+      - key: RATE_LIMIT_BATCH
+        value: 20/minute
+      - key: DEVICE
+        value: cpu
+      - key: LOG_LEVEL
+        value: INFO

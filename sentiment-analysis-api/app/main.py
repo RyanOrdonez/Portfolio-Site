@@ -4,15 +4,23 @@ Responsibilities:
 - Configure structured logging
 - Load the sentiment model exactly once via the lifespan context manager
 - Register routers for health and prediction endpoints
+- Add per-IP rate limiting via SlowAPI
+- Expose Prometheus metrics at /metrics
+- Return structured error responses for validation failures
 - Expose the OpenAPI docs at /docs and /redoc
 """
 
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, status
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
 
 from app.config import get_settings
+from app.rate_limit import limiter
 from app.routers import health, predict
 from app.services.sentiment import SentimentService
 
@@ -60,11 +68,49 @@ def create_app() -> FastAPI:
         description=(
             "A production-ready FastAPI wrapper around a HuggingFace sentiment "
             "classifier. Exposes single and batched prediction endpoints with "
-            "Pydantic request validation, structured logging, and OpenAPI docs."
+            "Pydantic request validation, per-IP rate limiting, Prometheus "
+            "metrics, structured logging, and OpenAPI docs."
         ),
         version=settings.app_version,
         lifespan=lifespan,
     )
+
+    # --- Rate limiting ---
+    app.state.limiter = limiter
+    app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+    # --- Structured validation error responses ---
+    @app.exception_handler(RequestValidationError)
+    async def validation_exception_handler(
+        request: Request, exc: RequestValidationError
+    ) -> JSONResponse:
+        errors = []
+        for error in exc.errors():
+            errors.append(
+                {
+                    "field": ".".join(str(loc) for loc in error["loc"]),
+                    "message": error["msg"],
+                    "type": error["type"],
+                }
+            )
+        return JSONResponse(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            content={
+                "error": "validation_error",
+                "detail": "Request validation failed",
+                "errors": errors,
+            },
+        )
+
+    # --- Prometheus metrics ---
+    from prometheus_fastapi_instrumentator import Instrumentator
+
+    Instrumentator(
+        should_group_status_codes=False,
+        should_ignore_untemplated=True,
+        excluded_handlers=["/health", "/metrics"],
+    ).instrument(app).expose(app, include_in_schema=False)
+
     app.include_router(health.router)
     app.include_router(predict.router)
     return app
