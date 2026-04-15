@@ -140,6 +140,19 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 
 ## Completed Work
 
+### Day 21 — April 15, 2026
+**Portfolio Action:** Published and fully indexed the April 15 capability-withhold blog post
+- New blog post: `docs/posts/2026-04-15-claude-mythos-preview-capability-withhold.html` — ~1,500-word analysis of Anthropic's April 14 Claude Mythos Preview announcement, the first major flagship model to be publicly benchmarked and deliberately withheld from release
+- Post covers: Mythos Preview benchmark claims (93.9% SWE-bench Verified, 94.6% GPQA Diamond), Project Glasswing consortium with Microsoft/Apple/Amazon/Google, cybersecurity stock selloff implications, the new three-tier release pattern (public API / gated / capability-demonstration), dual-use surface area generalization beyond cybersecurity
+- Three concrete data scientist takeaways: map dual-use surface area before incidents, treat frontier access as a capability contract (eval suite + graceful degradation + contractual tier language), build vendor-agnostic security evals (prompt injection, goal hijacking, info leakage, tool abuse) into every release pipeline
+- Full metadata integration completed: added top-of-list card to `docs/blog.html` with "AI Industry" tag + excerpt, added item to `docs/feed.xml` with pubDate + description + category, added URL entry to `docs/sitemap.xml` with lastmod 2026-04-15, bumped homepage + blog.html sitemap `<lastmod>` to 2026-04-15, bumped feed `<lastBuildDate>` to Wed, 15 Apr 2026
+- Also backfilled the April 10 Shopify AI Toolkit post into `docs/blog.html` and `docs/feed.xml` — the post HTML and sitemap had been committed on Day 16 but the blog index and RSS feed were missed in that commit
+
+**Blog:** "Anthropic's Mythos Preview: Why Withholding a Model Is Now a Shippable Product Decision"
+- Topic: Anthropic's April 14 announcement of Claude Mythos Preview — the first time a major lab has publicly benchmarked a flagship model and simultaneously announced it will not be generally released
+- Covers: the capability-withhold release pattern as a new product category, Project Glasswing as a vetted-consortium distribution mechanism, OpenAI's GPT-5.4-Cyber follow-on confirming the pattern is industry-wide, why cybersecurity stocks sold off on the news
+- Bigger picture argument: capability growth has outpaced the industry's release infrastructure; access tiers will stratify; benchmark parity is no longer availability parity; graceful degradation for tier loss should be a product requirement, not an afterthought
+
 ### Day 15 — April 9, 2026
 **Portfolio Action:** Scaffolded Sentiment Analysis API — Day 1 of 2-day build (Option B, following Day 13's fire-simulator staging pattern)
 - Created `sentiment-analysis-api/` folder in Portfolio-Site to stage the full FastAPI project before publication as `RyanOrdonez/Sentiment-Analysis-API`
