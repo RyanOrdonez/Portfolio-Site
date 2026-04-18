@@ -61,80 +61,49 @@ Automated daily improvements to Ryan Ordonez's portfolio and GitHub presence.
 
 ---
 
-## Schedule: Days 10–19
+## Current Sprint: Days 25–31 (April 19 – April 25, 2026)
 
-### Day 10
-**Project:** Create RyanOrdonez profile README (`RyanOrdonez/RyanOrdonez` repo)
-- Hero section, GitHub stats widgets, skills badges grid
-- Featured projects with descriptions and links
-- Recent blog posts list, education, contact
-**Blog:** Research trending AI news that morning, write post on most relevant topic
+Generated from 7-day audit on 2026-04-18. Focus: raise lowest-scoring repos, fill MLOps + Time Series gaps, and publish the already-built Sentiment-Analysis-API as a standalone repo.
 
-### Day 11
-**Project:** Kaggle-Challenges README overhaul
-- Read current repo, understand structure
-- Add badges, results table (challenge | score | rank), methodology per challenge
-- Architecture/approach descriptions for each competition
-**Blog:** Research trending AI news that morning, write post on most relevant topic
+| Day | Date | Blog Topic | Project Action | Site Improvement | Maintenance | Status |
+|-----|------|------------|----------------|------------------|-------------|--------|
+| 25 | Sun 4/19 | [Prompt Eng] Structured output with Claude: JSON schema vs tool use | idstudio-clipper README overhaul (badges, install, demo GIF, skill signal in first 2 lines) | Add screenshot slot to project cards on `projects.html` | Audit broken blog card images across all posts | ⬜ |
+| 26 | Mon 4/20 | [New Models] Latest Claude release — what changed, what it means for data scientists | CU-Boulder-MSDS semester reorganization + README with course-project index and skill keywords | Update `skills.html` with recent tech additions (FastAPI, Docker, HF pipelines) | Run link checker on all site pages | ⬜ |
+| 27 | Tue 4/21 | [AI Tooling] MCP servers for data scientists — practical patterns | ai-company-sim README overhaul (architecture diagram, gameplay GIF, install, RAG-signal surface) | Add "Tools I Use" section to `about.html` | Update topics + descriptions on all 10 repos via `gh api` | ⬜ |
+| 28 | Wed 4/22 | [Applied ML] Notebook to production: MLflow 3 deployment jobs in practice | **Scaffold `MLflow-Pipeline-Demo`** — trains, tracks, and serves a model end-to-end (fills MLOps gap) | Wire new MLOps repo onto `projects.html` | Fix RSS feed `pubDate` format to RFC 822 | ⬜ |
+| 29 | Thu 4/23 | [NLP] Embedding models in 2026 — where BM25 still wins | **Scaffold `Stock-Price-Forecast`** — Prophet + LSTM baseline on 10-year data with rolling-window CV (fills Time Series gap) | Wire new forecasting repo onto `projects.html` | Update top-level `README.md` skill badges | ⬜ |
+| 30 | Fri 4/24 | [AI Company] Anthropic's April 2026 moves — product + strategy analysis | **Publish `Sentiment-Analysis-API` as standalone repo** (already staged in `sentiment-analysis-api/` since Day 16) | Add MLflow + Prophet to `skills.html` proficiency list | Refresh `RyanOrdonez/RyanOrdonez` profile README (stats + recent posts) | ⬜ |
+| 31 | Sat 4/25 | [DS Career] The data scientist skill shift: 2024 → 2026 | Rotten-Tomatoes-Predictor — add Gradio demo app + evaluation dashboard page | "Recent Wins" section on `index.html` homepage | Sprint review + seed next sprint in DAILY-LOG | ⬜ |
 
-### Day 12
-**Pre-flight:** SEO / Google indexing check
-- Search Google for `site:ryanordonez.github.io/Portfolio-Site/` to see how many pages are indexed
-- Fetch `https://ryanordonez.github.io/Portfolio-Site/sitemap.xml` to confirm it's still serving correctly
-- Fetch a blog post URL to confirm pages are live and meta tags are intact
-- Log indexing status in the day's completed work entry
-**Project:** Prop-Trading-Dashboard README overhaul
-- Architecture diagram (TypeScript/React/Electron/SQLite flow)
-- Feature list, tech stack badges, setup instructions
-- Usage guide, screenshot descriptions
-**Blog:** Research trending AI news that morning, write post on most relevant topic
+---
 
-### Day 13
-**Project:** Publish FIRE Simulator as standalone repo
-- Create `RyanOrdonez/FIRE-Simulator` repo
-- Polished README: Monte Carlo methodology, feature list, architecture, tech stack
-- Add to portfolio site projects page
-**Blog:** Research trending AI news that morning, write post on most relevant topic
+## Audit Summary — 2026-04-18
 
-### Day 14
-**Project:** Rotten-Tomatoes-Predictor README + Falcon-9 README
-- BERT architecture description, training pipeline, evaluation metrics
-- Falcon-9: methodology, classification results, Plotly dashboard description
-**Blog:** Research trending AI news that morning, write post on most relevant topic
+- **Repos scanned:** 11 (10 original + 1 fork [`inbox-zero` ← `elie222/inbox-zero`])
+- **Average score (originals):** 14.6 / 20
+- **Note:** `Sentiment-Analysis-API` is fully scaffolded inside `Portfolio-Site/sentiment-analysis-api/` but not yet published as a standalone repo — scheduled for Day 30.
 
-### Day 15
-**Project:** Sentiment Analysis API — Day 1 (scaffold + core)
-- Create `RyanOrdonez/Sentiment-Analysis-API` repo
-- FastAPI project structure, endpoints, HuggingFace model integration
-- README with API design, Dockerfile, requirements.txt
-**Blog:** Research trending AI news that morning, write post on most relevant topic
+**Top 3 strongest:**
+| Repo | Score | Why |
+|---|---|---|
+| Rotten-Tomatoes-Predictor | 19/20 | Polished BERT project, full NLP signal, recent commits |
+| idstudio-ai | 18/20 | Distinct AI-for-interior-design SaaS, strong full-stack + RAG signal |
+| Prop-Trading-Dashboard | 18/20 | Electron + SQLite analytics, clear quant signal, long polished README |
 
-### Day 16
-**Project:** Sentiment Analysis API — Day 2 (tests + deploy config)
-- Add tests, error handling, model caching, rate limiting
-- Deployment config (Railway/Render/Docker)
-- Update portfolio site with new project
-**Blog:** Research trending AI news that morning, write post on most relevant topic
+**Top 3 weakest (prioritized for sprint):**
+| Repo | Score | Issue |
+|---|---|---|
+| idstudio-clipper | 10/20 | 71-char README, no skill signal surfaced |
+| CU-Boulder-MSDS | 11/20 | Decent length (2.4k chars) but no ML/DS keywords surfaced — reorganization needed |
+| ai-company-sim | 13/20 | RAG signal detected but README thin (930 chars), no architecture diagram |
 
-### Day 17
-**Project:** Batch README updates — Histopathologic + NLP-Disaster-Tweets + Monet
-- Consistent format: badges, methodology, results, tech stack, setup
-- Each gets proper project structure documentation
-**Blog:** Research trending AI news that morning, write post on most relevant topic
+**Competencies covered:** NLP · Computer Vision · RAG/LLM · Applied ML · Full-Stack/AI Apps · Quant/Trading · Data Engineering
 
-### Day 18
-**Project:** CU-Boulder-MSDS organization + Maevie-Project-Manager README
-- CU-Boulder: organize by semester, add course descriptions, link key projects
-- Maevie: features, tech stack, architecture, setup guide
-**Blog:** Research trending AI news that morning, write post on most relevant topic
+**Gaps identified:**
+- **MLOps** — no repo demonstrates MLflow, model serving, CI/CD, or deployment pipelines
+- **Time Series / Forecasting** — no repo demonstrates ARIMA, Prophet, LSTM forecasting, or rolling-window CV
 
-### Day 19
-**Project:** Real-time Stock Dashboard — Day 1 (scaffold + core)
-- Create `RyanOrdonez/Stock-Dashboard` repo
-- Streamlit app, yfinance data pipeline, core visualizations
-- README with features, architecture, tech stack
-- Update portfolio site with new project
-**Blog:** Research trending AI news that morning, write post on most relevant topic
+**Sprint composition:** 3 README overhauls (bottom scorers) · 2 new gap-filling repos (MLOps + Time Series) · 1 publish of already-built Sentiment-Analysis-API · 1 feature add on top performer.
 
 ---
 
