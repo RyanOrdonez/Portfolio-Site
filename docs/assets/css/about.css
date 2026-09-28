@@ -113,6 +113,72 @@
   margin-bottom: 0.3rem;
 }
 
+/* ===== Co-Founder Spotlight ===== */
+.cofounder-spotlight {
+  margin-top: 1.25rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.cofounder-label {
+  font-family: var(--font-code);
+  font-size: 0.7rem;
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+}
+
+.cofounder-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.6rem;
+}
+
+.cofounder-spotlight p {
+  margin-bottom: 0.5rem;
+}
+
+.cofounder-spotlight ul {
+  margin: 0 0 0 1.25rem;
+  padding: 0;
+}
+
+.cofounder-spotlight ul li {
+  margin-bottom: 0.3rem;
+}
+
+.cofounder-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.cofounder-stats span {
+  font-family: var(--font-code);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+}
+
+.cofounder-spotlight .cofounder-signoff {
+  font-style: italic;
+  color: var(--text-primary);
+  margin-bottom: 0;
+}
+
 /* ===== About Sections ===== */
 .about-section {
   padding: 3rem 0;
